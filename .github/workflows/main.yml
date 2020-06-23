@@ -1,0 +1,30 @@
+name: AsciiDoc to Pdf Compilation
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        doc: ["block4log-data-visibility"]
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: asciidocter pdf
+      uses: docker://asciidoctor/docker-asciidoctor:latest
+      with:
+        entrypoint: asciidoctor-pdf
+        args: -a icons=font -a source-highlighter=coderay ${{ matrix.doc }}.adoc
+
+    - name: Save PDF
+      uses: actions/upload-artifact@v1
+      with:
+        name: ${{ matrix.doc }}.pdf
+        path: ${{ matrix.doc }}.pdf
+
+
