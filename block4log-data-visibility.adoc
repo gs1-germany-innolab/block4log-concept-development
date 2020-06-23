@@ -2,6 +2,7 @@
 Sebastian Schmittner <sebastian.schmittner@eecc.de>
 :toc:
 :icons: font
+:xrefstyle: short
 ifdef::env-github[]
 :imagesdir: pics/
 :tip-caption: 💡
@@ -16,7 +17,7 @@ endif::[]
 
 The following types of data are going to be handled within Block4Log:
 
-* Pallet exchange vouchers
+=== Pallet exchange vouchers
 - Data format: EPCIS
 - Shipping/Receiving
 - Number of Pallets
@@ -24,22 +25,23 @@ The following types of data are going to be handled within Block4Log:
 - Where
 - Double signed => 2 Signing parties
 
-* Debt Notes
+=== Debt Notes
 - Debtor
 - Amount/Type/Quality of Pallets
 - Holder ( = owner) of debt note
 - History of double signed transactions => All former holders
-*** Including transaction dates
-*** Including Creation
-*** Including voucher resolution (EOL) if applicable
+** Including transaction dates
+** Including Creation
+** Including voucher resolution (EOL) if applicable
 
-* Company IDs
+
+=== Company IDs
 - GLN (GS1 Company Prefix)
 - Master Data
 *** At least Company Name
 *** Details TBD
 
-* Black Board/Pin Board for public Announcements
+=== Black Board/Pin Board for Public Announcements
 - Need Pallets
 *** Location
 *** Amount / type/ quality
@@ -68,23 +70,84 @@ The following types of data are going to be handled within Block4Log:
 ** Well... public ;)
 
 
-== Block Chain Notarization with fine grained access control
+== Zero-Knowledge Notarization
 
 The following technical concept, as developed independently by SAP/EECC/others,
-can be applied to notarize data without giving up full fine grained access
+can be applied to notarize data data without giving up full fine grained access
 control, hence data ownership. In this sense, the proof of data integrity is
 "zero-knowledge", i.e. integrity of the data is secured without revealing any of
 the data itself.
+
+In <<EPCIS_Example>>, a simple shipping event with source and destination is shown. Events in Block4Log will have quantities instead of individual EPCs in the "What?" dimension, but this is a minor point.
+
+.Quantity Element for asset classes without serial IDs
+[source,xml]
+<extension>
+    <quantityList>
+        <quantityElement>
+            <epcClass>urn:epc:class:lgtin:4054739.099914.20160711</epcClass>
+            <quantity>600</quantity>
+        </quantityElement>
+    </quantityList>
+</extension>
+
 
 [[EPCIS_Example]]
 .EPCIS Event Example
 image::pix/EPCIS-example.png[EPCIS Event Example]
 
+
+<<EPCIS_Hash>> shows how a hash tree is constructed by first hashing all
+individual Fields and then concatenating the hashes and hashing again to get to
+the next level. Here, a flat tree with only one layer below the root is used for
+simplicity. Very large data objects are more efficiently hashed into deeper
+trees.
+
 [[EPCIS_Hash]]
 .(Flat) Hash Tree
 image::pix/EPCIS-hash-tree.png[EPCIS Event Example]
+
+When the data owner, say Alice, chooses to reveal some data to Bob, say, she can
+reveal the hashes of the values that should be kept secret together with the
+clear text she wants to reveal, see <<EPCIS_Sharing>>. Bob can then hash the clear text, concatenate
+with the revealed hashes and check that hashing the concatenation yields the
+root hash. This way, he can verify that the revealed data is the same that
+entered the original root hash. If the root hash is obtained from a trusted
+Notary, in our case from a Block Chain, Bob can trust in the data from Alice not
+being changed after notarization.
 
 [[EPCIS_Sharing]]
 .Selectively revealing only some fields and intermediate hashes(yellow) is a zero-knowledge proof of the data integrity of the revealed values
 image::pix/EPCIS-hash-tree-sharing.png[EPCIS Event Example]
 
+
+
+== Conclusions for Block4Log
+
+=== Notarization
+
+By using Zero-Knowledge Notarization, the resulting root hash can be published
+anywhere, in particular on a public block chain such as BitCoin or Ethereum, without revealing any data.
+This way, the advantage of a public chain, i.e.
+
+- Extremely low risk of loosing data / integrity
+- Public availability independently from Block4Log
+- No need to run the Block Chain Infrastructure
+
+can be leveraged.
+
+In order to actually exchange data (between Alice and Bob in the above example)
+we still need a Block4Log internal "peer to peer layer". This function can be
+provided by existing technology such as Corda, Hyperledger, etc. but also by
+direct connections between the existing systems suc has EPCIS repositories, ERP,
+etc. discovered/routed/connected through the Block4Log Platform.
+
+It might be important to enable partners to keep their data in their own local data stores and only reveal the computed root hashes and offer APIs to query for clear text. In this setup, a "discovery service", by which the partner(s) that actually have the information that Bob is looking for can be found, is an important component of the Block4Log platform. Such a service is under development at GS1G as the result of a Hackathon in 2019 and a paper on the subject is expected to be published this year.
+
+
+=== (Consortium) Public Information
+
+To publish data within the Consortium in a public blackboard like fashion, we
+may use existing block chain technology (hyperledger, etc.) or also simpler
+methods such as EPCIS repositories + discovery, MQTT or other Message brokers,
+etc. 
