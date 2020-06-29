@@ -3,14 +3,12 @@ Sebastian Schmittner <sebastian.schmittner@eecc.de>
 :toc:
 :icons: font
 :xrefstyle: short
-ifdef::env-github[]
-:imagesdir: pics/
+:imagesdir: pix/
 :tip-caption: 💡
 :note-caption: ℹ️
 :important-caption: ❗
 :caution-caption: 🔥
 :warning-caption: ⚠️
-endif::[]
 
 
 == Data in Block4Log
@@ -94,7 +92,7 @@ In <<EPCIS_Example>>, a simple shipping event with source and destination is sho
 
 [[EPCIS_Example]]
 .EPCIS Event Example
-image::pix/EPCIS-example.png[EPCIS Event Example]
+image::EPCIS-example.png[EPCIS Event Example]
 
 
 <<EPCIS_Hash>> shows how a hash tree is constructed by first hashing all
@@ -105,7 +103,7 @@ trees.
 
 [[EPCIS_Hash]]
 .(Flat) Hash Tree
-image::pix/EPCIS-hash-tree.png[EPCIS Event Example]
+image::EPCIS-hash-tree.png[EPCIS Event Example]
 
 When the data owner, say Alice, chooses to reveal some data to Bob, say, she can
 reveal the hashes of the values that should be kept secret together with the
@@ -118,7 +116,7 @@ being changed after notarization.
 
 [[EPCIS_Sharing]]
 .Selectively revealing only some fields and intermediate hashes(yellow) is a zero-knowledge proof of the data integrity of the revealed values
-image::pix/EPCIS-hash-tree-sharing.png[EPCIS Event Example]
+image::EPCIS-hash-tree-sharing.png[EPCIS Event Example]
 
 
 
