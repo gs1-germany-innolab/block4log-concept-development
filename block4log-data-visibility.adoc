@@ -40,15 +40,26 @@ The following types of data are going to be handled within Block4Log:
 *** Details TBD
 
 === Black Board/Pin Board for Public Announcements
-- Need Pallets
+
+- All such announcements are opt-in optional
+
+- Offer / Need Pallets
 *** Location
-*** Amount / type/ quality
+*** Amount
+*** Type/ quality (GS1 IDs)
 *** Until
 *** Kontakt/Service Endpoint to accept offer/start price negotiation
 *** Pricing information
-- Offer Pallets
-*** As above
-- More public announcements?
+
+- Total Pallet Balance
+** "Alice owes Bob a number of X Pallets"
+*** Amount
+*** Type/ quality (GS1 IDs)
+** Publishing this kind of information does reveal that 
+*** there is a trade relation
+*** rough idea of trade volume (if people know some math ;) )
+** Enables "Ring Exchange"
+*** If A owes B, B owes C and C owes A, some amount of dept can just be cancelled without sending any payments.
 
 
 == Data Visibility Constraints
@@ -69,6 +80,9 @@ The following types of data are going to be handled within Block4Log:
 
 
 == Zero-Knowledge Notarization
+
+[[ZKN_General]]
+=== General Idea
 
 The following technical concept, as developed independently by SAP/EECC/others,
 can be applied to notarize data data without giving up full fine grained access
@@ -115,8 +129,31 @@ Notary, in our case from a Block Chain, Bob can trust in the data from Alice not
 being changed after notarization.
 
 [[EPCIS_Sharing]]
-.Selectively revealing only some fields and intermediate hashes(yellow) is a zero-knowledge proof of the data integrity of the revealed values
+.Selectively revealing (yellow) only some fields and intermediate hashes(yellow) is a zero-knowledge proof of the data integrity of the revealed values
 image::EPCIS-hash-tree-sharing.png[EPCIS Event Example]
+
+
+
+=== EPCIS Sanitization
+
+GS1 Germany currently develops an updated concept for an EPCIS Discovery Service. A fundamental idea is that some part of the data in an EPCIS event which is not sensitive can be published as a "sanitized event". Some values in the sanitized event are hashed following the idea of section <<ZKN_General>>. The algorithm that is exemplified in <<Sanitization>> is similar to the idea shown in <<EPCIS_Sharing>> but for the set of fields that are excluded, hidden or public being fixed.
+
+[[Sanitization]]
+.A sanitized event is a header type data structure which only contains non-sensitive information needed to verify a chain of custody. Some of the fields are hashed. A hash of the full event is included.
+image::sanitization.png[EPCIS Event Example]
+
+Since the sanitized event contains a hash of the full event, it is sufficient to
+publish the root hash of the sanitized event in order to enable full
+verification. This concept is a little more complicated and less powerful than
+the general idea outlined in section <<ZKN_General>> above, but it follows GS1 standard and provides clear guidance on what to include/hide in publishing partial EPCIS information.
+
+
+=== EPCIS Discovery Service
+
+An (EPCIS) repository (might be distributed) that contains only sanitized events
+together with information about service endpoints/protocols to ask for the
+hidden data is called a discovery service. For the use case of tracking the
+chain of custody of a serialized item, this is very useful. In Block4Log, it needs to be evaluated whether the sanitized events as such add any value.
 
 
 
@@ -134,13 +171,15 @@ This way, the advantage of a public chain, i.e.
 
 can be leveraged.
 
-In order to actually exchange data (between Alice and Bob in the above example)
-we still need a Block4Log internal "peer to peer layer". This function can be
-provided by existing technology such as Corda, Hyperledger, etc. but also by
-direct connections between the existing systems suc has EPCIS repositories, ERP,
-etc. discovered/routed/connected through the Block4Log Platform.
 
-It might be important to enable partners to keep their data in their own local data stores and only reveal the computed root hashes and offer APIs to query for clear text. In this setup, a "discovery service", by which the partner(s) that actually have the information that Bob is looking for can be found, is an important component of the Block4Log platform. Such a service is under development at GS1G as the result of a Hackathon in 2019 and a paper on the subject is expected to be published this year.
+=== Confidential Data Exchange
+
+In order to actually exchange data confidentially upon authorized request, we
+still need a Block4Log internal "peer to peer layer". This function can be
+provided by existing technology such as Corda, Hyperledger, etc. but also by
+direct connections between the existing systems such as EPCIS repositories, ERP,
+etc. which however need to be discovered/routed/connected through the Block4Log
+Platform.
 
 
 === (Consortium) Public Information
