@@ -29,9 +29,19 @@ The following types of data are going to be handled within Block4Log:
 |  | Event Type | Object Event | Object Event | 
 |  | Action | OBSERVE | OBSERVE | 
 | When | `eventTime` | 15 June, 08:00 am | 15 June, 08:15 am | 
-| What | `quantityList` | GRAI (without serial number) | GRAI (without serial number) |
-| Where | `readPoint` | GLN of RTI exchange location | GLN of RTI exchange location |
+| What | `quantityList` - `quantityElement` |
+|  |  `epcClass` | GRAI (without serial number) of RTI | GRAI (without serial number) of RTI |
+|  |  `quantity` | Number of arrived RTIs | Number of departed RTIs |
+| Where | `readPoint` | SGLN (without GLN extension) of RTI exchange location | SGLN (without GLN extension) of RTI exchange location |
 | Why | `bizStep` | `Arriving (CBV)` | `Departing (CBV)` | 
+|  | `bizTransactionList` | 
+|  | `bizTransactionID` | GDTI of pallet note | GDTI of pallet note | 
+|  | `sourceList` |
+|  | `source` | PGLN of sending party | PGLN of sending party |
+|  | `destinationList` |
+|  | `destination` | PGLN of receiving party | PGLN of receiving party |
+
+TO BE COMPLETED
 
 === Debt Notes
 - Debtor
@@ -112,6 +122,8 @@ In <<EPCIS_Example>>, a simple shipping event with source and destination is sho
         </quantityElement>
     </quantityList>
 </extension>
+
+tbd: new EPCIS 2.0 JSON/JSON-LD structure?
 
 
 [[EPCIS_Example]]
