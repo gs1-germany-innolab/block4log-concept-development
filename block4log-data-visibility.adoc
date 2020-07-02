@@ -85,7 +85,7 @@ The following types of data are going to be handled within Block4Log:
 === General Idea
 
 The following technical concept, as developed independently by SAP/EECC/others,
-can be applied to notarize data data without giving up full fine grained access
+can be applied to notarize data without giving up full fine grained access
 control, hence data ownership. In this sense, the proof of data integrity is
 "zero-knowledge", i.e. integrity of the data is secured without revealing any of
 the data itself.
