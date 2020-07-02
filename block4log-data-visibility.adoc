@@ -17,11 +17,21 @@ The following types of data are going to be handled within Block4Log:
 
 === Pallet exchange vouchers
 - Data format: EPCIS
-- Shipping/Receiving
-- Number of Pallets
+- Arriving | Departing | Accepting
+- ID and number of Reusable Transport Items (RTI)
 - When
 - Where
 - Double signed => 2 Signing parties
+
+| Dim | Data Element | V1 | V2 |
+| --- | ------------ | -- | -- | 
+|  | Description | RTIs arrive at a given location | RTIs leave a given location |
+|  | Event Type | Object Event | Object Event | 
+|  | Action | OBSERVE | OBSERVE | 
+| When | `eventTime` | 15 June, 08:00 am | 15 June, 08:15 am | 
+| What | `quantityList` | GRAI (without serial number) | GRAI (without serial number) |
+| Where | `readPoint` | GLN of RTI exchange location | GLN of RTI exchange location |
+| Why | `bizStep` | `Arriving (CBV)` | `Departing (CBV)` | 
 
 === Debt Notes
 - Debtor
@@ -34,7 +44,7 @@ The following types of data are going to be handled within Block4Log:
 
 
 === Company IDs
-- GLN (GS1 Company Prefix)
+- GLN (Global Location Number)
 - Master Data
 *** At least Company Name
 *** Details TBD
@@ -48,7 +58,7 @@ The following types of data are going to be handled within Block4Log:
 *** Amount
 *** Type/ quality (GS1 IDs)
 *** Until
-*** Kontakt/Service Endpoint to accept offer/start price negotiation
+*** Contact/Service Endpoint to accept offer/start price negotiation
 *** Pricing information
 
 - Total Pallet Balance
