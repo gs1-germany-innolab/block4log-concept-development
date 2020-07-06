@@ -27,6 +27,8 @@ The following types of data are going to be handled within Block4Log:
 | --- | ------------ | -- | -- | 
 |  | Description | RTIs arrive at a given location | RTIs leave a given location |
 |  | Event Type | Object Event | Object Event | 
+
+
 |  | Action | OBSERVE | OBSERVE | 
 | When | `eventTime` | 15 June, 08:00 am | 15 June, 08:15 am | 
 | What | `quantityList` - `quantityElement` |
