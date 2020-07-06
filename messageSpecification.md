@@ -20,7 +20,7 @@
 |  | `destination` `type`:`possessing party (CBV)` | n./a. | `PGLN` of sending LSP |
 |  | `destination` `type`:`owning party (CBV)` | `PGLN` of receiving exchange party | `PGLN` of receiving exchange party |
 |  | `destination` `type`:`location (CBV)` | n./a. | `SGLN` of receiving exchange location |
-| Other | `b4l:tradability | `true` or `false` |
+| Other | `b4l:tradability` | `true` or `false` |
 |  | `b4l:qualityLevel` | `A`, `B`, or `C` | 
  
 Legend/explanation 
