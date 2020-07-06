@@ -1,3 +1,5 @@
+# Message Specification
+
 | Dim | Data Element | V1 | V2 |
 | --- | ------------ | -- | -- | 
 |  | Description | RTIs arrive at a given location | RTIs leave a given location |
