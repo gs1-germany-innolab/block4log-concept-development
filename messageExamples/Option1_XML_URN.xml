@@ -1,0 +1,166 @@
+<?xml version="1.0" ?>
+<epcis:EPCISDocument xmlns:epcis="urn:epcglobal:epcis:xsd:1" 
+    xmlns:b4l="https://epcis.b4l.com" schemaVersion="1.2" creationDate="2020-07-07T12:45:06.903Z">
+    <EPCISBody>
+        <EventList>
+            <ObjectEvent>
+                <eventTime>2020-07-07T14:15:00.000+02:00</eventTime>
+                <eventTimeZoneOffset>+02:00</eventTimeZoneOffset>
+                <epcList></epcList>
+                <action>OBSERVE</action>
+                <bizStep>urn:epcglobal:cbv:bizstep:arriving</bizStep>
+                <readPoint>
+                    <id>urn:epc:id:sgln:4012345.00000.0</id>
+                </readPoint>
+                <bizTransactionList>
+                    <bizTransaction type="b4l:palletNote">urn:epc:id:gdti:4012345.00011.987</bizTransaction>
+                </bizTransactionList>
+                <extension>
+                    <quantityList>
+                        <quantityElement>
+                            <epcClass>urn:epc:idpat:grai:4000001.11111.*</epcClass>
+                            <quantity>60</quantity>
+                        </quantityElement>
+                    </quantityList>
+                    <sourceList>
+                        <source type="urn:epcglobal:cbv:sdt:possessing_party">urn:epc:id:pgln:0614141.00000</source>
+                        <source type="urn:epcglobal:cbv:sdt:owning_party">urn:epc:id:pgln:4023333.00000</source>
+                    </sourceList>
+                    <destinationList>
+                        <destination type="urn:epcglobal:cbv:sdt:owning_party">urn:epc:id:pgln:4012345.00000</destination>
+                    </destinationList>
+                </extension>
+                <b4l:tradability>true</b4l:tradability>
+                <b4l:qualityLevel>B</b4l:qualityLevel>
+            </ObjectEvent>
+            <ObjectEvent>
+                <eventTime>2020-07-07T14:15:00.000+02:00</eventTime>
+                <eventTimeZoneOffset>+02:00</eventTimeZoneOffset>
+                <baseExtension>
+                    <errorDeclaration>
+                        <declarationTime>2020-07-08T10:45:00.000+02:00</declarationTime>
+                        <reason>urn:epcglobal:cbv:er:incorrect_data</reason>
+                        <correctiveEventIDs>
+                            <correctiveEventID>ni:///sha-256;ab1234?ver=CBV2.0</correctiveEventID>
+                        </correctiveEventIDs>
+                    </errorDeclaration>
+                </baseExtension>
+                <epcList></epcList>
+                <action>OBSERVE</action>
+                <bizStep>urn:epcglobal:cbv:bizstep:arriving</bizStep>
+                <readPoint>
+                    <id>urn:epc:id:sgln:4012345.00000.0</id>
+                </readPoint>
+                <bizTransactionList>
+                    <bizTransaction type="b4l:palletNote">urn:epc:id:gdti:4012345.00011.987</bizTransaction>
+                </bizTransactionList>
+                <extension>
+                    <quantityList>
+                        <quantityElement>
+                            <epcClass>urn:epc:idpat:grai:4000001.11111.*</epcClass>
+                            <quantity>60</quantity>
+                        </quantityElement>
+                    </quantityList>
+                    <sourceList>
+                        <source type="urn:epcglobal:cbv:sdt:possessing_party">urn:epc:id:pgln:0614141.00000</source>
+                        <source type="urn:epcglobal:cbv:sdt:owning_party">urn:epc:id:pgln:4023333.00000</source>
+                    </sourceList>
+                    <destinationList>
+                        <destination type="urn:epcglobal:cbv:sdt:owning_party">urn:epc:id:pgln:4012345.00000</destination>
+                    </destinationList>
+                </extension>
+                <b4l:tradability>true</b4l:tradability>
+                <b4l:qualityLevel>B</b4l:qualityLevel>
+            </ObjectEvent>
+            <ObjectEvent>
+                <eventTime>2020-07-07T14:15:00.000+02:00</eventTime>
+                <eventTimeZoneOffset>+02:00</eventTimeZoneOffset>
+                <baseExtension>
+                    <eventID>ni:///sha-256;ab1234?ver=CBV2.0</eventID>
+                </baseExtension>
+                <epcList></epcList>
+                <action>OBSERVE</action>
+                <bizStep>urn:epcglobal:cbv:bizstep:arriving</bizStep>
+                <readPoint>
+                    <id>urn:epc:id:sgln:4012345.00000.0</id>
+                </readPoint>
+                <bizTransactionList>
+                    <bizTransaction type="b4l:palletNote">urn:epc:id:gdti:4012345.00011.987</bizTransaction>
+                </bizTransactionList>
+                <extension>
+                    <quantityList>
+                        <quantityElement>
+                            <epcClass>urn:epc:idpat:grai:4000001.11111.*</epcClass>
+                            <quantity>85</quantity>
+                        </quantityElement>
+                    </quantityList>
+                    <sourceList>
+                        <source type="urn:epcglobal:cbv:sdt:possessing_party">urn:epc:id:pgln:0614141.00000</source>
+                        <source type="urn:epcglobal:cbv:sdt:owning_party">urn:epc:id:pgln:4023333.00000</source>
+                    </sourceList>
+                    <destinationList>
+                        <destination type="urn:epcglobal:cbv:sdt:owning_party">urn:epc:id:pgln:4012345.00000</destination>
+                    </destinationList>
+                </extension>
+                <b4l:tradability>true</b4l:tradability>
+                <b4l:qualityLevel>C</b4l:qualityLevel>
+            </ObjectEvent>
+            <ObjectEvent>
+                <eventTime>2020-07-07T14:30:00.000+02:00</eventTime>
+                <eventTimeZoneOffset>+02:00</eventTimeZoneOffset>
+                <epcList></epcList>
+                <action>OBSERVE</action>
+                <bizStep>urn:epcglobal:cbv:bizstep:departing</bizStep>
+                <readPoint>
+                    <id>urn:epc:id:sgln:4012345.00000.0</id>
+                </readPoint>
+                <bizTransactionList>
+                    <bizTransaction type="b4l:palletNote">urn:epc:id:gdti:4012345.00011.987</bizTransaction>
+                </bizTransactionList>
+                <extension>
+                    <quantityList>
+                        <quantityElement>
+                            <epcClass>urn:epc:idpat:grai:4000001.11111.*</epcClass>
+                            <quantity>84</quantity>
+                        </quantityElement>
+                    </quantityList>
+                    <sourceList>
+                        <source type="urn:epcglobal:cbv:sdt:owning_party">urn:epc:id:pgln:4012345.00000</source>
+                    </sourceList>
+                    <destinationList>
+                        <destination type="urn:epcglobal:cbv:sdt:possessing_party">urn:epc:id:pgln:0614141.00000</destination>
+                        <destination type="urn:epcglobal:cbv:sdt:owning_party">urn:epc:id:pgln:4023333.00000</destination>
+                        <destination type="urn:epcglobal:cbv:sdt:location">urn:epc:id:sgln:4023333.00055.0</destination>
+                    </destinationList>
+                </extension>
+                <b4l:tradability>true</b4l:tradability>
+                <b4l:qualityLevel>A</b4l:qualityLevel>
+            </ObjectEvent>
+            <ObjectEvent>
+                <eventTime>2020-07-08T00:00:00.000+02:00</eventTime>
+                <eventTimeZoneOffset>+02:00</eventTimeZoneOffset>
+                <epcList></epcList>
+                <action>OBSERVE</action>
+                <bizStep>urn:epcglobal:cbv:bizstep:accepting</bizStep>
+                <bizTransactionList>
+                    <bizTransaction type="urn:epcglobal:cbv:btt:inv">urn:epcglobal:cbv:bt:4012345000009:RE4711</bizTransaction>
+                </bizTransactionList>
+                <extension>
+                    <quantityList>
+                        <quantityElement>
+                            <epcClass>urn:epc:idpat:grai:0400000.11111.*</epcClass>
+                            <quantity>250</quantity>
+                        </quantityElement>
+                    </quantityList>
+                    <sourceList>
+                        <source type="urn:epcglobal:cbv:sdt:owning_party">urn:epc:id:pgln:4012345.00000</source>
+                    </sourceList>
+                    <destinationList>
+                        <destination type="urn:epcglobal:cbv:sdt:owning_party">urn:epc:id:pgln:4023333.00000</destination>
+                    </destinationList>
+                </extension>
+                <b4l:qualityLevel>A</b4l:qualityLevel>
+            </ObjectEvent>
+        </EventList>
+    </EPCISBody>
+</epcis:EPCISDocument>
