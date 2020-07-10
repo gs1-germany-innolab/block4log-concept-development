@@ -27,7 +27,7 @@ link:epcisMessageSpecification.md[EPCIS Message Specification]
 - Note: only Option1_XML_URN.xml is currently GS1 standard compliant
 ** JSON/JSON-LD is still WIP in EPCIS/CBV 2.0
 ** Also, the EPCIS/CBV 2.0 working group considers to allow GS1 Digital Link URIs in addition to EPC URNs.
-* Example: instead of "urn:epc:idpat:grai:4000001.11111.\*", 
+* Example: instead of "urn:epc:idpat:grai:4000001.11111.*", 
 the equivalent GS1 DL URI would look as follows: "https://id.gs1.org/8003/04000001111114".
 * The latter had the OPTION to enter resolvable links into GS1's Resolver Service.
 * For instance, these links could point to master data of a given party, location, or asset.
