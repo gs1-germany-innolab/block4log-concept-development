@@ -2,6 +2,10 @@
 
 ## EPCIS Events to express the loading and unloading of load carriers
 
+### Comments
+* Note: if there are tradable and non-tradable OR several quality levels in the course of an arriving/departing event, we need to generate several EPCIS events.
+* Rationale: these criteria entail different business processes/pallet values. Thus, we have to properly distinguish quantities pertaining to different qualities.
+
 | Dim | Data Element | V1 | V2 |
 | --- | ------------ | -- | -- |
 |  | Description | RTIs arrive at a given location | RTIs leave a given location |
@@ -26,10 +30,6 @@
 | Other | `b4l:tradability` | `true` or `false` |
 |  | `b4l:qualityLevel` | `A`, `B`, or `C` |
 
-### Comments
-* Note: if there are tradable and non-tradable OR several quality levels in the course of an arriving/departing event, we need to generate several EPCIS events.
-Rationale: these criteria entail different business processes/pallet values. Thus, we have to properly distinguish quantities pertaining to different qualities.
-
 ## EPCIS Events to express a change of ownership (only applicable for open pool systems)
 
 | Dim | Data Element | V3 |
@@ -53,7 +53,11 @@ Rationale: these criteria entail different business processes/pallet values. Thu
 
 ## EPCIS Error Declaration Events
 
-### Case 1: Correcting incorrect data
+### Comments
+* The following illustrative example pertains to V1.
+* In case an ordinary arriving, departing or accepting event turns out to be erroneous in retrospect, exchange parties have the option to make use of the 'Error Declaration' Mechanism introduced as of EPCIS 1.2.
+* The Error Declaration (V4) as well as the Corrective Event (V5) SHOULD be captured in one request. The Error Declaration Event looks identical to the original (i.e. incorrect) event, except for the additional Error Declaration Element reversing its semantics. Further, it also accommodates a forward link to the Corrective Event.
+* For more information, see EPCIS v. 1.2, section 7.4.1.2.
 
 | Dim | Data Element | V4 | V5 |
 | --- | ------------ | -- | -- |
@@ -83,14 +87,6 @@ Rationale: these criteria entail different business processes/pallet values. Thu
 |  | `destination` `type`:`location (CBV)` | See original event | Possibly corrected `SGLN` |
 | Other | `b4l:tradability` | See original event | Possibly corrected `true` or `false` |
 |  | `b4l:qualityLevel` | See original event | Possibly corrected `A`, `B`, or `C` |
-
-### Case 2: Indicate that event just did not occur
-TBD, if required
-
-### Comments
-* The above illustrative example pertains to V1.
-* The Error Declaration (V4) as well as the Corrective Event (V5) SHOULD be captured in one request. The Error Declaration Event looks identical to the original (i.e. incorrect) event, except for the additional Error Declaration Element reversing its semantics. Further, it also accommodates a forward link to the Corrective Event.
-For more information, see EPCIS v. 1.2, section 7.4.1.2.
 
 ## Legend/explanation
 * owning_party: actual exchange parties (in open pool system systems the actual owner, in closed pool systems the 'lessee')
