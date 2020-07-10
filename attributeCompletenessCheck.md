@@ -10,7 +10,7 @@ Source: B4L User Stories V1 2020-06-17, column I (deduced requirement)
 
 | # | Requirement | Covered in/ via | Questions + comments | CHECK |
 | --- | --- | --- | --- | --- |
-| CLOSED | POOLS |
+|  | CLOSED POOLS |
 | 1 | After completion of the pallet exchange, a data record describing the exchange process is available on the block chain | EPCIS Event | Data record: yes. TBD, whether on BC | `DONE` |
 | 2 | The loader receives a legally valid confirmation after the pallet exchange has been completed  |   | n./a. (no attribute)  | `DONE` |
 | 3 | The number of pallets taken over and transferred is documented in the block chain  |  EPCIS Event, quantity element (ID + number) |   | `DONE` |
@@ -27,7 +27,7 @@ Source: B4L User Stories V1 2020-06-17, column I (deduced requirement)
 | 14 | Similar to 1  |   |   | `DONE` |
 | 15 | Similar to 3  |   |   | `DONE` |
 | 16 | Corrections can be initiated and approval of the exchange partner is requested  |  EPCIS Event, Error Declaration Element |   | `DONE` |
-| OPEN | POOLS |
+|  | OPEN POOLS |
 | 17 | Similar to 1  |   |   | `DONE` |
 | 18 | Similar to 2  |   |   | `DONE` |
 | 19 | Similar to 3  |   |   | `DONE` |
