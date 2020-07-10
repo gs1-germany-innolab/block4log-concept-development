@@ -17,11 +17,13 @@ The following types of data are going to be handled within Block4Log:
 
 === Pallet exchange vouchers
 - Data format: EPCIS
-- Arriving | Departing | Accepting
-- ID and number of Reusable Transport Items (RTI)
-- When
-- Where
+- Message types: Arriving | Departing | Accepting | Error Declaration
+- WHAT: ID and number of Reusable Transport Items (RTI)
+- When: Date/Time of event
+- Where: Physical location of exchange 
+- Why: Business Transaction List, Sources/Destination List, Tradability, Quality level
 - Double signed => 2 Signing parties
+link:epcisMessageSpecification.md[EPCIS Message Specification]
 
 
 === Debt Notes
@@ -34,11 +36,37 @@ The following types of data are going to be handled within Block4Log:
 ** Including voucher resolution (EOL) if applicable
 
 
-=== Company IDs
-- GLN (Global Location Number)
-- Master Data
-*** At least Company Name
-*** Details TBD
+=== Master data
+
+== Parties
+- GS1 Key: PGLN (Global Location Number for Parties)
+- Master data attributes:
+*** Party name
+*** Headquarters address
+** Street address one
+** City 
+** Postal code 
+** Country code (ISO 3166-1 Alpha-2 code)
+
+== Locations
+- GS1 Key: SGLN (Global Location Number for Physical Locations, without GLN extension)
+- Master data attributes:
+*** Location name
+*** Address of physical location
+** Street address one
+** City 
+** Postal code 
+** Country code (ISO 3166-1 Alpha-2 code)
+
+== Load Carriers
+- Key: GRAI (Global Returnable Asset Identifier, without serial number part)
+- Master data attributes:
+*** Load carrier name
+*** ??? Name of owning party (open pools)/manufacturer (open pools)
+*** ??? Specification/Standard (ideally: Web Reference)
+*** ??? Image
+*** ??? Dimensions (length/width/depth)
+*** ??? tbd
 
 === Black Board/Pin Board for Public Announcements
 
@@ -188,6 +216,6 @@ Platform.
 === (Consortium) Public Information
 
 To publish data within the Consortium in a public blackboard like fashion, we
-may use existing block chain technology (hyperledger, etc.) or also simpler
+may use existing block chain technology (Hyperledger, etc.) or also simpler
 methods such as EPCIS repositories + discovery, MQTT or other Message brokers,
 etc. 

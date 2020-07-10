@@ -5,8 +5,8 @@
 | Dim | Data Element | V1 | V2 |
 | --- | ------------ | -- | -- |
 |  | Description | RTIs arrive at a given location | RTIs leave a given location |
-|  | Event Type | Object Event | Object Event |
-|  | Action | OBSERVE | OBSERVE |
+|  | Event Type | `ObjectEvent` | `ObjectEvent` |
+|  | `action` | `OBSERVE` | `OBSERVE` |
 | When | `eventTime` | `Timestamp` of event | `Timestamp` of event |
 | What | `quantityList` |
 |  | _`quantityElement` |
@@ -35,8 +35,8 @@ Rationale: these criteria entail different business processes/pallet values. Thu
 | Dim | Data Element | V3 |
 | --- | ------------ | -- |
 |  | Description | RTIs change ownership from one to another organisation |
-|  | Event Type | Object Event |
-|  | Action | OBSERVE |
+|  | Event Type | `ObjectEvent` |
+|  | `action` | `OBSERVE` |
 | When | `eventTime` | `Timestamp` of event |
 | What | `quantityList` |
 |  | _`quantityElement` |
@@ -53,32 +53,39 @@ Rationale: these criteria entail different business processes/pallet values. Thu
 
 ## EPCIS Error Declaration Events
 
+### Case 1: Correcting incorrect data
+
 | Dim | Data Element | V4 | V5 |
 | --- | ------------ | -- | -- |
 |  | Description | Error Declaration Event | Corrective Event |
-|  | Event Type | Identical to original event | Identical to original event |
-
-|  | Error  
-
-
-|  | Action | Identical to original event | Identical to original event |
-| When | `eventTime` | Identical to original event | Possibly corrected `Timestamp` |
+|  | Event Type | See original event | See original event |
+|  | `eventID` |  | `EPCIS Event Hash ID` |
+|  | `errorDeclaration` |
+|  | _`declarationTime` | `Timestamp` of error declaration |  |
+|  | _`reason` | `Incorrect data (CBV)` |  |
+|  | _`correctiveEventIDs` |
+|  | __`correctiveEventID` | `EPCIS Event Hash ID` |  |
+|  | `action` | See original event | See original event |
+| When | `eventTime` | See original event | Possibly corrected `Timestamp` |
 | What | `quantityList` - `quantityElement` |
-|  |  `epcClass` | `GRAI` (without serial number) of RTI | `GRAI` (without serial number) of RTI |
-|  |  `quantity` | Number of arrived RTIs | Number of departed RTIs |
-| Where | `readPoint` | `SGLN` (without GLN extension) of RTI exchange location | `SGLN` (without GLN extension) of RTI exchange location |
-| Why | `bizStep` | `Arriving (CBV)` | `Departing (CBV)` |
+|  |  `epcClass` | See original event | Possibly corrected `GRAI` (without serial number) of RTI |
+|  |  `quantity` | See original event | Possibly corrected number of departed RTIs |
+| Where | `readPoint` | See original event | Possibly corrected `SGLN` (without GLN extension) of RTI exchange location |
+| Why | `bizStep` | See original event| Possibly corrected Business Step |
 |  | `bizTransactionList` |
-|  | `bizTransactionID` `type`:`b4l:palletNote` | `GDTI` of pallet note | `GDTI` of pallet note |
+|  | `bizTransactionID` `type`:`b4l:palletNote` | See original event | Possibly corrected `GDTI` of pallet note |
 |  | `sourceList` |
-|  | `source` `type`:`possessing party (CBV)` | `PGLN` of delivering LSP | n./a. |
-|  | `source` `type`:`owning party (CBV)` | `PGLN` of sending exchange party | `PGLN` of sending exchange party |
+|  | `source` `type`:`possessing party (CBV)` | See original event | Possibly corrected `PGLN` |
+|  | `source` `type`:`owning party (CBV)` | See original event | Possibly corrected `PGLN` |
 |  | `destinationList` |
-|  | `destination` `type`:`possessing party (CBV)` | n./a. | `PGLN` of sending LSP |
-|  | `destination` `type`:`owning party (CBV)` | `PGLN` of receiving exchange party | `PGLN` of receiving exchange party |
-|  | `destination` `type`:`location (CBV)` | n./a. | `SGLN` of receiving exchange location |
-| Other | `b4l:tradability` | `true` or `false` |
-|  | `b4l:qualityLevel` | `A`, `B`, or `C` |
+|  | `destination` `type`:`possessing party (CBV)` | See original event | Possibly corrected `PGLN` |
+|  | `destination` `type`:`owning party (CBV)` | See original event | Possibly corrected `PGLN` |
+|  | `destination` `type`:`location (CBV)` | See original event | Possibly corrected `SGLN` |
+| Other | `b4l:tradability` | See original event | Possibly corrected `true` or `false` |
+|  | `b4l:qualityLevel` | See original event | Possibly corrected `A`, `B`, or `C` |
+
+### Case 2: Indicate that event just did not occur
+TBD, if required
 
 ### Comments
 * The above illustrative example pertains to V1.

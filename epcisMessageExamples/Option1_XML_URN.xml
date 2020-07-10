@@ -3,6 +3,7 @@
     xmlns:b4l="https://epcis.b4l.com" schemaVersion="1.2" creationDate="2020-07-07T12:45:06.903Z">
     <EPCISBody>
         <EventList>
+        <!-- V1 -->
             <ObjectEvent>
                 <eventTime>2020-07-07T14:15:00.000+02:00</eventTime>
                 <eventTimeZoneOffset>+02:00</eventTimeZoneOffset>
@@ -33,6 +34,7 @@
                 <b4l:tradability>true</b4l:tradability>
                 <b4l:qualityLevel>B</b4l:qualityLevel>
             </ObjectEvent>
+            <!-- V4 -->
             <ObjectEvent>
                 <eventTime>2020-07-07T14:15:00.000+02:00</eventTime>
                 <eventTimeZoneOffset>+02:00</eventTimeZoneOffset>
@@ -72,6 +74,7 @@
                 <b4l:tradability>true</b4l:tradability>
                 <b4l:qualityLevel>B</b4l:qualityLevel>
             </ObjectEvent>
+            <!-- V5 -->
             <ObjectEvent>
                 <eventTime>2020-07-07T14:15:00.000+02:00</eventTime>
                 <eventTimeZoneOffset>+02:00</eventTimeZoneOffset>
@@ -105,6 +108,7 @@
                 <b4l:tradability>true</b4l:tradability>
                 <b4l:qualityLevel>C</b4l:qualityLevel>
             </ObjectEvent>
+            <!-- V2 -->
             <ObjectEvent>
                 <eventTime>2020-07-07T14:30:00.000+02:00</eventTime>
                 <eventTimeZoneOffset>+02:00</eventTimeZoneOffset>
@@ -136,6 +140,7 @@
                 <b4l:tradability>true</b4l:tradability>
                 <b4l:qualityLevel>A</b4l:qualityLevel>
             </ObjectEvent>
+            <!-- V3 -->
             <ObjectEvent>
                 <eventTime>2020-07-08T00:00:00.000+02:00</eventTime>
                 <eventTimeZoneOffset>+02:00</eventTimeZoneOffset>
