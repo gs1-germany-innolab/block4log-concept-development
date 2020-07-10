@@ -43,7 +43,7 @@ the equivalent GS1 DL URI would look as follows: "https://id.gs1.org/8003/040000
 
 === Master data
 
-== Parties
+==== Parties
 - GS1 Key: PGLN (Global Location Number for Parties)
 - Master data attributes:
 *** Party name
@@ -53,7 +53,7 @@ the equivalent GS1 DL URI would look as follows: "https://id.gs1.org/8003/040000
 ** Postal code 
 ** Country code (ISO 3166-1 Alpha-2 code)
 
-== Locations
+==== Locations
 - GS1 Key: SGLN (Global Location Number for Physical Locations, without GLN extension)
 - Master data attributes:
 *** Location name
@@ -63,7 +63,7 @@ the equivalent GS1 DL URI would look as follows: "https://id.gs1.org/8003/040000
 ** Postal code 
 ** Country code (ISO 3166-1 Alpha-2 code)
 
-== Load Carriers
+==== Load Carriers
 - Key: GRAI (Global Returnable Asset Identifier, without serial number part)
 - Master data attributes:
 *** Load carrier name
