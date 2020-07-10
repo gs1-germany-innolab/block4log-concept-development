@@ -43,7 +43,7 @@
                         <declarationTime>2020-07-08T10:45:00.000+02:00</declarationTime>
                         <reason>urn:epcglobal:cbv:er:incorrect_data</reason>
                         <correctiveEventIDs>
-                            <correctiveEventID>ni:///sha-256;ab1234?ver=CBV2.0</correctiveEventID>
+                            <correctiveEventID>ni:///sha-256;{hashValue}?ver=CBV2.0</correctiveEventID>
                         </correctiveEventIDs>
                     </errorDeclaration>
                 </baseExtension>
@@ -79,7 +79,7 @@
                 <eventTime>2020-07-07T14:15:00.000+02:00</eventTime>
                 <eventTimeZoneOffset>+02:00</eventTimeZoneOffset>
                 <baseExtension>
-                    <eventID>ni:///sha-256;ab1234?ver=CBV2.0</eventID>
+                    <eventID>ni:///sha-256;{hashValue}?ver=CBV2.0</eventID>
                 </baseExtension>
                 <epcList></epcList>
                 <action>OBSERVE</action>

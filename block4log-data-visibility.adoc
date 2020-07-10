@@ -24,7 +24,13 @@ The following types of data are going to be handled within Block4Log:
 - Why: Business Transaction List, Sources/Destination List, Tradability, Quality level
 - Double signed => 2 Signing parties
 link:epcisMessageSpecification.md[EPCIS Message Specification]
-
+- Note: only Option1_XML_URN.xml is currently GS1 standard compliant
+** JSON/JSON-LD is still WIP in EPCIS/CBV 2.0
+** Also, the working group considers to allow GS1 Digital Link URIs in addition to EPC URNs.
+* Example: instead of "urn:epc:idpat:grai:4000001.11111.\*", 
+the equivalent GS1 DL URI would look as follows: "https://id.gs1.org/8003/04000001111114".
+* The latter had the OPTION to enter resolvable links into GS1's Resolver Service.
+* For instance, these links could point to master data of a given party, location, or asset.
 
 === Debt Notes
 - Debtor
@@ -34,7 +40,6 @@ link:epcisMessageSpecification.md[EPCIS Message Specification]
 ** Including transaction dates
 ** Including Creation
 ** Including voucher resolution (EOL) if applicable
-
 
 === Master data
 
@@ -132,7 +137,13 @@ In <<EPCIS_Example>>, a simple shipping event with source and destination is sho
     </quantityList>
 </extension>
 
-tbd: new EPCIS 2.0 JSON/JSON-LD structure?
+New EPCIS 2.0 JSON/JSON-LD structure (WIP!)
+"quantityList": [
+    {
+        "epcClass": "urn:epc:idpat:grai:4000001.11111.\*",
+        "quantity": 60
+    }
+]
 
 
 [[EPCIS_Example]]
