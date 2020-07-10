@@ -1,7 +1,7 @@
 {
     "@context": "https://id.gs1.org/epcis-context.jsonld",
     "isA": "EPCISDocument",
-    "creationDate": "2005-07-11T11:30:47+00:00",
+    "creationDate": "2020-07-10T12:45:06.903Z",
     "schemaVersion": 2.0,
     "format": "application/ld+json",
     "epcisBody": {
