@@ -30,9 +30,9 @@ For all of the following message specifications, the folder [EPCIS message examp
 |  | _`destination` `type`:`possessing party (CBV)` | n./a. | `PGLN` of sending LSP |
 |  | _`destination` `type`:`owning party (CBV)` | `PGLN` of receiving exchange party | `PGLN` of receiving exchange party |
 |  | _`destination` `type`:`location (CBV)` | n./a. | `SGLN` of receiving exchange location |
-| Other | `b4l:tradability` | `true` or `false` |
-|  | `b4l:qualityLevel` | `A`, `B`, or `C` |
-|  | `b4l:licenceNumber` | String |
+| Other | `b4l:tradability` | `true` or `false` | `true` or `false` |
+|  | `b4l:qualityLevel` | `A`, `B`, or `C` | `A`, `B`, or `C` |
+|  | `b4l:licenceNumber` | String | String |
 
 ## EPCIS Events to express a change of ownership (only applicable for open pool systems)
 
