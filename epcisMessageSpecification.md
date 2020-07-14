@@ -31,6 +31,7 @@ For all of the following message specifications, the folder [EPCIS message examp
 |  | _`destination` `type`:`location (CBV)` | n./a. | `SGLN` of receiving exchange location |
 | Other | `b4l:tradability` | `true` or `false` |
 |  | `b4l:qualityLevel` | `A`, `B`, or `C` |
+|  | `b4l:licenceNumber` | String |
 
 ## EPCIS Events to express a change of ownership (only applicable for open pool systems)
 
@@ -97,6 +98,7 @@ For all of the following message specifications, the folder [EPCIS message examp
 |  | `destination` `type`:`location (CBV)` | See original event | Possibly corrected `SGLN` |
 | Other | `b4l:tradability` | See original event | Possibly corrected `true` or `false` |
 |  | `b4l:qualityLevel` | See original event | Possibly corrected `A`, `B`, or `C` |
+|  | `b4l:licenceNumber` | See original event | Possibly corrected String |
 
 ## Legend/explanation
 * owning_party: actual exchange parties (in open pool system systems the actual owner, in closed pool systems the 'lessee')
