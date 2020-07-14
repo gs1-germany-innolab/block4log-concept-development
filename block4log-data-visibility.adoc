@@ -15,16 +15,12 @@ Sebastian Schmittner <sebastian.schmittner@eecc.de>
 
 The following types of data are going to be handled within Block4Log:
 
-=== Pallet exchange vouchers
+=== Load carrier exchange events
 - Data format: EPCIS
-- Message types: Arriving | Departing | Accepting | Error Declaration
-- WHAT: ID and number of Reusable Transport Items (RTI)
-- When: Date/Time of event
-- Where: Physical location of exchange 
-- Why: Business Transaction List, Sources/Destination List, Tradability, Quality level
-- Double signed => 2 Signing parties
-link:epcisMessageSpecification.md[EPCIS Message Specification]
-- Note: only Option1_XML_URN.xml is currently GS1 standard compliant
+- Double-signed by both exchange parties
+- Specification: link:epcisMessageSpecification.md[EPCIS Message Specification]
+- Message examples: link:epcisMessageExamples[EPCIS Message Examples]
+** Note: only Option1_XML_URN.xml is currently GS1 standard compliant
 ** JSON/JSON-LD is still WIP in EPCIS/CBV 2.0
 ** Also, the EPCIS/CBV 2.0 working group considers to allow GS1 Digital Link URIs in addition to EPC URNs.
 * Example: instead of "urn:epc:idpat:grai:4000001.11111.\*", 
@@ -32,7 +28,7 @@ the equivalent GS1 DL URI would look as follows: "https://id.gs1.org/8003/040000
 * The latter had the OPTION to enter resolvable links into GS1's Resolver Service.
 * For instance, these links could point to master data of a given party, location, or asset.
 
-=== Debt Notes
+=== Vouchers
 - Debtor
 - Amount/Type/Quality of Pallets
 - Holder ( = owner) of debt note
