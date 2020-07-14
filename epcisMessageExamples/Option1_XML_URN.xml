@@ -42,7 +42,7 @@
                 <eventTime>2020-07-07T14:15:00.000+02:00</eventTime>
                 <eventTimeZoneOffset>+02:00</eventTimeZoneOffset>
                 <baseExtension>
-                    <eventID>ni:///sha-256;138efc44606cc875eab2c10ecafe3555c8a61bdcb9bad983f594841fa116387b</eventID>
+                    <eventID>ni:///sha-256;8ecdc7114d93868c88a0282d369c6b30320876517f92e3bc3053354caf5a29ad</eventID>
                     <errorDeclaration>
                         <declarationTime>2020-07-08T10:45:00.000+02:00</declarationTime>
                         <reason>urn:epcglobal:cbv:er:incorrect_data</reason>
