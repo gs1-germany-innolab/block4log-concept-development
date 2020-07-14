@@ -23,7 +23,7 @@ For all of the following message specifications, the folder [EPCIS message examp
 | Why | `bizStep` | `Arriving (CBV)` | `Departing (CBV)` |
 |  | `bizTransactionList` |
 |  | _`bizTransactionID` `type`:`b4l:voucher` | `GDTI` of voucher | `GDTI` of voucher |
-|  | _`bizTransactionID` `type`:`Purchase Order (CBV)` | `GDTI` or `GLN-based URI` of purchase order | `GDTI` or `GLN-based URI` of purchase order |
+|  | _`bizTransactionID` `type`:`po (CBV)` | `GDTI` or `GLN-based URI` of purchase order | `GDTI` or `GLN-based URI` of purchase order |
 |  | `sourceList` |
 |  | _`source` `type`:`possessing party (CBV)` | `PGLN` of delivering LSP | n./a. |
 |  | _`source` `type`:`owning party (CBV)` | `PGLN` of sending exchange party | `PGLN` of sending exchange party |
