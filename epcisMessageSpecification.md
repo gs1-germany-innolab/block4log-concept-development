@@ -22,7 +22,7 @@ For all of the following message specifications, the folder [EPCIS message examp
 | Where | `readPoint` | `SGLN` (without GLN extension) of RTI exchange location | `SGLN` (without GLN extension) of RTI exchange location |
 | Why | `bizStep` | `Arriving (CBV)` | `Departing (CBV)` |
 |  | `bizTransactionList` |
-|  | _`bizTransactionID` `type`:`b4l:palletNote` | `GDTI` of pallet note | `GDTI` of pallet note |
+|  | _`bizTransactionID` `type`:`b4l:voucher` | `GDTI` of voucher | `GDTI` of voucher |
 |  | _`bizTransactionID` `type`:`Purchase Order (CBV)` | `GDTI` or `GLN-based URI` of purchase order | `GDTI` or `GLN-based URI` of purchase order |
 |  | `sourceList` |
 |  | _`source` `type`:`possessing party (CBV)` | `PGLN` of delivering LSP | n./a. |
@@ -92,7 +92,7 @@ For all of the following message specifications, the folder [EPCIS message examp
 | Where | `readPoint` | See original event | Possibly corrected `SGLN` (without GLN extension) of RTI exchange location |
 | Why | `bizStep` | See original event| Possibly corrected Business Step |
 |  | `bizTransactionList` |
-|  | `bizTransactionID` `type`:`b4l:palletNote` | See original event | Possibly corrected `GDTI` of pallet note |
+|  | `bizTransactionID` `type`:`b4l:voucher` | See original event | Possibly corrected `GDTI` of voucher |
 |  | `sourceList` |
 |  | `source` `type`:`possessing party (CBV)` | See original event | Possibly corrected `PGLN` |
 |  | `source` `type`:`owning party (CBV)` | See original event | Possibly corrected `PGLN` |
