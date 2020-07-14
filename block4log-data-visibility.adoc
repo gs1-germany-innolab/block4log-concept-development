@@ -54,7 +54,7 @@ the equivalent GS1 DL URI would look as follows: "https://id.gs1.org/8003/040000
 ** Country code (ISO 3166-1 Alpha-2 code)
 
 ==== Locations
-- GS1 Key: SGLN (Global Location Number for Physical Locations, without GLN extension)
+- GS1 Key: SGLN (Global Location Number for Physical Locations, without extension)
 - Master data attributes:
 *** Location name
 *** Address of physical location
@@ -64,13 +64,21 @@ the equivalent GS1 DL URI would look as follows: "https://id.gs1.org/8003/040000
 ** Country code (ISO 3166-1 Alpha-2 code)
 
 ==== Load Carriers
-- Key: GRAI (Global Returnable Asset Identifier, without serial number part)
+- GS1 Key: GRAI (Global Returnable Asset Identifier, without serial number part)
 - Master data attributes:
 *** Load carrier name
 *** ??? Name of owning party (open pools)/manufacturer (open pools)
 *** ??? Specification/Standard (ideally: Web Reference)
 *** ??? Image
 *** ??? Dimensions (length/width/depth)
+*** ??? tbd
+
+==== Voucher
+- GS1 Key: GDTI (Global Document Type Identifier, without serial number part)
+- Master data attributes:
+*** Document name (String, e.g. 'Load carrier voucher')
+*** Valid through (Date, e.g. '2021-08-02')
+*** Name of issuer
 *** ??? tbd
 
 === Black Board/Pin Board for Public Announcements
