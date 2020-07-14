@@ -29,13 +29,19 @@ the equivalent GS1 DL URI would look as follows: "https://id.gs1.org/8003/040000
 * For instance, these links could point to master data of a given party, location, or asset.
 
 === Vouchers
-- Debtor
-- Amount/Type/Quality of Pallets
-- Holder ( = owner) of debt note
-- History of double signed transactions => All former holders
-** Including transaction dates
-** Including Creation
-** Including voucher resolution (EOL) if applicable
+- Triggered if there is a discrepancy between arriving and departing load carriers
+- Double-signed (pass-through of above multi-signature)
+- Data format: B4L-specific. Suggestion: flat Merkle Tree (concatenated key-value pairs (some values obfuscated), resulting in one root hash)
+- Attributes: 
+** creationDate (Date)
+** validThrough (Date)
+** load carrier (GRAI) and quantity (Positive Integer)
+** deptor (PGLN)
+** creditor (PGLN)
+** qualityLevel (A, B, or C)
+** ??? tradability (true or false)
+** ??? Sebastian: "history of double signed transactions => All former holders"
+** ??? Sebastian: "voucher resolution (EOL) if applicable"
 
 === Master data
 
