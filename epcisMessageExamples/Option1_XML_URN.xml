@@ -7,7 +7,10 @@
             <ObjectEvent>
                 <eventTime>2020-07-07T14:15:00.000+02:00</eventTime>
                 <eventTimeZoneOffset>+02:00</eventTimeZoneOffset>
-                <epcList></epcList>
+                <baseExtension>
+                    <eventID>ni:///sha-256;138efc44606cc875eab2c10ecafe3555c8a61bdcb9bad983f594841fa116387b</eventID>
+                </baseExtension>
+                <epcList/>
                 <action>OBSERVE</action>
                 <bizStep>urn:epcglobal:cbv:bizstep:arriving</bizStep>
                 <readPoint>
@@ -39,15 +42,16 @@
                 <eventTime>2020-07-07T14:15:00.000+02:00</eventTime>
                 <eventTimeZoneOffset>+02:00</eventTimeZoneOffset>
                 <baseExtension>
+                    <eventID>ni:///sha-256;138efc44606cc875eab2c10ecafe3555c8a61bdcb9bad983f594841fa116387b</eventID>
                     <errorDeclaration>
                         <declarationTime>2020-07-08T10:45:00.000+02:00</declarationTime>
                         <reason>urn:epcglobal:cbv:er:incorrect_data</reason>
                         <correctiveEventIDs>
-                            <correctiveEventID>ni:///sha-256;756e9aa2b1139505de89113ea9a6fa374a14dde6f57af8be006d1273c3900d5b</correctiveEventID>
+                            <correctiveEventID>ni:///sha-256;f544e2242248d9bcc5b739793906ae88ef0694b37d78d506cfd596c17323b5d7</correctiveEventID>
                         </correctiveEventIDs>
                     </errorDeclaration>
                 </baseExtension>
-                <epcList></epcList>
+                <epcList/>
                 <action>OBSERVE</action>
                 <bizStep>urn:epcglobal:cbv:bizstep:arriving</bizStep>
                 <readPoint>
@@ -79,9 +83,9 @@
                 <eventTime>2020-07-07T14:15:00.000+02:00</eventTime>
                 <eventTimeZoneOffset>+02:00</eventTimeZoneOffset>
                 <baseExtension>
-                    <eventID>ni:///sha-256;756e9aa2b1139505de89113ea9a6fa374a14dde6f57af8be006d1273c3900d5b</eventID>
+                    <eventID>ni:///sha-256;f544e2242248d9bcc5b739793906ae88ef0694b37d78d506cfd596c17323b5d7</eventID>
                 </baseExtension>
-                <epcList></epcList>
+                <epcList/>
                 <action>OBSERVE</action>
                 <bizStep>urn:epcglobal:cbv:bizstep:arriving</bizStep>
                 <readPoint>
@@ -112,7 +116,10 @@
             <ObjectEvent>
                 <eventTime>2020-07-07T14:30:00.000+02:00</eventTime>
                 <eventTimeZoneOffset>+02:00</eventTimeZoneOffset>
-                <epcList></epcList>
+                <baseExtension>
+                    <eventID>ni:///sha-256;e2605e59c32b32e8bac42b25fe8d88d85521d5ab01b8ad544dda3791a6c93bc9</eventID>
+                </baseExtension>
+                <epcList/>
                 <action>OBSERVE</action>
                 <bizStep>urn:epcglobal:cbv:bizstep:departing</bizStep>
                 <readPoint>
@@ -144,7 +151,10 @@
             <ObjectEvent>
                 <eventTime>2020-07-08T00:00:00.000+02:00</eventTime>
                 <eventTimeZoneOffset>+02:00</eventTimeZoneOffset>
-                <epcList></epcList>
+                <baseExtension>
+                    <eventID>ni:///sha-256;5b53bf43bbc7a5bd6b177f04365928b18069b55e7c5d6d6b19fef98752e3e94a</eventID>
+                </baseExtension>
+                <epcList/>
                 <action>OBSERVE</action>
                 <bizStep>urn:epcglobal:cbv:bizstep:accepting</bizStep>
                 <bizTransactionList>
