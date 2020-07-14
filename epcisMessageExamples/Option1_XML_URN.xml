@@ -17,7 +17,7 @@
                     <id>urn:epc:id:sgln:4012345.00000.0</id>
                 </readPoint>
                 <bizTransactionList>
-                    <bizTransaction type="b4l:palletNote">urn:epc:id:gdti:4012345.00011.987</bizTransaction>
+                    <bizTransaction type="b4l:voucher">urn:epc:id:gdti:4012345.00011.987</bizTransaction>
                 </bizTransactionList>
                 <extension>
                     <quantityList>
@@ -58,7 +58,7 @@
                     <id>urn:epc:id:sgln:4012345.00000.0</id>
                 </readPoint>
                 <bizTransactionList>
-                    <bizTransaction type="b4l:palletNote">urn:epc:id:gdti:4012345.00011.987</bizTransaction>
+                    <bizTransaction type="b4l:voucher">urn:epc:id:gdti:4012345.00011.987</bizTransaction>
                 </bizTransactionList>
                 <extension>
                     <quantityList>
@@ -92,7 +92,7 @@
                     <id>urn:epc:id:sgln:4012345.00000.0</id>
                 </readPoint>
                 <bizTransactionList>
-                    <bizTransaction type="b4l:palletNote">urn:epc:id:gdti:4012345.00011.987</bizTransaction>
+                    <bizTransaction type="b4l:voucher">urn:epc:id:gdti:4012345.00011.987</bizTransaction>
                 </bizTransactionList>
                 <extension>
                     <quantityList>
@@ -126,7 +126,7 @@
                     <id>urn:epc:id:sgln:4012345.00000.0</id>
                 </readPoint>
                 <bizTransactionList>
-                    <bizTransaction type="b4l:palletNote">urn:epc:id:gdti:4012345.00011.987</bizTransaction>
+                    <bizTransaction type="b4l:voucher">urn:epc:id:gdti:4012345.00011.987</bizTransaction>
                 </bizTransactionList>
                 <extension>
                     <quantityList>
