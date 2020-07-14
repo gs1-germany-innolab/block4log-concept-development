@@ -12,6 +12,7 @@ For all of the following message specifications, the folder [EPCIS message examp
 | --- | ------------ | -- | -- |
 |  | Description | RTIs arrive at a given location | RTIs leave a given location |
 |  | Event Type | `ObjectEvent` | `ObjectEvent` |
+|  | `eventID` | `EPCIS Event Hash ID` | `EPCIS Event Hash ID` |
 |  | `action` | `OBSERVE` | `OBSERVE` |
 | When | `eventTime` | `Timestamp` of event | `Timestamp` of event |
 | What | `quantityList` |
@@ -40,6 +41,7 @@ For all of the following message specifications, the folder [EPCIS message examp
 | --- | ------------ | -- |
 |  | Description | RTIs change ownership from one to another organisation |
 |  | Event Type | `ObjectEvent` |
+|  | `eventID` | `EPCIS Event Hash ID` |
 |  | `action` | `OBSERVE` |
 | When | `eventTime` | `Timestamp` of event |
 | What | `quantityList` |
@@ -64,7 +66,7 @@ For all of the following message specifications, the folder [EPCIS message examp
 * For more information, see EPCIS v. 1.2, section 7.4.1.2.
 
 #### EPCIS Event Hash ID
-* For populating the correctiveEventID/eventID field, if needed, we apply the EPCIS Event Hash ID as introduced in CBV 2.0
+* For populating the correctiveEventID/eventID field, we apply the EPCIS Event Hash ID as introduced in CBV 2.0
 * Amongst others, the advantage for B4L consists that the latter can (in conjunction with DiGSig) also be used for notarisation for EPCIS events.
 * Taking the example of the message example as part of this repository, the canonical 'pre-hash-string' looks as follows (both for the json as well as xml variant):
 `eventType=ObjectEventeventTime=2020-07-07T14:15:00.000+02:00eventTimeZoneOffset=+02:00quantityListquantityElementepcClass=urn:epc:idpat:grai:4000001.11111.*quantity=60action=OBSERVEbizStep=urn:epcglobal:cbv:bizstep:arrivingreadPointid=urn:epc:id:sgln:4012345.00000.0bizTransactionListbizTransaction=urn:epc:id:gdti:4012345.00011.987sourceListsource=urn:epc:id:pgln:0614141.00000source=urn:epc:id:pgln:4023333.00000destinationListdestination=urn:epc:id:pgln:4012345.00000{https://epcis.b4l.com}qualityLevel=B{https://epcis.b4l.com}tradability=true`
@@ -75,7 +77,7 @@ For all of the following message specifications, the folder [EPCIS message examp
 | --- | ------------ | -- | -- |
 |  | Description | Error Declaration Event | Corrective Event |
 |  | Event Type | See original event | See original event |
-|  | `eventID` |  | `EPCIS Event Hash ID` |
+|  | `eventID` | `EPCIS Event Hash ID` | `EPCIS Event Hash ID` |
 |  | `errorDeclaration` |
 |  | _`declarationTime` | `Timestamp` of error declaration |  |
 |  | _`reason` | `Incorrect data (CBV)` |  |
