@@ -47,6 +47,7 @@ the equivalent GS1 DL URI would look as follows: "https://id.gs1.org/8003/040000
 ** ??? tradability (true or false) ==> TBD: IMO, captured through exchange events, but not troggering a voucher as they are not tradable in the first place 
 
 === Master data
+- Data format: GS1 Smart Search, expressed as JSON-LD  
 
 ==== Parties
 - GS1 Key: PGLN (Global Location Number for Parties)
