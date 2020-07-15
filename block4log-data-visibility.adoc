@@ -46,6 +46,10 @@ the equivalent GS1 DL URI would look as follows: "https://id.gs1.org/8003/040000
 ** ??? status (redeemed | expired) ==> TBD: could be enabled through a smart contract that automatically sets the status to 'expired' if validThrough date is exceeded. 
 ** ??? tradability (true or false) ==> TBD: IMO, captured through exchange events, but not troggering a voucher as they are not tradable in the first place 
 
+=== Notarised hashes 
+- For Load Carrier Exchange Events 
+- For Vouchers
+
 === Master data
 - Data format: GS1 Smart Search, expressed as JSON-LD  
 
