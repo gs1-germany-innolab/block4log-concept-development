@@ -80,7 +80,7 @@ the equivalent GS1 DL URI would look as follows: "https://id.gs1.org/8003/040000
 - GS1 Key: GDTI (Global Document Type Identifier, without serial number part)
 - Master data attributes:
 *** Document name (String, e.g. 'Load carrier voucher')
-*** Valid through (Date, e.g. '2021-08-02')
+*** Validity period (e.g. 12 months) 
 *** Name of issuer
 *** ??? tbd
 
