@@ -39,8 +39,9 @@ the equivalent GS1 DL URI would look as follows: "https://id.gs1.org/8003/040000
 ** deptor (PGLN)
 ** creditor (PGLN)
 ** qualityLevel (A, B, or C)
+** transactionHistory (list of double-signed transactions of former vouchers)
+** eventHashes (list of underlying logistics unit exchange events) 
 ** ??? tradability (true or false)
-** ??? Sebastian: "history of double signed transactions => All former holders"
 ** ??? Sebastian: "voucher resolution (EOL) if applicable"
 
 === Master data
