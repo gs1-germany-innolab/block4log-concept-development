@@ -52,6 +52,7 @@ the equivalent GS1 DL URI would look as follows: "https://id.gs1.org/8003/040000
 
 === Master data
 - Data format: GS1 Smart Search, expressed as JSON-LD  
+- Illustrative examples: link:masterDataExamples[Master Data Examples]
 
 ==== Parties
 - GS1 Key: PGLN (Global Location Number for Parties)
