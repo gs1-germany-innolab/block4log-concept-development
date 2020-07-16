@@ -1,0 +1,89 @@
+{
+    "@context": {
+        "gs1": "http://gs1.org/voc/",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "@vocab": "http://gs1.org/voc/"
+    },
+    "@type": "gs1:Organization",
+    "@id": "https://id.gs1.org/417/4012345000009",
+    "organizationName": [
+        {
+            "@value": "Example",
+            "@language": "en"
+        },
+        {
+            "@value": "Example",
+            "@language": "de"
+        }
+    ],
+    "organizationRole": "gs1:OrganizationRole-MANUFACTURER_OF_GOODS",
+    "globalLocationNumber": "4012345000009",
+    "address": [
+        {
+            "streetAddress": [
+                {
+                    "@value": "Musterstr. 123",
+                    "@language": "en"
+                },
+                {
+                    "@value": "Musterstr. 123",
+                    "@language": "de"
+                }
+            ],
+            "addressLocality": [
+                {
+                    "@value": "Cologne",
+                    "@language": "en"
+                },
+                {
+                    "@value": "Köln",
+                    "@language": "de"
+                }
+            ],
+            "countyCode": "DE",
+            "postalCode": "54321",
+            "@type": "gs1:PostalAddress"
+        }
+    ],
+    "location": [
+        {
+            "globalLocationNumber": "4012345000115",
+            "address": {
+                "organizationName": [
+                    {
+                        "@value": "Example Site Berlin",
+                        "@language": "en"
+                    },
+                    {
+                        "@value": "Example Standort Berlin",
+                        "@language": "de"
+                    }
+                ],
+                "streetAddress": [
+                    {
+                        "@value": "Mustermannstr. 1",
+                        "@language": "en"
+                    },
+                    {
+                        "@value": "Mustermannstr. 1",
+                        "@language": "de"
+                    }
+                ],
+                "addressLocality": [
+                    {
+                        "@value": "Berlin",
+                        "@language": "en"
+                    },
+                    {
+                        "@value": "Berlin",
+                        "@language": "de"
+                    }
+                ],
+                "countyCode": "DE",
+                "postalCode": "33333",
+                "@type": "gs1:PostalAddress"
+            },
+            "@type": "gs1:Place"
+        }
+    ]
+}
