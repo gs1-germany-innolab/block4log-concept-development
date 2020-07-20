@@ -1,16 +1,39 @@
-name: AsciiDoc to Pdf Compilation
+name: PDF Compilation
 
 on:
   push:
     branches: [ master ]
 
 jobs:
-  build:
+  md_compile:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        doc: ["epcisMessageSpecification", "attributeCompletenessCheck"]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup Node.js environment
+      uses: actions/setup-node@v1.4.2
+
+    - name: PDF Compilation
+      run: |
+        npm install -g markdown-pdf
+        markdown-pdf -f A4 ${{ matrix.doc }}.md
+
+    - name: Save PDF
+      uses: actions/upload-artifact@v1
+      with:
+        name: Block4Log-Concepts
+        path: ${{ matrix.doc }}.pdf
+
+  adoc_compile:
     runs-on: ubuntu-latest
     
     strategy:
       matrix:
-        doc: ["block4log-data-visibility"]
+        doc: ["block4log-data-visibility", "zero-knowledge-notarization"]
 
     steps:
     - uses: actions/checkout@v2
@@ -24,7 +47,7 @@ jobs:
     - name: Save PDF
       uses: actions/upload-artifact@v1
       with:
-        name: ${{ matrix.doc }}.pdf
+        name: Block4Log-Concepts
         path: ${{ matrix.doc }}.pdf
 
 

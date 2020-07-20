@@ -1,0 +1,94 @@
+= Zero-Knowledge Notarization
+Sebastian Schmittner <sebastian.schmittner@eecc.de>
+:toc:
+:icons: font
+:xrefstyle: short
+:imagesdir: pix/
+:tip-caption: 💡
+:note-caption: ℹ️
+:important-caption: ❗
+:caution-caption: 🔥
+:warning-caption: ⚠️
+
+
+[[ZKN_General]]
+== General Idea
+
+The following technical concept, as developed independently by SAP/EECC/others,
+can be applied to notarize data without giving up full fine grained access
+control, hence data ownership. In this sense, the proof of data integrity is
+"zero-knowledge", i.e. integrity of the data is secured without revealing any of
+the data itself.
+
+In <<EPCIS_Example>>, a simple shipping event with source and destination is shown. Events in Block4Log will have quantities instead of individual EPCs in the "What?" dimension, but this is a minor point.
+
+.Quantity Element for asset classes without serial IDs
+[source,xml]
+<extension>
+    <quantityList>
+        <quantityElement>
+            <epcClass>urn:epc:class:lgtin:4054739.099914.20160711</epcClass>
+            <quantity>600</quantity>
+        </quantityElement>
+    </quantityList>
+</extension>
+
+New EPCIS 2.0 JSON/JSON-LD structure (WIP!)
+"quantityList": [
+    {
+        "epcClass": "urn:epc:idpat:grai:4000001.11111.\*",
+        "quantity": 60
+    }
+]
+
+
+[[EPCIS_Example]]
+.EPCIS Event Example
+image::EPCIS-example.png[EPCIS Event Example]
+
+
+<<EPCIS_Hash>> shows how a hash tree is constructed by first hashing all
+individual Fields and then concatenating the hashes and hashing again to get to
+the next level. Here, a flat tree with only one layer below the root is used for
+simplicity. Very large data objects are more efficiently hashed into deeper
+trees.
+
+[[EPCIS_Hash]]
+.(Flat) Hash Tree
+image::EPCIS-hash-tree.png[EPCIS Event Example]
+
+When the data owner, say Alice, chooses to reveal some data to Bob, say, she can
+reveal the hashes of the values that should be kept secret together with the
+clear text she wants to reveal, see <<EPCIS_Sharing>>. Bob can then hash the clear text, concatenate
+with the revealed hashes and check that hashing the concatenation yields the
+root hash. This way, he can verify that the revealed data is the same that
+entered the original root hash. If the root hash is obtained from a trusted
+Notary, in our case from a Block Chain, Bob can trust in the data from Alice not
+being changed after notarization.
+
+[[EPCIS_Sharing]]
+.Selectively revealing (yellow) only some fields and intermediate hashes(yellow) is a zero-knowledge proof of the data integrity of the revealed values
+image::EPCIS-hash-tree-sharing.png[EPCIS Event Example]
+
+
+
+== EPCIS Sanitization
+
+GS1 Germany currently develops an updated concept for an EPCIS Discovery Service. A fundamental idea is that some part of the data in an EPCIS event which is not sensitive can be published as a "sanitized event". Some values in the sanitized event are hashed following the idea of section <<ZKN_General>>. The algorithm that is exemplified in <<Sanitization>> is similar to the idea shown in <<EPCIS_Sharing>> but for the set of fields that are excluded, hidden or public being fixed.
+
+[[Sanitization]]
+.A sanitized event is a header type data structure which only contains non-sensitive information needed to verify a chain of custody. Some of the fields are hashed. A hash of the full event is included.
+image::sanitization.png[EPCIS Event Example]
+
+Since the sanitized event contains a hash of the full event, it is sufficient to
+publish the root hash of the sanitized event in order to enable full
+verification. This concept is a little more complicated and less powerful than
+the general idea outlined in section <<ZKN_General>> above, but it follows GS1 standard and provides clear guidance on what to include/hide in publishing partial EPCIS information.
+
+
+=== EPCIS Discovery Service
+
+An (EPCIS) repository (might be distributed) that contains only sanitized events
+together with information about service endpoints/protocols to ask for the
+hidden data is called a discovery service. For the use case of tracking the
+chain of custody of a serialized item, this is very useful. In Block4Log, it needs to be evaluated whether the sanitized events as such add any value.
