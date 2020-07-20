@@ -13,40 +13,80 @@ Sebastian Schmittner <sebastian.schmittner@eecc.de>
 
 == Data in Block4Log
 
-The following types of data are going to be handled within Block4Log:
+Block4Log is concerned with essentially 3 types of data. Confidential documents,
+such as Load Carrier (LC) exchange documents, "tokens" which document ownership,
+e.g. of debt certificates, and (Block4Lock) public announcements, such a
+request/offer for an amount of pallets at a specific location.
+
 
 === Load carrier exchange events
-- Data format: EPCIS
-- Double-signed by both exchange parties
-- Specification: link:epcisMessageSpecification.md[EPCIS Message Specification]
-- Message examples: link:epcisMessageExamples[EPCIS Message Examples]
-** Note: only Option1_XML_URN.xml is currently GS1 standard compliant
-** JSON/JSON-LD is still WIP in EPCIS/CBV 2.0
-** Also, the EPCIS/CBV 2.0 working group considers to allow GS1 Digital Link URIs in addition to EPC URNs.
-* Example: instead of "urn:epc:idpat:grai:4000001.11111.\*", 
+
+Tracking of Load Carrier (LC) exchange events is a primary concern of Block4Log. The exchange (arriving and departure) of a certain number of load carriers of a certain type/quality at a specific location and time is documented using GS1 standard data formats, in particular EPCIS events with a structure following the standard GS1 Pallet Voucher <<gs1_pallet_voucher>>.
+
+- Signed by *both* exchanging parties
+
+==== Data format:
+
+-  EPCIS
+
+- Specification: https://github.com/gs1-germany-innolab/block4log-concept-development/blob/master/epcisMessageSpecification.md
+- Message examples:  https://github.com/gs1-germany-innolab/block4log-concept-development/tree/master/epcisMessageExamples
+** `Option1_XML_URN.xml` is currently EPCIS 1.2 standard compliant
+** JSON(-LD) is still WIP in EPCIS/CBV 2.0, likely to be released in 2020
+** In EPCIS 2.0 using the digital link form of a GS1 ID might be allowed/favorable
+* Example: instead of "urn:epc:idpat:grai:4000001.11111.*", 
 the equivalent GS1 DL URI would look as follows: "https://id.gs1.org/8003/04000001111114".
-* The latter had the OPTION to enter resolvable links into GS1's Resolver Service.
+* The latter has the OPTION to enter resolvable links into GS1's Resolver Service.
 * For instance, these links could point to master data of a given party, location, or asset.
 
-=== Vouchers
-- Created if there is a discrepancy between arriving and departing load carriers that cannot be resolved through existing vouchers
-- Can be appended (e.g. to reduce the number of owed quantities or redeem a given voucher)  
-- Creation and any update must be double-signed (by passing through multi-signatures which are also used for the underlying exchange events) and tied to actual business processes (e.g. a physical or virtual exchange of assets between two parties)
-- Data format: B4L-specific  
+==== Visibility
+
+* All voucher data, including meta data, might be business relevant (revealing
+trade relations/volumes)
+** Full read access control by signing parties required
+
+
+=== Debt Tokens
+
+Block4Log digitizes a certificate of debt which certifies that the debitor who
+emitted the token owes a given number of LCs of a given type/quality to the
+token owner. Debt tokens are created if there is a discrepancy between the
+number of arriving and departing LCs.
+
+- The feature of creating tradable debt tokens is to be opt-in optional.
+- Any party can issue (create) debt tokens.
+- The issuer is automatically the debitor.
+- Whenever the issuer (debitor) is the owner, he can destroy (redeem) the token
+- Tokens have a valid through date beyond which they automatically become invalid
+
+- Standard token mechanics apply, i.e.
+* Any exchange of tokens must be double-signed
+* A owner must be able to produce a complete chain of direct token transfers from the issuer (debitor) to himself
+ 
+ - Token transactions in Block4Log are tied to actual business processes, i.e. a physical or virtual exchange of assets between two parties
+- Data format: TBD, Block Chain Technology dependent
+* Might be ERC20 (backed) or Block4Log internal
+
 - Attributes: 
-** GDTI (Global Document Type Identifier, with serial number), using the deptor's GS1 Company Prefix
+** GDTI (Global Document Type Identifier, with serial number), using the debtor's GS1 Company Prefix
+*** TBD: Individual document ID Vs fungible tokens
 ** deptor (PGLN)
-** creditor (PGLN)
-** creationDate (Date)
+** TBD: creationDate (Date)
+*** Issuing transaction carries a timestamp anyway
 ** validThrough (Date)
 ** load carrier (GRAI) 
 ** qualityLevel (A, B, or C)
-** quantity (list of [positive integers | 0])
-** eventHashes (list of underlying logistics unit exchange events) 
-** ??? status (redeemed | expired) ==> TBD: could be enabled through a smart contract that automatically sets the status to 'expired' if validThrough date is exceeded. 
-** ??? tradability (true or false) ==> TBD: IMO, captured through exchange events, but not troggering a voucher as they are not tradable in the first place 
+** TBD: quantity (positive integer)
+*** Or one token per LC debt?
+** TBD: eventHashes (list of underlying logistics unit exchange events) 
+** Tradable (bool)
+*** TBD: Do not issue non-tradable tokens in the first place
+
+
 
 === Public Announcements
+
+To facilitate 
 
 - All such announcements are opt-in optional
 
@@ -112,10 +152,22 @@ the equivalent GS1 DL URI would look as follows: "https://id.gs1.org/8003/040000
 *** ??? tbd
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 == Data Visibility Constraints
 
-* All voucher data might be business relevant (revealing trade relations/volumes) 
-** Full read access control by signing parties required
 
 * Debt Notes
 ** Visibility constraints to be discussed
@@ -160,3 +212,15 @@ To publish data within the Consortium in a public blackboard like fashion, we
 may use existing block chain technology (Hyperledger, etc.) or also simpler
 methods such as EPCIS repositories + discovery, MQTT or other Message brokers,
 etc. 
+
+
+
+
+
+
+[bibliography]
+=== Quellenangaben
+
+- [[[gs1_pallet_voucher,1]]] https://www.gs1-germany.de/fileadmin/gs1/basis_informationen/standardisierter_gs1_palettenschein.pdf
+
+WARNING: EN Version?
