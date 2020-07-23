@@ -23,6 +23,10 @@ Note: the URI prefix "gs1" expands to "https://gs1.org/voc/"
 |  __`addressLocality` | List of 1...n dictionaries |
 |  ____`value` | City (`String`) |
 |  ____`language` | ISO 639-1 alpha-2 language code (`CodeValue`) |
-|  __`countyCode` | ISO 3166-1 alpha-2 country code (`CodeValue`) |
-|  __`postalCode` | postal or zip code  (`String`) |
-|  __`type` | `gs1:PostalAddress`) |
+|  __`postalCode` | Postal or zip code  (`String`) |
+|  __`addressCountry` | Dictionary |
+|  ____`countryCode` | ISO 3166-1 alpha-2 country code (`CodeValue`) |
+|  ____`type` | `gs1:Country` |
+|  __`type` | `gs1:PostalAddress` |
+
+## Location Master Data
