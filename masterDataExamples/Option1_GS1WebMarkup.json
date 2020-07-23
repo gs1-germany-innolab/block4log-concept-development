@@ -99,9 +99,10 @@
 },
 {
     "@context": {
+        "s": "https://schema.org/",
         "@vocab": "https://schema.org/"
     },
-    "@type": "Thing",
+    "@type": "s:Thing",
     "@id": "https://id.gs1.org/8003/04012345111118",
     "identifier": "04012345111118",
     "name": "E1 Performance Tray",
