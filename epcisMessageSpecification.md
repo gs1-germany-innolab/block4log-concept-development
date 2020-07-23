@@ -1,4 +1,4 @@
-# Message Specification
+# EPCIS Message Specification
 
 For all of the following message specifications, the folder [EPCIS message examples](epcisMessageExamples) contains illustrative examples.
 
