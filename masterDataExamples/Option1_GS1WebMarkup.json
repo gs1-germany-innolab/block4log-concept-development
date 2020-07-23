@@ -1,22 +1,22 @@
+[
 {
     "@context": {
-        "gs1": "http://gs1.org/voc/",
-        "xsd": "http://www.w3.org/2001/XMLSchema#",
-        "@vocab": "http://gs1.org/voc/"
+        "gs1": "https://gs1.org/voc/",
+        "xsd": "https://www.w3.org/2001/XMLSchema#",
+        "@vocab": "https://gs1.org/voc/"
     },
     "@type": "gs1:Organization",
     "@id": "https://id.gs1.org/417/4012345000009",
     "organizationName": [
         {
-            "@value": "Example",
+            "@value": "Example Corp",
             "@language": "en"
         },
         {
-            "@value": "Example",
+            "@value": "Example AG",
             "@language": "de"
         }
     ],
-    "organizationRole": "gs1:OrganizationRole-MANUFACTURER_OF_GOODS",
     "globalLocationNumber": "4012345000009",
     "address": [
         {
@@ -40,50 +40,61 @@
                     "@language": "de"
                 }
             ],
-            "countyCode": "DE",
             "postalCode": "54321",
+            "addressCountry": {
+                "countryCode": "DE",
+                "@type": "gs1:Country"
+            },
             "@type": "gs1:PostalAddress"
         }
-    ],
-    "location": [
-        {
-            "globalLocationNumber": "4012345000115",
-            "address": {
-                "organizationName": [
-                    {
-                        "@value": "Example Site Berlin",
-                        "@language": "en"
-                    },
-                    {
-                        "@value": "Example Standort Berlin",
-                        "@language": "de"
-                    }
-                ],
-                "streetAddress": [
-                    {
-                        "@value": "Mustermannstr. 1",
-                        "@language": "en"
-                    },
-                    {
-                        "@value": "Mustermannstr. 1",
-                        "@language": "de"
-                    }
-                ],
-                "addressLocality": [
-                    {
-                        "@value": "Berlin",
-                        "@language": "en"
-                    },
-                    {
-                        "@value": "Berlin",
-                        "@language": "de"
-                    }
-                ],
-                "countyCode": "DE",
-                "postalCode": "33333",
-                "@type": "gs1:PostalAddress"
-            },
-            "@type": "gs1:Place"
-        }
     ]
+},
+{
+    "@context": {
+        "gs1": "https://gs1.org/voc/",
+        "xsd": "https://www.w3.org/2001/XMLSchema#",
+        "@vocab": "https://gs1.org/voc/"
+    },
+    "@type": "gs1:Place",
+    "globalLocationNumber": "4012345000115",
+    "@id": "https://id.gs1.org/414/4012345000115",
+    "address": {
+        "organizationName": [
+            {
+                "@value": "Example Corp, Site Berlin",
+                "@language": "en"
+            },
+            {
+                "@value": "Example AG, Standort Berlin",
+                "@language": "de"
+            }
+        ],
+        "streetAddress": [
+            {
+                "@value": "Mustermannstr. 1",
+                "@language": "en"
+            },
+            {
+                "@value": "Mustermannstr. 1",
+                "@language": "de"
+            }
+        ],
+        "addressLocality": [
+            {
+                "@value": "Berlin",
+                "@language": "en"
+            },
+            {
+                "@value": "Berlin",
+                "@language": "de"
+            }
+        ],
+        "postalCode": "33333",
+        "addressCountry": {
+            "countryCode": "DE",
+            "@type": "gs1:Country"
+        },
+        "@type": "gs1:PostalAddress"
+    }
 }
+]
