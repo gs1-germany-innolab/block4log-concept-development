@@ -111,59 +111,9 @@ To facilitate
 
 === Master data
 - Data format: GS1 Smart Search, expressed as JSON-LD  
+- Parties, Locations, Load carriers, Voucher documents
+- Specifaction: 
 - Illustrative examples: link:masterDataExamples[Master Data Examples]
-
-==== Parties
-- GS1 Key: PGLN (Global Location Number for Parties)
-- Master data attributes:
-*** Party name
-*** Headquarters address
-** Street address one
-** City 
-** Postal code 
-** Country code (ISO 3166-1 Alpha-2 code)
-
-==== Locations
-- GS1 Key: SGLN (Global Location Number for Physical Locations, without extension)
-- Master data attributes:
-*** Location name
-*** Address of physical location
-** Street address one
-** City 
-** Postal code 
-** Country code (ISO 3166-1 Alpha-2 code)
-
-==== Load Carriers
-- GS1 Key: GRAI (Global Returnable Asset Identifier, without serial number part)
-- Master data attributes:
-*** Load carrier name
-*** ??? Name of owning party (open pools)/manufacturer (open pools)
-*** ??? Specification/Standard (ideally: Web Reference)
-*** ??? Image
-*** ??? Dimensions (length/width/depth)
-*** ??? tbd
-
-==== Voucher documents
-- GS1 Key: GDTI (Global Document Type Identifier, without serial number part)
-- Master data attributes:
-*** Document name (String, e.g. 'Load carrier voucher')
-*** Validity period (e.g. 12 months) 
-*** Name of issuer
-*** ??? tbd
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 == Data Visibility Constraints
