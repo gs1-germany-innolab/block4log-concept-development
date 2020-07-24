@@ -2,9 +2,11 @@
 
 For all of the following message specifications, the folder [master data examples](masterDataExamples) contains illustrative examples.
 
-The underlying standards to express master data in B4L is [GS1 Smart Search](https://www.gs1.org/standards/gs1-smartsearch/1-6) in conjunction with the [GS1 Web Vocabulary](https://www.gs1.org/gs1-web-vocabulary), the first official extension to [Schema.org](https://schema.org/).
+The underlying standards to express master data in B4L is [GS1 Smart Search](https://www.gs1.org/standards/gs1-smartsearch/1-6) in conjunction with [schema.org](https://schema.org/) and the [GS1 Web Vocabulary](https://www.gs1.org/gs1-web-vocabulary), the first external extension of schema.org .
 
-Note: the URI prefix "gs1" expands to "https://gs1.org/voc/"
+Note:
+* URI prefix "gs1" expands to "https://gs1.org/voc/"
+* URI prefix "s" expands to "https://schema.org/"
 
 ## Party Master Data
 
@@ -51,3 +53,26 @@ Note: the URI prefix "gs1" expands to "https://gs1.org/voc/"
 |  ____`countryCode` | ISO 3166-1 alpha-2 country code (`CodeValue`) |
 |  ____`type` | `gs1:Country` |
 |  __`type` | `gs1:PostalAddress` |
+
+## Load Carrier Master Data
+
+| Data Element | Description |
+| --- | -- |
+| `type` | `s:Thing` |
+| `id` | Canonical GS1 Digital Link URI `https://id.gs1.org/8003/{GRAI (without serial number)}` |
+| `identifier` | `GRAI` (^\d{14}$) |
+| `name` | Load carrier name (`String`) |
+| `description` | Load carrier description (`String`) |
+| `image` | URL pointing to an image of the load carrier (`URL`) |
+| `url` | URL pointing to the load carrier's specification (`URL`) |
+
+## Voucher Document Master Data
+
+| Data Element | Description |
+| --- | -- |
+| `type` | `s:DigitalDocument` |
+| `id` | Canonical GS1 Digital Link URI `https://id.gs1.org/253/{GDTI (without serial number)}` |
+| `identifier` | `GDTI` (^\d{13}$) |
+| `name` | Voucher document name (`String`) |
+| `temporalCoverage` | Validity period (beginning with the date of creation of an instance), expressed as an ISO 8601 duration indicator with a year, month or day designator (`P[n]Y[n]M[n]D`) |
+| `creator` | Canonical GS1 Digital Link URI `https://id.gs1.org/417/{Party GLN}` pointing to the owner of the GS1 Company Prefix with which GDTI is created |
