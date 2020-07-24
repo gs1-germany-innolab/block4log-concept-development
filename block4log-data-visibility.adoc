@@ -112,7 +112,7 @@ To facilitate
 === Master data
 - Data format: GS1 Smart Search, expressed as JSON-LD  
 - Parties, Locations, Load carriers, Voucher documents
-- Specifaction: 
+- Specifaction: link:masterDataSpecification.md[Master Data Specification]
 - Illustrative examples: link:masterDataExamples[Master Data Examples]
 
 
