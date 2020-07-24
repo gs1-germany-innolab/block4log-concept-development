@@ -28,9 +28,8 @@ Tracking of Load Carrier (LC) exchange events is a primary concern of Block4Log.
 ==== Data format:
 
 -  EPCIS
-
-- Specification: https://github.com/gs1-germany-innolab/block4log-concept-development/blob/master/epcisMessageSpecification.md
-- Message examples:  https://github.com/gs1-germany-innolab/block4log-concept-development/tree/master/epcisMessageExamples
+- Specifaction: link:epcisMessageSpecification.md[EPCIS Message Specification]
+- Illustrative examples: link:epcisMessageExamples[EPCIS Message Examples]
 ** `Option1_XML_URN.xml` is currently EPCIS 1.2 standard compliant
 ** JSON(-LD) is still WIP in EPCIS/CBV 2.0, likely to be released in 2020
 ** In EPCIS 2.0 using the digital link form of a GS1 ID might be allowed/favorable
