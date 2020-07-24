@@ -58,7 +58,7 @@ Note:
 
 | Data Element | Description |
 | --- | -- |
-| `type` | `s:Thing` |
+| `type` | `Thing` |
 | `id` | Canonical GS1 Digital Link URI `https://id.gs1.org/8003/{GRAI (without serial number)}` |
 | `identifier` | `GRAI` (^\d{14}$) |
 | `name` | Load carrier name (`String`) |
@@ -70,7 +70,7 @@ Note:
 
 | Data Element | Description |
 | --- | -- |
-| `type` | `s:DigitalDocument` |
+| `type` | `DigitalDocument` |
 | `id` | Canonical GS1 Digital Link URI `https://id.gs1.org/253/{GDTI (without serial number)}` |
 | `identifier` | `GDTI` (^\d{13}$) |
 | `name` | Voucher document name (`String`) |
