@@ -109,5 +109,17 @@
     "description": "Reusable tray for meat. Outside dimensions (L/W/H): 598 x 398.5 x 126 mm. Weight: 1.5 KGM. Filling weight: 12.5 KGM. Colour: light blue (pantone 298c).",
     "image": "https://www.gs1-germany.de/fileadmin/gs1/pressemitteilungen/2014/E1_E2_E3_quadratisch.jpg",
     "url": "https://www.gs1-germany.de/gs1-standards/umsetzung/fachpublikationen/detailansicht/typbeschreibung-e1-e3-performance-behaelter-in-der-fleischbranche/artikelnummer/4000001022052/"
+},
+{
+    "@context": {
+        "s": "https://schema.org/",
+        "@vocab": "https://schema.org/"
+    },
+    "@type": "s:DigitalDocument",
+    "@id": "https://id.gs1.org/253/4012345555554",
+    "identifier": "4012345555554",
+    "name": "Load carrier voucher",
+    "temporalCoverage": "P1Y", 
+    "creator": "https://id.gs1.org/417/4012345000009"    
 }
 ]
