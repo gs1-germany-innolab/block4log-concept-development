@@ -102,7 +102,7 @@
         "s": "https://schema.org/",
         "@vocab": "https://schema.org/"
     },
-    "@type": "s:Thing",
+    "@type": "Thing",
     "@id": "https://id.gs1.org/8003/04012345111118",
     "identifier": "04012345111118",
     "name": "E1 Performance Tray",
@@ -115,7 +115,7 @@
         "s": "https://schema.org/",
         "@vocab": "https://schema.org/"
     },
-    "@type": "s:DigitalDocument",
+    "@type": "DigitalDocument",
     "@id": "https://id.gs1.org/253/4012345555554",
     "identifier": "4012345555554",
     "name": "Load carrier voucher",
