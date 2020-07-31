@@ -6,14 +6,18 @@ The underlying standards to express master data in B4L is [GS1 Smart Search](htt
 
 Note:
 * URI prefix "gs1" expands to "https://gs1.org/voc/"
-* URI prefix "s" expands to "https://schema.org/"
+* URI prefix "schema" expands to "https://schema.org/"
 
 ## Party Master Data
 
 | Data Element | Description |
 | --- | -- |
-| `type` | `gs1:Organization` |
-| `id` | Canonical GS1 Digital Link URI `https://id.gs1.org/417/{Party GLN}` |
+| `context` | Dictionary |
+| __`gs1` | "https://gs1.org/voc/" |
+| __`xsd` | "https://www.w3.org/2001/XMLSchema#" |
+| __`@vocab` | "https://gs1.org/voc/" |
+| `@type` | `gs1:Organization` |
+| `@id` | Canonical GS1 Digital Link URI `https://id.gs1.org/417/{Party GLN}` |
 | `globalLocationNumber` | `GLN` (^\d{13}$) |
 | `organizationName` | List of 1...n dictionaries |
 | __`value` | Organisation name (`String`) |
