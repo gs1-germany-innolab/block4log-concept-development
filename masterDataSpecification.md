@@ -2,7 +2,9 @@
 
 For all of the following message specifications, the folder [master data examples](masterDataExamples) contains illustrative examples.
 
-The underlying standards to express master data in B4L is [GS1 Smart Search](https://www.gs1.org/standards/gs1-smartsearch/1-6) in conjunction with [schema.org](https://schema.org/) and the [GS1 Web Vocabulary](https://www.gs1.org/gs1-web-vocabulary), the first external extension of schema.org .
+The underlying standards to express master data in B4L is [GS1 Smart Search](https://www.gs1.org/standards/gs1-smartsearch/1-6) in conjunction with [schema.org](https://schema.org/) and the [GS1 Web Vocabulary](https://www.gs1.org/gs1-web-vocabulary), the first external extension of schema.org.
+
+Structured Data Testing Tool: https://search.google.com/structured-data/testing-tool
 
 Note:
 * URI prefix "gs1" expands to "https://gs1.org/voc/"
@@ -39,6 +41,10 @@ Note:
 
 | Data Element | Description |
 | --- | -- |
+| `context` | Dictionary |
+| __`gs1` | "https://gs1.org/voc/" |
+| __`xsd` | "https://www.w3.org/2001/XMLSchema#" |
+| __`@vocab` | "https://gs1.org/voc/" |
 | `type` | `gs1:Place` |
 | `id` | Canonical GS1 Digital Link URI `https://id.gs1.org/414/{Physical Location GLN}` |
 | `globalLocationNumber` | `GLN` (^\d{13}$) |
@@ -62,13 +68,24 @@ Note:
 
 | Data Element | Description |
 | --- | -- |
-| `type` | `Thing` |
-| `id` | Canonical GS1 Digital Link URI `https://id.gs1.org/8003/{GRAI (without serial number)}` |
-| `identifier` | `GRAI` (^\d{14}$) |
-| `name` | Load carrier name (`String`) |
-| `description` | Load carrier description (`String`) |
-| `image` | URL pointing to an image of the load carrier (`URL`) |
-| `url` | URL pointing to the load carrier's specification (`URL`) |
+| `context` | Dictionary |
+| __`dcterms` | "http://purl.org/dc/terms/" |
+| __`foaf` | "http://xmlns.com/foaf/0.1/" |
+| __`skos` | "http://www.w3.org/2004/02/skos/core#" |
+| __`schema` | "http://schema.org/" |
+| __`xsd` | "https://www.w3.org/2001/XMLSchema#" |
+| `@type` | `schema:Thing` |
+| `@id` | Canonical GS1 Digital Link URI `https://id.gs1.org/8003/{GRAI (without serial number)}` |
+| `schema:identifier` | Dictionary |
+| __`@type` | `PropertyValue` |
+| ____`propertyID` | `https://www.gs1.org/standards/id-keys/grai` |
+| ____`value` | `04012345111118` |
+| `dcterms:title` | Load carrier name (`String`) |
+| `dcterms:description` | List of 1...n dictionaries |
+|  __`value` | Load carrier description (`String`)  |
+|  __`language` | ISO 639-1 alpha-2 language code (`CodeValue`) |
+| `skos:Concept` | Load carrier asset type (`CodeValue`) |
+| `foaf:Document` | URL pointing to the load carrier's specification (`URL`) |
 
 ## Voucher Document Master Data
 

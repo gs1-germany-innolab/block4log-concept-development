@@ -99,16 +99,32 @@
 },
 {
     "@context": {
-        "s": "https://schema.org/",
-        "@vocab": "https://schema.org/"
+        "dcterms": "http://purl.org/dc/terms/", 
+        "foaf": "http://xmlns.com/foaf/0.1/",
+        "schema": "https://schema.org/",
+        "skos": "http://www.w3.org/2004/02/skos/core#",
+        "xsd": "https://www.w3.org/2001/XMLSchema#"
     },
-    "@type": "Thing",
+    "@type": "schema:Thing",
     "@id": "https://id.gs1.org/8003/04012345111118",
-    "identifier": "04012345111118",
-    "name": "E1 Performance Tray",
-    "description": "Reusable tray for meat. Outside dimensions (L/W/H): 598 x 398.5 x 126 mm. Weight: 1.5 KGM. Filling weight: 12.5 KGM. Colour: light blue (pantone 298c).",
-    "image": "https://www.gs1-germany.de/fileadmin/gs1/pressemitteilungen/2014/E1_E2_E3_quadratisch.jpg",
-    "url": "https://www.gs1-germany.de/gs1-standards/umsetzung/fachpublikationen/detailansicht/typbeschreibung-e1-e3-performance-behaelter-in-der-fleischbranche/artikelnummer/4000001022052/"
+    "schema:identifier": {
+        "@type": "PropertyValue",
+          "propertyID": "https://www.gs1.org/standards/id-keys/grai",
+          "value":  "04012345111118"
+          },
+    "dcterms:title": "E1 Performance Tray",
+    "dcterms:description": [
+        {
+            "@value": "Reusable tray for meat. Outside dimensions (L/W/H): 598 x 398.5 x 126 mm. Weight: 1.5 KGM. Filling weight: 12.5 KGM. Colour: light blue (pantone 298c).",
+            "@language": "en"
+        },
+        {
+            "@value": "Mehrweg-Ladungsträger für Fleisch. Außenmaße (L/B/H): 598 x 398,5 x 126 mm. Gewicht: 1,5 KGM. Füllgewicht: 12,5 KGM. Farbe: hellblau (Pantone 298c).",
+            "@language": "de"
+        }
+    ],
+    "skos:Concept": "b4l:E_1_PERFORMANCE_TRAY",
+    "foaf:Document": "https://www.gs1-germany.de/gs1-standards/umsetzung/fachpublikationen/detailansicht/typbeschreibung-e1-e3-performance-behaelter-in-der-fleischbranche/artikelnummer/4000001022052/"
 },
 {
     "@context": {
