@@ -16,8 +16,8 @@ tbc:`CodeValue` expands to: https://{domain/sub domain name tbd}/`CodeValue`
 | Code Value | Name | Description and URI |
 | --- | --- | ---|
 | `E_1_PERFORMANCE_TRAY` | E1 Performance Tray | Reusable meat tray 'E Performance 1' according to GS1 Germany Type Specification `tbd:E_1_PERFORMANCE_TRAY` |
-| `E_2_PERFORMANCE_TRAY` | E2 Performance Tray | Reusable meat tray 'E Performance 1' according to GS1 Germany Type Specification `tbd:E_2_PERFORMANCE_TRAY` |
-| `E_3_PERFORMANCE_TRAY` | E3 Performance Tray | Reusable meat tray 'E Performance 1' according to GS1 Germany type specification `tbd:E_3_PERFORMANCE_TRAY` |
+| `E_2_PERFORMANCE_TRAY` | E2 Performance Tray | Reusable meat tray 'E Performance 2' according to GS1 Germany Type Specification `tbd:E_2_PERFORMANCE_TRAY` |
+| `E_3_PERFORMANCE_TRAY` | E3 Performance Tray | Reusable meat tray 'E Performance 3' according to GS1 Germany type specification `tbd:E_3_PERFORMANCE_TRAY` |
 | `EUR_1_PALLET` | EUR 1 | Euro-pallet 'EUR 1' according to European Pallet Association (EPAL) specification `tbd:EUR_1_PALLET` |
 | `EUR_2_PALLET` | EUR 2 | Euro-pallet 'EUR 2' according to European Pallet Association (EPAL) specification `tbd:EUR_2_PALLET` |
 | `EUR_3_PALLET` | EUR 3 | Euro-pallet 'EUR 3' according to European Pallet Association (EPAL) specification `tbd:EUR_3_PALLET` |
