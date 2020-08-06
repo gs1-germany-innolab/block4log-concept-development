@@ -20,9 +20,8 @@ jobs:
       uses: actions/setup-node@v1.4.2
 
     - name: PDF Compilation
-      run: |
-        npm install -g markdown-pdf
-        markdown-pdf -f A4 ${{ matrix.doc }}.md
+      run: npm install -g markdown-pdf && markdown-pdf -f A4 -m '{"html":true, "breaks":false}' ${{ matrix.doc }}.md
+
 
     - name: Upload Release Asset
       id: upload-release-asset 
