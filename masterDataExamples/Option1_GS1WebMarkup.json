@@ -2,7 +2,6 @@
 {
     "@context": {
         "gs1": "https://gs1.org/voc/",
-        "xsd": "https://www.w3.org/2001/XMLSchema#",
         "@vocab": "https://gs1.org/voc/"
     },
     "@type": "gs1:Organization",
@@ -52,7 +51,6 @@
 {
     "@context": {
         "gs1": "https://gs1.org/voc/",
-        "xsd": "https://www.w3.org/2001/XMLSchema#",
         "@vocab": "https://gs1.org/voc/"
     },
     "@type": "gs1:Place",
@@ -101,18 +99,24 @@
     "@context": {
         "dcterms": "http://purl.org/dc/terms/", 
         "foaf": "http://xmlns.com/foaf/0.1/",
+        "gs1": "https://gs1.org/voc/",
         "schema": "https://schema.org/",
         "skos": "http://www.w3.org/2004/02/skos/core#",
-        "xsd": "https://www.w3.org/2001/XMLSchema#"
+        "xsd": "https://www.w3.org/2001/XMLSchema#",
+        "tbd": "https://tbd-placeholder-domain.com/voc/"
     },
     "@type": "schema:Thing",
     "@id": "https://id.gs1.org/8003/04012345111118",
     "schema:identifier": {
         "@type": "PropertyValue",
-          "propertyID": "https://www.gs1.org/standards/id-keys/grai",
-          "value":  "04012345111118"
+          "schema:propertyID": "https://www.gs1.org/standards/id-keys/grai",
+          "schema:value":  "04012345111118"
           },
     "dcterms:title": "E1 Performance Tray",
+    "gs1:manufacturer": {
+        "@type": "gs1:Organization",
+        "@id": "https://id.gs1.org/417/4012345000009"
+    },
     "dcterms:description": [
         {
             "@value": "Reusable tray for meat. Outside dimensions (L/W/H): 598 x 398.5 x 126 mm. Weight: 1.5 KGM. Filling weight: 12.5 KGM. Colour: light blue (pantone 298c).",
@@ -123,7 +127,24 @@
             "@language": "de"
         }
     ],
-    "skos:Concept": "b4l:E_1_PERFORMANCE_TRAY",
+    "schema:image": "https://pixabay.com/de/photos/europaletten-holz-stapel-paletten-3140420/",
+    "gs1:netWeight": {
+        "gs1:value": {
+            "@value": "1.5",
+            "@type": "xsd:float"
+        },
+        "gs1:unitCode": "KGM",
+        "@type": "gs1:QuantitativeValue"
+    },
+    "gs1:grossWeight": {
+        "gs1:value": {
+            "@value": "12.5",
+            "@type": "xsd:float"
+        },
+        "gs1:unitCode": "KGM",
+        "@type": "gs1:QuantitativeValue"
+    },
+    "skos:Concept": "tbd:E_1_PERFORMANCE_TRAY",
     "foaf:Document": "https://www.gs1-germany.de/gs1-standards/umsetzung/fachpublikationen/detailansicht/typbeschreibung-e1-e3-performance-behaelter-in-der-fleischbranche/artikelnummer/4000001022052/"
 },
 {

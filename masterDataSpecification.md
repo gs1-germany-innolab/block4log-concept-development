@@ -79,11 +79,27 @@ Note:
 | `schema:identifier` | Dictionary |
 | __`@type` | `PropertyValue` |
 | ____`propertyID` | `https://www.gs1.org/standards/id-keys/grai` |
-| ____`value` | `04012345111118` |
+| ____`value` | `GRAI` (^\d{14}$) |
 | `dcterms:title` | Load carrier name (`String`) |
+| `gs1:manufacturer` | Dictionary |
+| __`@type` | `gs1:Organization` |
+| __`@id` | Canonical GS1 Digital Link URI `https://id.gs1.org/417/{Party GLN}` |
 | `dcterms:description` | List of 1...n dictionaries |
 |  __`value` | Load carrier description (`String`)  |
 |  __`language` | ISO 639-1 alpha-2 language code (`CodeValue`) |
+| `schema:image` | Web URI pointing to the load carrier's image (`URL`) |
+| `gs1:netWeight` | Dictionary |
+| __`gs1:value` | Dictionary |
+| ____`@:value` | Quantitative value of the load carrier's net weight (`float`) |
+| ____`@:type` | `xsd:float` |
+| __`gs1:unitCode` | Measurement Unit according to UN/ECE Recommendation 20 (e.g. `KGM` for kilogram) |
+| __`@:type` | `gs1:QuantitativeValue` |
+| `gs1:grossWeight` | Dictionary |
+| __`gs1:value` | Dictionary |
+| ____`@:value` | Quantitative value of the load carrier's gross weight (`float`) |
+| ____`@:type` | `xsd:float` |
+| __`gs1:unitCode` | Measurement Unit according to UN/ECE Recommendation 20 (e.g. `KGM` for kilogram) |
+| __`@:type` | `gs1:QuantitativeValue` |
 | `skos:Concept` | Load carrier asset type (`CodeValue`) |
 | `foaf:Document` | URL pointing to the load carrier's specification (`URL`) |
 
