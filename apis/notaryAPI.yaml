@@ -1,0 +1,453 @@
+openapi: 3.0.1
+info:
+  title: Notary
+  description: The notary API of B4L.
+  version: "1.0"
+servers:
+- url: https://bl4.com
+paths:
+  /notaries:
+    get:
+      tags:
+      - notaries
+      summary: List notaries
+      description: List all notaries.
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/notary.Notary'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errors.HTTPJSONError'
+    post:
+      tags:
+      - notaries
+      summary: Create notary
+      description: Create new notary.
+      requestBody:
+        description: Notary Configuration
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/notary.Notary'
+        required: true
+      responses:
+        200:
+          description: OK
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errors.HTTPJSONError'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errors.HTTPJSONError'
+      x-codegen-request-body-name: request
+  /notaries/requests:
+    post:
+      tags:
+      - notarizations
+      summary: Create notarization request
+      description: Create new notarization request.
+      requestBody:
+        description: Notarization Request
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/notary.Request'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/notary.Response'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errors.HTTPJSONError'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errors.HTTPJSONError'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errors.HTTPJSONError'
+      x-codegen-request-body-name: request
+  /notaries/requests/{requestId}:
+    get:
+      tags:
+      - notarizations
+      summary: Get notarization request status
+      description: Get the status of a notarization request.
+      parameters:
+      - name: requestId
+        in: path
+        description: Notarization Request Id
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/notary.Notarization'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errors.HTTPJSONError'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errors.HTTPJSONError'
+  /notaries/{notaryId}:
+    get:
+      tags:
+      - notaries
+      summary: Get notary
+      description: Get notary.
+      parameters:
+      - name: notaryId
+        in: path
+        description: Notary ID
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/notary.Notary'
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errors.HTTPJSONError'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errors.HTTPJSONError'
+    put:
+      tags:
+      - notaries
+      summary: Update notary
+      description: Update the notary.
+      parameters:
+      - name: notaryId
+        in: path
+        description: Notary ID
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Notary Configuration
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/notary.Notary'
+        required: true
+      responses:
+        200:
+          description: OK
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errors.HTTPJSONError'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errors.HTTPJSONError'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errors.HTTPJSONError'
+    delete:
+      tags:
+      - notaries
+      summary: Delete notary
+      description: Delete the notary.
+      parameters:
+      - name: notaryId
+        in: path
+        description: Notary ID
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: OK
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errors.HTTPJSONError'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errors.HTTPJSONError'
+  /notaries/{notaryId}/hashes/{hash}:
+    get:
+      tags:
+      - notarizations
+      summary: Get hash
+      description: Get hash.
+      parameters:
+      - name: notaryId
+        in: path
+        description: Notary ID
+        required: true
+        schema:
+          type: string
+      - name: hash
+        in: path
+        description: Hash
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/notary.HashResponse'
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errors.HTTPJSONError'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errors.HTTPJSONError'
+  /notaries/{notaryId}/transactions/{transactionId}:
+    get:
+      tags:
+      - notarizations
+      summary: Get transaction
+      description: Get transaction.
+      parameters:
+      - name: notaryId
+        in: path
+        description: Notary ID
+        required: true
+        schema:
+          type: string
+      - name: transactionId
+        in: path
+        description: Transaction ID
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/notary.Transaction'
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errors.HTTPJSONError'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errors.HTTPJSONError'
+components:
+  schemas:
+    errors.HTTPJSONError:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Error message
+    graph.Graph:
+      type: object
+      properties:
+        notarizations:
+          type: array
+          items:
+            $ref: '#/components/schemas/graph.Notarization'
+        transactions:
+          type: array
+          items:
+            $ref: '#/components/schemas/graph.Transaction'
+    graph.Notarization:
+      type: object
+      properties:
+        hash:
+          type: string
+        owner:
+          type: string
+    graph.Transaction:
+      type: object
+      properties:
+        inputs:
+          type: array
+          items:
+            type: string
+        outputs:
+          type: array
+          items:
+            type: string
+        txId:
+          type: string
+    notary.Authorization:
+      type: object
+      properties:
+        apiKey:
+          type: string
+    notary.Connection:
+      type: object
+      properties:
+        authorization:
+          $ref: '#/components/schemas/notary.Authorization'
+        url:
+          type: string
+    notary.HashResponse:
+      type: object
+      properties:
+        consumerTxId:
+          type: string
+          description: |-
+            ConsumerTxID contains the id of the transaction that consumed this hash.
+            This field is only set if Status == CONSUMED.
+        status:
+          type: string
+          description: Status of the hash.
+        txId:
+          type: string
+          description: |-
+            TxID is the id of the transaction where the hash was created (hash in outputs).
+            This field is optional and may not be set by the notary.
+    notary.Notarization:
+      type: object
+      properties:
+        createdAt:
+          type: string
+        error:
+          type: string
+        id:
+          type: string
+        status:
+          type: string
+        transaction:
+          $ref: '#/components/schemas/notary.Transaction'
+        updatedAt:
+          type: string
+    notary.Notary:
+      type: object
+      properties:
+        configuration:
+          type: string
+        connection:
+          $ref: '#/components/schemas/notary.Connection'
+        createdAt:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        network:
+          type: string
+        type:
+          type: integer
+        updatedAt:
+          type: string
+    notary.Request:
+      type: object
+      properties:
+        inputs:
+          type: array
+          items:
+            $ref: '#/components/schemas/notary.TransactionInput'
+        notaryId:
+          type: string
+        outputs:
+          type: array
+          items:
+            $ref: '#/components/schemas/notary.TransactionOutput'
+        txId:
+          type: string
+    notary.Response:
+      type: object
+      properties:
+        notaryId:
+          type: string
+        requestId:
+          type: string
+    notary.Transaction:
+      type: object
+      properties:
+        inputs:
+          type: array
+          items:
+            $ref: '#/components/schemas/notary.TransactionInput'
+        outputs:
+          type: array
+          items:
+            $ref: '#/components/schemas/notary.TransactionOutput'
+        txId:
+          type: string
+    notary.TransactionInput:
+      type: object
+      properties:
+        hash:
+          type: string
+        txId:
+          type: string
+    notary.TransactionOutput:
+      type: object
+      properties:
+        hash:
+          type: string
+        owner:
+          type: string

@@ -1,0 +1,1477 @@
+openapi: 3.0.1
+info:
+  title: Block4Log Load Carrier Exchange API
+  contact:
+    name: Block4Log Team
+    url: 'http://www.Block4Log.com/'
+  version: 1.0.0
+servers:
+  - url: https://b4l.com/
+tags:
+  - name: exchange
+    description: Load Carrier Exchange
+  - name: vouchers
+    description: Debit Vouchers Management
+  - name: csp-admin
+    description: CSP Admin Activities, e.g. onboard new customer
+  - name: consortia-admin
+    description: All consortia admin actions
+  - name: masterdata
+    description: Manage yellow pages, LC types, error reasons (???), ...
+  - name: circularexchange
+    description: Value Adding Features like circular-exchange, ...
+  - name: monitoring
+    description: Monitoring and Metering of APIs, based for pricing
+  - name: member-admin
+    description: Self-Service for customers of CSP
+  - name: notarization
+    description: Notarization API (invokes Smart Contract)
+    
+paths:
+  /exchanges:
+    post:
+      tags:
+        - exchange
+      requestBody:
+        description: Create a single signed LC-Exchange Request (aka. proposal) and send to your exchange partner and optionally your PSP
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExchangeRequest'
+        required: true
+      summary: Initiate LC-Exchange
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: Request not found
+          content: {}
+    get:
+      tags:
+        - exchange
+      summary: Retrieve all Confirmed LC Exchanges (Paged)
+      operationId: getAllConfirmedExchangesUsingGET
+      parameters:
+        - name: pageSize
+          in: query
+          description: '10'
+          schema:
+            type: integer
+            format: int32
+            default: 10
+        - name: page
+          in: query
+          description: '1'
+          schema:
+            type: integer
+            format: int32
+            default: 1
+        - name: lcId
+          in: query
+          description: 'EPAL'
+          schema:
+            type: string
+            default: EPAL
+        - name: partner
+          in: query
+          description: 'GS1 Partner Id, e.g. gln:87987:000'
+          schema:
+            type: string
+            default: gln:87987:000
+
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LCExchanges'
+        '401':
+          description: Not Authorized
+          content: {}
+        '403':
+          description: Access Denied
+          content: {}
+        '500':
+          description: Internal Server Error
+          content: {}
+
+  /exchanges/pending:
+    get:
+      tags:
+        - exchange
+      summary: Get Pending LC Exchanges
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LCExchanges'
+        '401':
+          description: Not Authorized
+          content: {}
+        '403':
+          description: Access Denied
+          content: {}
+        '500':
+          description: Internal Server Error
+          content: {}
+    post:
+      tags:
+        - exchange
+      summary: Propose Pallet Exchange
+      requestBody:
+        description: palletExchangeRequest
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExchangeRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PalletExchangeResponse'
+            application/atom+xml:
+              schema:
+                $ref: '#/components/schemas/PalletExchangeResponse'
+      x-codegen-request-body-name: palletExchangeRequest
+  '/exchanges/proposals/{gdti}':
+    get:
+      tags:
+        - PalletExchange
+      summary: Get Pallet Exchange Proposals by GDTI
+      operationId: getOpenPalletExchangeByGDTIUsingGET
+      parameters:
+        - name: gdti
+          in: path
+          description: gdti
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PalletExchangeResponse'
+        '401':
+          description: Not Authorized
+          content: {}
+        '403':
+          description: Access Denied
+          content: {}
+        '500':
+          description: Internal Server Error
+          content: {}
+    put:
+      tags:
+        - exchange
+      summary: Confirm Pallet Exchange Proposal by GDTI
+      parameters:
+        - name: gdti
+          in: path
+          description: gdti
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PalletExchangeResponse'
+    delete:
+      tags:
+        - exchange
+      summary: Decline Pallet Exchange Proposal
+      operationId: declinePalletExchangeProposalByGDTIUsingDELETE
+      parameters:
+        - name: gdti
+          in: path
+          description: gdti
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                type: string
+  '/exchanges/{gdti}':
+    get:
+      tags:
+        - PalletExchange
+      summary: Retrieve Confirmed Pallet Exchange by GDTI
+      operationId: getConfirmedExchangeByGDTIUsingGET
+      parameters:
+        - name: gdti
+          in: path
+          description: gdti
+          required: true
+          schema:
+            type: string
+        - name: catchupDB
+          in: query
+          description: 'true'
+          schema:
+            type: boolean
+            default: true
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PalletExchangeResponse'
+        '401':
+          description: Not Authorized
+          content: {}
+        '403':
+          description: Access Denied
+          content: {}
+        '500':
+          description: Internal Server Error
+          content: {}
+  /admin/exchangeGenerator/start:
+    post:
+      tags:
+        - Admin
+      summary: Start generating random exchanges
+      operationId: startTransactionGeneratorUsingPOST
+      parameters:
+        - name: numTransactions
+          in: query
+          description: numTransactions
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: numThreads
+          in: query
+          description: numThreads
+          schema:
+            type: integer
+            format: int32
+            default: 1
+      responses:
+        '200':
+          description: Exchange generator successfully started
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+  /admin/exchangeGenerator/status:
+    get:
+      tags:
+        - Admin
+      summary: Get current status of exchange generator
+      operationId: getTransactionGeneratorStatusUsingGET
+      responses:
+        '200':
+          description: Successfully returned status
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '401':
+          description: Not Authorized
+          content: {}
+        '403':
+          description: Access Denied
+          content: {}
+        '500':
+          description: Internal Server Error
+          content: {}
+  /admin/exchangeGenerator/stop:
+    post:
+      tags:
+        - Admin
+      summary: Stop generating random exchanges
+      operationId: stopTransactionGeneratorUsingPOST
+      responses:
+        '200':
+          description: Exchange generator successfully stopped
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+  /admin/identities/consortium:
+    put:
+      tags:
+        - Admin
+      summary: Reset Consortium Identities
+      operationId: resetConsortiumIdentitiesUsingPUT
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ConsortiumIdentity'
+  /admin/identities/multichain:
+    put:
+      tags:
+        - Admin
+      summary: >-
+        Create missing Multichain Identities (to be replaced by admin
+        onboarding)
+      operationId: createMissingMultichainIdentitiesUsingPUT
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MultichainIdentity'
+              examples:
+                identity:
+                  value: |-
+                    {
+                      gln: "8726438736487"
+                    }
+  /admin/loadTest/start:
+    post:
+      tags:
+        - Admin
+      summary: Start a load test
+      operationId: startLoadTEstUsingPOST
+      parameters:
+        - name: durationMinutes
+          in: query
+          description: durationMinutes
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: numThreads
+          in: query
+          description: numThreads
+          schema:
+            type: integer
+            format: int32
+            default: 1
+      responses:
+        '200':
+          description: Load test successfully started
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+  /admin/multichain/address:
+    put:
+      tags:
+        - Admin
+      summary: Create a new multichain address
+      operationId: createNewMultichainAddressUsingPUT
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '201':
+          description: Address created successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+  /admin/prometheus:
+    get:
+      tags:
+        - Admin
+      summary: Usage Counter in Prometheus format
+      operationId: getStatisticsUsingGET
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            text/plain:
+              schema:
+                type: string
+        '401':
+          description: Not Authorized
+          content: {}
+        '403':
+          description: Access Denied
+          content: {}
+        '500':
+          description: Internal Server Error
+          content: {}
+  /admin/proposals:
+    delete:
+      tags:
+        - Admin
+      summary: Delete all open proposals
+      operationId: declineAllProposalsUsingDELETE
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '201':
+          description: Address created successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+  /admin/ringTausch:
+    get:
+      tags:
+        - Admin
+      summary: Findet einen möglichen Ringtausch
+      operationId: getRingExchangeUsingGET
+      parameters:
+        - name: findBest
+          in: query
+          description: findBest
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: Successfully returned ring exchange
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RingExchange'
+        '401':
+          description: Not Authorized
+          content: {}
+        '403':
+          description: Access Denied
+          content: {}
+        '500':
+          description: Internal Server Error
+          content: {}
+    post:
+      tags:
+        - Admin
+      summary: Führt einen Ringtausch aus
+      operationId: performRingExchangeUsingPOST
+      requestBody:
+        description: exchange
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RingExchange'
+        required: true
+      responses:
+        '200':
+          description: Successfully performed ring exchanges
+          content:
+            application/json:
+              schema:
+                type: string
+      x-codegen-request-body-name: exchange
+  /admin/streams:
+    get:
+      tags:
+        - Admin
+      summary: List all streams
+      operationId: listAllStreamsUsingGET
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MultichainStream'
+        '401':
+          description: Not Authorized
+          content: {}
+        '403':
+          description: Access Denied
+          content: {}
+        '500':
+          description: Internal Server Error
+          content: {}
+  /admin/users/:
+    put:
+      tags:
+        - Admin
+      summary: Reset User Identities
+      operationId: resetUserIdentitiesUsingPUT
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserIdentity'
+  /config/reasons:
+    get:
+      tags:
+        - Configuration
+      summary: List all Exchange Ommission Reasons
+      operationId: listAllOmissionReasonsUsingGET
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '401':
+          description: Not Authorized
+          content: {}
+        '403':
+          description: Access Denied
+          content: {}
+        '500':
+          description: Internal Server Error
+          content: {}
+  /errors/proposals:
+    get:
+      tags:
+        - ErrorDeclaration
+      summary: Get all ongoing Error Declaration Proposals
+      operationId: getAllErrorDeclarationProposalsUsingGET
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EPCISTransactionProposal'
+        '401':
+          description: Not Authorized
+          content: {}
+        '403':
+          description: Access Denied
+          content: {}
+        '500':
+          description: Internal Server Error
+          content: {}
+    post:
+      tags:
+        - ErrorDeclaration
+      summary: Propose an Error Declaration
+      operationId: proposeErrorDeclarationUsingPOST
+      parameters:
+        - name: catchupDB
+          in: query
+          description: 'true'
+          schema:
+            type: boolean
+            default: true
+      requestBody:
+        description: errorDeclarationRequest
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ErrorDeclarationRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PalletExchangeResponse'
+      x-codegen-request-body-name: errorDeclarationRequest
+  '/errors/proposals/{gdti}':
+    get:
+      tags:
+        - ErrorDeclaration
+      summary: Get ongoing Error Declaration Request Proposals
+      operationId: getErrorDeclarationProposalByGDTIUsingGET
+      parameters:
+        - name: gdti
+          in: path
+          description: gdti
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EPCISTransactionProposal'
+        '401':
+          description: Not Authorized
+          content: {}
+        '403':
+          description: Access Denied
+          content: {}
+        '500':
+          description: Internal Server Error
+          content: {}
+    put:
+      tags:
+        - ErrorDeclaration
+      summary: Confirm Error Declaration Proposal
+      operationId: confirmErrorDeclarationProposalByGDTIUsingPUT
+      parameters:
+        - name: gdti
+          in: path
+          description: gdti
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+    delete:
+      tags:
+        - ErrorDeclaration
+      summary: Decline Error Declaration Proposal
+      operationId: declineErrorDeclarationProposalGDTIUsingDELETE
+      parameters:
+        - name: gdti
+          in: path
+          description: gdti
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+  
+  /gs1/epcis:
+    get:
+      tags:
+        - GS1
+      summary: Retrieve low level EPCIS Events sorted by timestamp of block.
+      operationId: getEPCISEventsUsingGET
+      parameters:
+        - name: page
+          in: query
+          description: Page (starts with 0)
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: entriesPerPage
+          in: query
+          description: Entries per page
+          schema:
+            type: integer
+            format: int32
+            default: 100
+        - name: sortCriteria
+          in: query
+          description: Sort by
+          schema:
+            type: string
+            default: event.eventTime
+        - name: direction
+          in: query
+          description: Sort direction (ASC or DESC)
+          schema:
+            type: string
+            default: DESC
+            enum:
+              - ASC
+              - DESC
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EPCISEventRecord'
+        '401':
+          description: Not Authorized
+          content: {}
+        '403':
+          description: Access Denied
+          content: {}
+        '500':
+          description: Internal Server Error
+          content: {}
+  /identities/consortium/:
+    get:
+      tags:
+        - Identities
+      summary: Get all consortium identities
+      operationId: getAllConsortiumIdentitiesUsingGET
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ConsortiumIdentity'
+        '401':
+          description: Not Authorized
+          content: {}
+        '403':
+          description: Access Denied
+          content: {}
+        '500':
+          description: Internal Server Error
+          content: {}
+    post:
+      tags:
+        - Identities
+      summary: Add a consortium identity
+      operationId: addConsortiumIdentityUsingPOST
+      requestBody:
+        description: consortiumIdentity
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConsortiumIdentity'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConsortiumIdentity'
+        '201':
+          description: Identity Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConsortiumIdentity'
+        '409':
+          description: Identity already exists
+          content: {}
+      x-codegen-request-body-name: consortiumIdentity
+  '/identities/consortium/{gln}':
+    get:
+      tags:
+        - Identities
+      summary: Get the consortium identity of this GLN
+      operationId: getConsortiumIdentityUsingGET
+      parameters:
+        - name: gln
+          in: path
+          description: gln
+          required: true
+          schema:
+            type: string
+            default: 'urn:epc:id:sgln:4025876.00000.0'
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConsortiumIdentity'
+        '401':
+          description: Not Authorized
+          content: {}
+        '403':
+          description: Access Denied
+          content: {}
+        '500':
+          description: Internal Server Error
+          content: {}
+    delete:
+      tags:
+        - Identities
+      summary: Delete the consortium identity of this GLN
+      operationId: deleteConsortiumIdentityUsingDELETE
+      parameters:
+        - name: gln
+          in: path
+          description: gln
+          required: true
+          schema:
+            type: string
+            default: 'urn:epc:id:sgln:4025876.00000.0'
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConsortiumIdentity'
+        '403':
+          description: Unauthorized to delete Identity
+          content: {}
+  /identities/multichain/:
+    get:
+      tags:
+        - Identities
+      summary: Get all multichain identities
+      operationId: getAllMultichainIdentitiesUsingGET
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MultichainIdentity'
+        '401':
+          description: Not Authorized
+          content: {}
+        '403':
+          description: Access Denied
+          content: {}
+        '500':
+          description: Internal Server Error
+          content: {}
+    put:
+      tags:
+        - Identities
+      summary: Update a multichain identity
+      operationId: updateMultichainIdentityUsingPUT
+      requestBody:
+        description: multichainIdentity
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MultichainIdentity'
+        required: true
+      responses:
+        '200':
+          description: 'Identity exists, permissions correct'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MultichainIdentity'
+        '201':
+          description: Identity successfully created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MultichainIdentity'
+        '409':
+          description: Identity already exists
+          content: {}
+      x-codegen-request-body-name: multichainIdentity
+    post:
+      tags:
+        - Identities
+      summary: Add a multichain identity
+      operationId: addMultichainIdentityUsingPOST
+      requestBody:
+        description: multichainIdentity
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MultichainIdentity'
+        required: true
+      responses:
+        '200':
+          description: 'Identity exists, permissions correct'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MultichainIdentity'
+        '201':
+          description: Identity successfully created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MultichainIdentity'
+        '409':
+          description: Identity already exists
+          content: {}
+      x-codegen-request-body-name: multichainIdentity
+  /identities/multichain/address/:
+    post:
+      tags:
+        - Identities
+      summary: Import a multichain identity
+      operationId: importMultichainIdentityUsingPOST
+      requestBody:
+        description: multichainIdentity
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MultichainIdentity'
+        required: true
+      responses:
+        '200':
+          description: Identity Imported
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MultichainIdentity'
+        '409':
+          description: Identity already exists
+          content: {}
+      x-codegen-request-body-name: multichainIdentity
+  '/identities/multichain/address/{address}':
+    get:
+      tags:
+        - Identities
+      summary: Get the multichain identity of this address
+      operationId: getMultichainIdentityByAddressUsingGET
+      parameters:
+        - name: address
+          in: path
+          description: address
+          required: true
+          schema:
+            type: string
+            default: 1UYnmmvWL6bte5vNN385T5X1nBq7jdMXmVgUFn
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MultichainIdentity'
+        '401':
+          description: Not Authorized
+          content: {}
+        '403':
+          description: Access Denied
+          content: {}
+        '500':
+          description: Internal Server Error
+          content: {}
+  '/identities/multichain/{gln}':
+    get:
+      tags:
+        - Identities
+      summary: Get the multichain identity of this GLN
+      operationId: getMultichainIdentityByGlnUsingGET
+      parameters:
+        - name: gln
+          in: path
+          description: gln
+          required: true
+          schema:
+            type: string
+            default: 'urn:epc:id:sgln:4025876.00000.0'
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MultichainIdentity'
+        '401':
+          description: Not Authorized
+          content: {}
+        '403':
+          description: Access Denied
+          content: {}
+        '500':
+          description: Internal Server Error
+          content: {}
+    delete:
+      tags:
+        - Identities
+      summary: Delete the multichain identity of this GLN
+      operationId: deleteMultichainIdentityUsingDELETE
+      parameters:
+        - name: gln
+          in: path
+          description: gln
+          required: true
+          schema:
+            type: string
+            default: 'urn:epc:id:sgln:4025876.00000.0'
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                type: string
+  '/identities/multichain/{gln}/permissions':
+    get:
+      tags:
+        - Identities
+      summary: Get the permissions for the stream of this multichain identity
+      operationId: getPermissionsForStreamUsingGET
+      parameters:
+        - name: gln
+          in: path
+          description: gln
+          required: true
+          schema:
+            type: string
+            default: 'urn:epc:id:sgln:4025876.00000.0'
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MultichainPermissionResult'
+        '401':
+          description: Not Authorized
+          content: {}
+        '403':
+          description: Access Denied
+          content: {}
+        '500':
+          description: Internal Server Error
+          content: {}
+  /lhms:
+    get:
+      tags:
+        - Lagerhilfsmittel
+      summary: Get all Lagerhilfsmittel Typen
+      operationId: getAllLHMTypesUsingGET
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LHMType'
+        '401':
+          description: Not Authorized
+          content: {}
+        '403':
+          description: Access Denied
+          content: {}
+        '500':
+          description: Internal Server Error
+          content: {}
+    put:
+      tags:
+        - Lagerhilfsmittel
+      summary: Update a Lagerhilfsmittel
+      operationId: updateLHMTypeUsingPUT
+      requestBody:
+        description: lhmType
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LHMType'
+        required: true
+      responses:
+        '200':
+          description: 'Identity exists, permissions correct'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LHMType'
+        '201':
+          description: Identity successfully created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LHMType'
+        '409':
+          description: Identity already exists
+          content: {}
+      x-codegen-request-body-name: lhmType
+    post:
+      tags:
+        - Lagerhilfsmittel
+      summary: Add a Lagerhilfsmittel
+      operationId: addLHMTypeUsingPOST
+      requestBody:
+        description: lhmType
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LHMType'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LHMType'
+        '201':
+          description: Lagerhilfsmittel successfully created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LHMType'
+        '409':
+          description: Lagerhilfsmittel already exists
+          content: {}
+      x-codegen-request-body-name: lhmType
+  /lhms/reset:
+    put:
+      tags:
+        - Lagerhilfsmittel
+      summary: Reset Lagerhilfsmittel to initial default(only for ADMIN!)
+      operationId: resetUsingPUT
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LHMType'
+  '/lhms/{name}':
+    delete:
+      tags:
+        - Lagerhilfsmittel
+      summary: Delete the Lagerhilfsmittel
+      operationId: deleteLHMTypeUsingDELETE
+      parameters:
+        - name: name
+          in: path
+          description: name
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LHMType'
+        '404':
+          description: Item not fonud
+          content: {}
+  /partners:
+    get:
+      tags:
+        - Partner
+      summary: Get all potential partners for exchange
+      operationId: getExchangePartnersUsingGET
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ExchangePartner'
+        '401':
+          description: Not Authorized
+          content: {}
+        '403':
+          description: Access Denied
+          content: {}
+        '500':
+          description: Internal Server Error
+          content: {}
+  /saldi:
+    get:
+      tags:
+        - Saldo
+      summary: Get All Saldi as high level summary
+      operationId: getSaldiUsingGET
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EpcClassSaldo'
+        '401':
+          description: Not Authorized
+          content: {}
+        '403':
+          description: Access Denied
+          content: {}
+        '500':
+          description: Internal Server Error
+          content: {}
+  '/saldi/epcClass/{epcClass}':
+    get:
+      tags:
+        - Saldo
+      summary: Get the saldi information per partner for a LHM Type
+      operationId: getSaldiOfEpcClassGroupedByParnerUsingGET
+      parameters:
+        - name: epcClass
+          in: path
+          description: epcClass
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EpcClassSaldo'
+        '401':
+          description: Not Authorized
+          content: {}
+        '403':
+          description: Access Denied
+          content: {}
+        '500':
+          description: Internal Server Error
+          content: {}
+  /settlements/proposals:
+    get:
+      tags:
+        - settlements
+      summary: Retrieve all open Settlements Proposals
+      operationId: getAllSettlementsUsingGET
+      parameters:
+        - name: catchupDB
+          in: query
+          description: 'true'
+          schema:
+            type: boolean
+            default: true
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EPCISTransactionProposal'
+        '401':
+          description: Not Authorized
+          content: {}
+        '403':
+          description: Access Denied
+          content: {}
+        '500':
+          description: Internal Server Error
+          content: {}
+    post:
+      tags:
+        - settlements
+      summary: Propose a Saldenausgleich
+      operationId: proposeSettlementUsingPOST
+      requestBody:
+        description: settlementRequest
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SettlementRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GlobalDocumentTypeIdentifier'
+      x-codegen-request-body-name: settlementRequest
+  '/settlements/proposals/{gdti}':
+    get:
+      tags:
+        - settlements
+      summary: Get ongoing Settlement Request Proposals by GDTI
+      operationId: getSettlementProposalUsingGET
+      parameters:
+        - name: gdti
+          in: path
+          description: gdti
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EPCISTransactionProposal'
+        '401':
+          description: Not Authorized
+          content: {}
+        '403':
+          description: Access Denied
+          content: {}
+        '500':
+          description: Internal Server Error
+          content: {}
+    put:
+      tags:
+        - settlements
+      summary: Confirm Settlement Proposal by GDTI
+      operationId: confirmSettlementProposalUsingPUT
+      parameters:
+        - name: gdti
+          in: path
+          description: gdti
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GlobalDocumentTypeIdentifier'
+    delete:
+      tags:
+        - settlements
+      summary: Decline Settlement Request Proposal by GDTI
+      operationId: declineSettlementProposalUsingDELETE
+      parameters:
+        - name: gdti
+          in: path
+          description: gdti
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                type: string
+  /users:
+    get:
+      tags:
+        - Users
+      summary: Gate all User Data (Mock for a real IDP)
+      operationId: listUserIdentitiesUsingGET
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserIdentity'
+        '401':
+          description: Not Authorized
+          content: {}
+        '403':
+          description: Access Denied
+          content: {}
+        '500':
+          description: Internal Server Error
+          content: {}
+    post:
+      tags:
+        - Users
+      summary: Create User Data (Mock for a real IDP)
+      operationId: createUserIdentityUsingPOST
+      requestBody:
+        description: userIdentity
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserIdentity'
+        required: true
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserIdentity'
+      x-codegen-request-body-name: userIdentity
+    patch:
+      tags:
+        - Users
+      summary: Update User Data (Mock for a real IDP)
+      operationId: updateUserIdentityUsingPATCH
+      requestBody:
+        description: changed
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserIdentity'
+        required: true
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserIdentity'
+      x-codegen-request-body-name: changed
+  '/users/{userName}':
+    get:
+      tags:
+        - Users
+      summary: Get User Data (Mock for a real IDP)
+      operationId: getUserIdentityUsingGET
+      parameters:
+        - name: userName
+          in: path
+          description: userName
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserIdentity'
+        '401':
+          description: Not Authorized
+          content: {}
+        '403':
+          description: Access Denied
+          content: {}
+        '500':
+          description: Internal Server Error
+          content: {}
+
