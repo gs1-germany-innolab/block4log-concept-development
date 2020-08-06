@@ -33,7 +33,7 @@ jobs:
     
     strategy:
       matrix:
-        doc: ["block4log-data-visibility", "zero-knowledge-notarization"]
+        doc: ["block4log-data-visibility", "zero-knowledge-notarization", "architecture-DLT-recommendations"]
 
     steps:
     - uses: actions/checkout@v2
