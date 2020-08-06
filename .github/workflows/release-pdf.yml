@@ -30,7 +30,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ github.event.release.upload_url }}
-        asset_path: .${{ matrix.doc }}.pdf
+        asset_path: ${{ matrix.doc }}.pdf
         asset_name: ${{ matrix.doc }}.pdf
         asset_content_type: application/pdf
 
