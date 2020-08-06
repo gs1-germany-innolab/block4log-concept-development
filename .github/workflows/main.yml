@@ -10,7 +10,7 @@ jobs:
 
     strategy:
       matrix:
-        doc: ["epcisMessageSpecification", "attributeCompletenessCheck"]
+        doc: ["epcisMessageSpecification", "attributeCompletenessCheck", "architecture-DLT-recommendations"]
 
     steps:
     - uses: actions/checkout@v2
