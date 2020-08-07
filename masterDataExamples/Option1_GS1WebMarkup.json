@@ -112,7 +112,16 @@
           "schema:propertyID": "https://www.gs1.org/standards/id-keys/grai",
           "schema:value":  "04012345111118"
           },
-    "dcterms:title": "E1 Performance Tray",
+    "dcterms:title": [
+        {
+            "@value": "E1 Performance Tray",
+            "@language": "en"
+        },
+        {
+            "@value": "E1 Performance Behälter",
+            "@language": "de"
+        }
+        ],
     "gs1:manufacturer": {
         "@type": "gs1:Organization",
         "@id": "https://id.gs1.org/417/4012345000009"
