@@ -181,6 +181,7 @@
         {
             "gs1:colourCodeValue": "298 C",
             "gs1:colourCodeList": {
+                "@type": "https://www.gs1.org/voc/ColourCodeListCode",
                 "@id": "gs1:ColourCodeList-PANTONE_MATCHING"
             },
             "@type": "gs1:ColourCodeDetails"

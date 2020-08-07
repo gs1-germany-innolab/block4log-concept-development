@@ -104,6 +104,30 @@ Note: At the least, address information MUST be provided in English. Providing l
 | ____`@:type` | `xsd:float` |  |
 | __`gs1:unitCode` | Measurement Unit according to UN/ECE Recommendation 20 (e.g. `KGM` for kilogram) |  |
 | __`@:type` | `gs1:QuantitativeValue` |  |
+| `schema:width` | Dictionary | TBD |
+| __`schema:value` | Dictionary |   |
+| ____`@:value` | Quantitative value of the load carrier's width (`float`) |
+| ____`@:type` | `xsd:float` |  |
+| __`schema:unitCode` | Measurement Unit according to UN/ECE Recommendation 20 (e.g. `MMT` for millimetre) |  |
+| __`@:type` | `schema:QuantitativeValue` |  |
+| `schema:depth` | Dictionary | TBD |
+| __`schema:value` | Dictionary |   |
+| ____`@:value` | Quantitative value of the load carrier's depth (`float`) |
+| ____`@:type` | `xsd:float` |  |
+| __`schema:unitCode` | Measurement Unit according to UN/ECE Recommendation 20 (e.g. `MMT` for millimetre) |  |
+| __`@:type` | `schema:QuantitativeValue` |  |
+| `schema:height` | Dictionary | TBD |
+| __`schema:value` | Dictionary |   |
+| ____`@:value` | Quantitative value of the load carrier's height (`float`) |
+| ____`@:type` | `xsd:float` |  |
+| __`schema:unitCode` | Measurement Unit according to UN/ECE Recommendation 20 (e.g. `MMT` for millimetre) |  |
+| __`@:type` | `schema:QuantitativeValue` |  |
+| `gs1:colourCode` | Dictionary | TBD |
+| __`gs1:colourCodeValue` | PANTONE Color Code (`String`) |  |
+| __`gs1:colourCodeList` | Dictionary |  |
+| ____`@type` | `https://www.gs1.org/voc/ColourCodeListCode` |  |
+| ____`@:id` | `xsd:float` | Color Code List according to https://www.gs1.org/voc/ColourCodeListCode (`CodeValue`) |
+| __`@type` | `gs1:ColourCodeDetails` |  |
 | `skos:Concept` | Load carrier asset type (`CodeValue`) | x |
 | `foaf:Document` | URL pointing to the load carrier's specification (`URL`) | TBD |
 
