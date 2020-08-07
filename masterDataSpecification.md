@@ -16,7 +16,6 @@ Note:
 | --- | -- |
 | `context` | Dictionary |
 | __`gs1` | "https://gs1.org/voc/" |
-| __`xsd` | "https://www.w3.org/2001/XMLSchema#" |
 | __`@vocab` | "https://gs1.org/voc/" |
 | `@type` | `gs1:Organization` |
 | `@id` | Canonical GS1 Digital Link URI `https://id.gs1.org/417/{Party GLN}` |
@@ -43,7 +42,6 @@ Note:
 | --- | -- |
 | `context` | Dictionary |
 | __`gs1` | "https://gs1.org/voc/" |
-| __`xsd` | "https://www.w3.org/2001/XMLSchema#" |
 | __`@vocab` | "https://gs1.org/voc/" |
 | `type` | `gs1:Place` |
 | `id` | Canonical GS1 Digital Link URI `https://id.gs1.org/414/{Physical Location GLN}` |
