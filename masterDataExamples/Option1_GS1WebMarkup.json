@@ -128,11 +128,11 @@
     },
     "dcterms:description": [
         {
-            "@value": "Reusable tray for meat. Outside dimensions (L/W/H): 598 x 398.5 x 126 mm. Weight: 1.5 KGM. Filling weight: 12.5 KGM. Colour: light blue (pantone 298c).",
+            "@value": "Reusable tray for meat",
             "@language": "en"
         },
         {
-            "@value": "Mehrweg-Ladungsträger für Fleisch. Außenmaße (L/B/H): 598 x 398,5 x 126 mm. Gewicht: 1,5 KGM. Füllgewicht: 12,5 KGM. Farbe: hellblau (Pantone 298c).",
+            "@value": "Mehrweg-Ladungsträger für Fleisch",
             "@language": "de"
         }
     ],
@@ -153,6 +153,39 @@
         "gs1:unitCode": "KGM",
         "@type": "gs1:QuantitativeValue"
     },
+    "schema:width": {
+        "schema:value:": {
+            "@value": "598",
+            "@type": "xsd:float"
+        },
+        "schema:unitCode": "MMT",
+        "@type": "schema:QuantitativeValue"
+    },
+    "schema:depth": {
+        "schema:value:": {
+            "@value": "398.5",
+            "@type": "xsd:float"
+        },
+        "schema:unitCode": "MMT",
+        "@type": "schema:QuantitativeValue"
+    },
+    "schema:height": {
+        "schema:value:": {
+            "@value": "126",
+            "@type": "xsd:float"
+        },
+        "schema:unitCode": "MMT",
+        "@type": "schema:QuantitativeValue"
+    },
+    "gs1:colourCode": [
+        {
+            "gs1:colourCodeValue": "298 C",
+            "gs1:colourCodeList": {
+                "@id": "gs1:ColourCodeList-PANTONE_MATCHING"
+            },
+            "@type": "gs1:ColourCodeDetails"
+        }
+    ],
     "skos:Concept": "tbd:E_1_PERFORMANCE_TRAY",
     "foaf:Document": "https://www.gs1-germany.de/gs1-standards/umsetzung/fachpublikationen/detailansicht/typbeschreibung-e1-e3-performance-behaelter-in-der-fleischbranche/artikelnummer/4000001022052/"
 },
