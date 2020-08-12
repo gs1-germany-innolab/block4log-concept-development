@@ -187,12 +187,14 @@
             "@type": "gs1:ColourCodeDetails"
         }
     ],
-    "skos:Concept": "tbd:E_1_PERFORMANCE_TRAY",
+    "skos:Concept": {
+        "@type": "tbd:E_1_PERFORMANCE_TRAY"
+    },  
     "foaf:Document": "https://www.gs1-germany.de/gs1-standards/umsetzung/fachpublikationen/detailansicht/typbeschreibung-e1-e3-performance-behaelter-in-der-fleischbranche/artikelnummer/4000001022052/"
 },
 {
     "@context": {
-        "s": "https://schema.org/",
+        "schema": "https://schema.org/",
         "@vocab": "https://schema.org/"
     },
     "@type": "DigitalDocument",
