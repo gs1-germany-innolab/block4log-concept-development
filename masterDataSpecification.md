@@ -94,34 +94,34 @@ Note: At the least, address information MUST be provided in English. Providing l
 | `schema:image` | Web URI pointing to the load carrier's image (`URL`) | TBD |
 | `gs1:netWeight` | Dictionary | TBD |
 | __`gs1:value` | Dictionary |   |
-| ____`@:value` | Quantitative value of the load carrier's net weight (`float`) |
-| ____`@:type` | `xsd:float` |   |
+| ____`@value` | Quantitative value of the load carrier's net weight (`float`) |
+| ____`@type` | `xsd:float` |   |
 | __`gs1:unitCode` | Measurement Unit according to UN/ECE Recommendation 20 (e.g. `KGM` for kilogram) |  |
-| __`@:type` | `gs1:QuantitativeValue` |  |
+| __`@type` | `gs1:QuantitativeValue` |  |
 | `gs1:grossWeight` | Dictionary | TBD |
 | __`gs1:value` | Dictionary |   |
-| ____`@:value` | Quantitative value of the load carrier's gross weight (`float`) |
-| ____`@:type` | `xsd:float` |  |
+| ____`@value` | Quantitative value of the load carrier's gross weight (`float`) |
+| ____`@type` | `xsd:float` |  |
 | __`gs1:unitCode` | Measurement Unit according to UN/ECE Recommendation 20 (e.g. `KGM` for kilogram) |  |
-| __`@:type` | `gs1:QuantitativeValue` |  |
+| __`@type` | `gs1:QuantitativeValue` |  |
 | `schema:width` | Dictionary | TBD |
 | __`schema:value` | Dictionary |   |
-| ____`@:value` | Quantitative value of the load carrier's width (`float`) |
-| ____`@:type` | `xsd:float` |  |
+| ____`@value` | Quantitative value of the load carrier's width (`float`) |
+| ____`@type` | `xsd:float` |  |
 | __`schema:unitCode` | Measurement Unit according to UN/ECE Recommendation 20 (e.g. `MMT` for millimetre) |  |
-| __`@:type` | `schema:QuantitativeValue` |  |
+| __`@type` | `schema:QuantitativeValue` |  |
 | `schema:depth` | Dictionary | TBD |
 | __`schema:value` | Dictionary |   |
-| ____`@:value` | Quantitative value of the load carrier's depth (`float`) |
-| ____`@:type` | `xsd:float` |  |
+| ____`@value` | Quantitative value of the load carrier's depth (`float`) |
+| ____`@type` | `xsd:float` |  |
 | __`schema:unitCode` | Measurement Unit according to UN/ECE Recommendation 20 (e.g. `MMT` for millimetre) |  |
-| __`@:type` | `schema:QuantitativeValue` |  |
+| __`@type` | `schema:QuantitativeValue` |  |
 | `schema:height` | Dictionary | TBD |
 | __`schema:value` | Dictionary |   |
-| ____`@:value` | Quantitative value of the load carrier's height (`float`) |
-| ____`@:type` | `xsd:float` |  |
+| ____`@value` | Quantitative value of the load carrier's height (`float`) |
+| ____`@type` | `xsd:float` |  |
 | __`schema:unitCode` | Measurement Unit according to UN/ECE Recommendation 20 (e.g. `MMT` for millimetre) |  |
-| __`@:type` | `schema:QuantitativeValue` |  |
+| __`@type` | `schema:QuantitativeValue` |  |
 | `gs1:colourCode` | Dictionary | TBD |
 | __`gs1:colourCodeValue` | PANTONE Color Code (`String`) |  |
 | __`gs1:colourCodeList` | Dictionary |  |
@@ -136,14 +136,22 @@ Note: At the least, title and description MUST be provided in English. Providing
 
 ## Voucher Document Master Data
 
-| Data Element | Description |
-| --- | -- |
-| `type` | `DigitalDocument` |
-| `id` | Canonical GS1 Digital Link URI `https://id.gs1.org/253/{GDTI (without serial number)}` |
-| `identifier` | `GDTI` (^\d{13}$) |
-| `name` | Voucher document name (`String`) |
-| `temporalCoverage` | Validity period (beginning with the date of creation of an instance), expressed as an ISO 8601 duration indicator with a year, month or day designator (`P[n]Y[n]M[n]D`) |
-| `creator` | Canonical GS1 Digital Link URI `https://id.gs1.org/417/{Party GLN}` pointing to the owner of the GS1 Company Prefix with which GDTI is created |
+| Data Element | Description | Mandatory |
+| -- | -- | -- |
+| `context` | Dictionary | x |
+| __`dcterms` | "http://purl.org/dc/terms/" | x |
+| __`schema` | "http://schema.org/" | x |
+| `@type` | `DigitalDocument` | x |
+| `@id` | Canonical GS1 Digital Link URI `https://id.gs1.org/253/{GDTI (without serial number)}` | x |
+| `schema:identifier` | Dictionary | x |
+| __`@type` | `schema:PropertyValue` | x |
+| __`schema:propertyID` | `https://www.gs1.org/standards/id-keys/gdti` | x |
+| __`schema:value` | `GDTI` (^\d{13}$)  | x |
+| `dcterms:title` | List of 1...n dictionaries | x |
+|  __`value` | Document name (`String`)  | x |
+|  __`language` | ISO 639-1 alpha-2 language code (`CodeValue`) | x |
+| `schema:temporalCoverage` | Validity period (beginning with the date of creation of an instance), expressed as an ISO 8601 duration indicator with a year, month or day designator (`P[n]Y[n]M[n]D`) |  |
+| `schema:creator` | Canonical GS1 Digital Link URI `https://id.gs1.org/417/{Party GLN}` pointing to the owner of the GS1 Company Prefix with which GDTI is created |  |
 
 
 ## Open Questions
