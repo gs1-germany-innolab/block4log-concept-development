@@ -197,7 +197,7 @@
         "dcterms": "http://purl.org/dc/terms/", 
         "schema": "https://schema.org/"
     },
-    "@type": "DigitalDocument",
+    "@type": "schema:DigitalDocument",
     "@id": "https://id.gs1.org/253/4012345555554",
     "schema:identifier": {
         "@type": "schema:PropertyValue",
