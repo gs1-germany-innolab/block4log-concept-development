@@ -22,7 +22,7 @@
           "readPoint": "urn:epc:id:sgln:4012345.00000.0",
           "bizTransactionList": [
             {
-              "type": "b4l:voucher",
+              "type": "https://epcis.b4l.com/btt/voucher",
               "bizTransaction": "urn:epc:id:gdti:4012345.00011.987"
             }
           ],
@@ -67,7 +67,7 @@
           "readPoint": "urn:epc:id:sgln:4012345.00000.0",
           "bizTransactionList": [
             {
-              "type": "b4l:voucher",
+              "type": "https://epcis.b4l.com/btt/voucher",
               "bizTransaction": "urn:epc:id:gdti:4012345.00011.987"
             }
           ],
@@ -119,7 +119,7 @@
           "readPoint": "urn:epc:id:sgln:4012345.00000.0",
           "bizTransactionList": [
             {
-              "type": "b4l:voucher",
+              "type": "https://epcis.b4l.com/btt/voucher",
               "bizTransaction": "urn:epc:id:gdti:4012345.00011.987"
             }
           ],
@@ -164,7 +164,7 @@
           "readPoint": "urn:epc:id:sgln:4012345.00000.0",
           "bizTransactionList": [
             {
-              "type": "b4l:voucher",
+              "type": "https://epcis.b4l.com/btt/voucher",
               "bizTransaction": "urn:epc:id:gdti:4012345.00011.987"
             }
           ],

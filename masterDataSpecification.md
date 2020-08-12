@@ -7,8 +7,8 @@ The underlying standards to express master data in B4L is [GS1 Smart Search](htt
 Structured Data Testing Tool: https://search.google.com/structured-data/testing-tool
 
 Note:
-* URI prefix "gs1" expands to "https://gs1.org/voc/"
-* URI prefix "schema" expands to "https://schema.org/"
+* e.g. URI prefix "gs1" expands to "https://gs1.org/voc/"
+* e.g. URI prefix "schema" expands to "https://schema.org/"
 
 ## Party Master Data
 
@@ -143,3 +143,7 @@ Note: At the least, title and description MUST be provided in English. Providing
 | `name` | Voucher document name (`String`) |
 | `temporalCoverage` | Validity period (beginning with the date of creation of an instance), expressed as an ISO 8601 duration indicator with a year, month or day designator (`P[n]Y[n]M[n]D`) |
 | `creator` | Canonical GS1 Digital Link URI `https://id.gs1.org/417/{Party GLN}` pointing to the owner of the GS1 Company Prefix with which GDTI is created |
+
+
+## Open Questions
+* Do we need a version/last updated attribute for each of the above master data sets?
