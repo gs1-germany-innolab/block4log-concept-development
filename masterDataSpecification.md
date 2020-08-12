@@ -128,7 +128,8 @@ Note: At the least, address information MUST be provided in English. Providing l
 | ____`@type` | `https://www.gs1.org/voc/ColourCodeListCode` |  |
 | ____`@:id` | `xsd:float` | Color Code List according to https://www.gs1.org/voc/ColourCodeListCode (`CodeValue`) |
 | __`@type` | `gs1:ColourCodeDetails` |  |
-| `skos:Concept` | Load carrier asset type (`CodeValue`) | x |
+| `skos:Concept` | Dictionary | x |
+| __`@type` | Load carrier asset type (`CodeValue`) | x |
 | `foaf:Document` | URL pointing to the load carrier's specification (`URL`) | TBD |
 
 Note: At the least, title and description MUST be provided in English. Providing load carrier master data in further languages is possible though.
