@@ -108,10 +108,10 @@
     "@type": "schema:Thing",
     "@id": "https://id.gs1.org/8003/04012345111118",
     "schema:identifier": {
-        "@type": "PropertyValue",
-          "schema:propertyID": "https://www.gs1.org/standards/id-keys/grai",
-          "schema:value":  "04012345111118"
-          },
+        "@type": "schema:PropertyValue",
+        "schema:propertyID": "https://www.gs1.org/standards/id-keys/grai",
+        "schema:value":  "04012345111118"
+    },
     "dcterms:title": [
         {
             "@value": "E1 Performance Tray",
@@ -194,14 +194,27 @@
 },
 {
     "@context": {
-        "schema": "https://schema.org/",
-        "@vocab": "https://schema.org/"
+        "dcterms": "http://purl.org/dc/terms/", 
+        "schema": "https://schema.org/"
     },
     "@type": "DigitalDocument",
     "@id": "https://id.gs1.org/253/4012345555554",
-    "identifier": "4012345555554",
-    "name": "Load carrier voucher",
-    "temporalCoverage": "P1Y", 
-    "creator": "https://id.gs1.org/417/4012345000009"    
+    "schema:identifier": {
+        "@type": "schema:PropertyValue",
+        "schema:propertyID": "https://www.gs1.org/standards/id-keys/gdti",
+        "schema:value":  "4012345555554"
+    },
+    "dcterms:title": [
+        {
+            "@value": "Load carrier voucher",
+            "@language": "en"
+        },
+        {
+            "@value": "Ladungsträgerschein",
+            "@language": "de"
+        }
+        ],
+    "schema:temporalCoverage": "P1Y", 
+    "schema:creator": "https://id.gs1.org/417/4012345000009"    
 }
 ]
