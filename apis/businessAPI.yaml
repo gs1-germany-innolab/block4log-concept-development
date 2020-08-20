@@ -24,8 +24,6 @@ tags:
     description: Monitoring and Metering of APIs, based for pricing
   - name: member-admin
     description: Self-Service for customers of CSP
-  - name: notarization
-    description: Notarization API (invokes Smart Contract)
     
 paths:
   /exchanges:
