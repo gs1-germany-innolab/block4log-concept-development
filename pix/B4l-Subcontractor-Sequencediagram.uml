@@ -1,0 +1,22 @@
+@startuml
+actor Sender
+actor "LSP 1" as LSP
+actor "Sub LSPs" as Sub
+actor Receiver
+database "Smart Contract" as SC
+
+Sender --> Sender : Create\nOTP
+Sender --> SC : Register(OTP)
+Sender --> LSP : OTP
+LSP --> Sub : OTP
+
+Sub <--> Receiver: Pallet exchange
+Receiver --> Sub : Show Signed Exchange Doc
+Sub --> Receiver : Handing out OTP\nConfirms pallett amounts
+
+Receiver --> SC:Lookup(OTP)
+SC --> Receiver: Senders Endpoint
+Receiver --> Sender : Signed Exchange Doc\n+ OTP for authorization
+Sender --> Receiver : Double Signed Exchange Doc
+
+@enduml
