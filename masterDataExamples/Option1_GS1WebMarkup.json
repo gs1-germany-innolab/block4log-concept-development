@@ -108,22 +108,31 @@
     "@type": "schema:Thing",
     "@id": "https://id.gs1.org/8003/04012345111118",
     "schema:identifier": {
-        "@type": "PropertyValue",
-          "schema:propertyID": "https://www.gs1.org/standards/id-keys/grai",
-          "schema:value":  "04012345111118"
-          },
-    "dcterms:title": "E1 Performance Tray",
+        "@type": "schema:PropertyValue",
+        "schema:propertyID": "https://www.gs1.org/standards/id-keys/grai",
+        "schema:value":  "04012345111118"
+    },
+    "dcterms:title": [
+        {
+            "@value": "E1 Performance Tray",
+            "@language": "en"
+        },
+        {
+            "@value": "E1 Performance Behälter",
+            "@language": "de"
+        }
+        ],
     "gs1:manufacturer": {
         "@type": "gs1:Organization",
         "@id": "https://id.gs1.org/417/4012345000009"
     },
     "dcterms:description": [
         {
-            "@value": "Reusable tray for meat. Outside dimensions (L/W/H): 598 x 398.5 x 126 mm. Weight: 1.5 KGM. Filling weight: 12.5 KGM. Colour: light blue (pantone 298c).",
+            "@value": "Reusable tray for meat",
             "@language": "en"
         },
         {
-            "@value": "Mehrweg-Ladungsträger für Fleisch. Außenmaße (L/B/H): 598 x 398,5 x 126 mm. Gewicht: 1,5 KGM. Füllgewicht: 12,5 KGM. Farbe: hellblau (Pantone 298c).",
+            "@value": "Mehrweg-Ladungsträger für Fleisch",
             "@language": "de"
         }
     ],
@@ -144,19 +153,68 @@
         "gs1:unitCode": "KGM",
         "@type": "gs1:QuantitativeValue"
     },
-    "skos:Concept": "tbd:E_1_PERFORMANCE_TRAY",
+    "schema:width": {
+        "schema:value:": {
+            "@value": "598",
+            "@type": "xsd:float"
+        },
+        "schema:unitCode": "MMT",
+        "@type": "schema:QuantitativeValue"
+    },
+    "schema:depth": {
+        "schema:value:": {
+            "@value": "398.5",
+            "@type": "xsd:float"
+        },
+        "schema:unitCode": "MMT",
+        "@type": "schema:QuantitativeValue"
+    },
+    "schema:height": {
+        "schema:value:": {
+            "@value": "126",
+            "@type": "xsd:float"
+        },
+        "schema:unitCode": "MMT",
+        "@type": "schema:QuantitativeValue"
+    },
+    "gs1:colourCode": [
+        {
+            "gs1:colourCodeValue": "298 C",
+            "gs1:colourCodeList": {
+                "@type": "https://www.gs1.org/voc/ColourCodeListCode",
+                "@id": "gs1:ColourCodeList-PANTONE_MATCHING"
+            },
+            "@type": "gs1:ColourCodeDetails"
+        }
+    ],
+    "skos:Concept": {
+        "@type": "tbd:E_1_PERFORMANCE_TRAY"
+    },  
     "foaf:Document": "https://www.gs1-germany.de/gs1-standards/umsetzung/fachpublikationen/detailansicht/typbeschreibung-e1-e3-performance-behaelter-in-der-fleischbranche/artikelnummer/4000001022052/"
 },
 {
     "@context": {
-        "s": "https://schema.org/",
-        "@vocab": "https://schema.org/"
+        "dcterms": "http://purl.org/dc/terms/", 
+        "schema": "https://schema.org/"
     },
-    "@type": "DigitalDocument",
+    "@type": "schema:DigitalDocument",
     "@id": "https://id.gs1.org/253/4012345555554",
-    "identifier": "4012345555554",
-    "name": "Load carrier voucher",
-    "temporalCoverage": "P1Y", 
-    "creator": "https://id.gs1.org/417/4012345000009"    
+    "schema:identifier": {
+        "@type": "schema:PropertyValue",
+        "schema:propertyID": "https://www.gs1.org/standards/id-keys/gdti",
+        "schema:value":  "4012345555554"
+    },
+    "dcterms:title": [
+        {
+            "@value": "Load carrier voucher",
+            "@language": "en"
+        },
+        {
+            "@value": "Ladungsträgerschein",
+            "@language": "de"
+        }
+        ],
+    "schema:temporalCoverage": "P1Y", 
+    "schema:creator": "https://id.gs1.org/417/4012345000009"    
 }
 ]
