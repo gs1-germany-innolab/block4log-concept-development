@@ -3,20 +3,17 @@ actor Sender
 actor "LSP 1" as LSP
 actor "Sub LSPs" as Sub
 actor Receiver
-database "Smart Contract" as SC
 
-Sender --> Sender : Create\nOTP
-Sender --> SC : Register(OTP)
-Sender --> LSP : OTP
-LSP --> Sub : OTP
+
+Sender --> Sender : Create Portable Signature\nPS = OTP + Endpoint URL
+Sender --> LSP : PS
+LSP --> Sub : PS
 
 Sub <--> Receiver: Pallet exchange
 Receiver --> Sub : Show Signed Exchange Doc
-Sub --> Receiver : Handing out OTP\nConfirms pallett amounts
+Sub --> Receiver : Handing out PS\nImplicit Confirmation
 
-Receiver --> SC:Lookup(OTP)
-SC --> Receiver: Senders Endpoint
-Receiver --> Sender : Signed Exchange Doc\n+ OTP for authorization
+Receiver --> Sender : Signed Exchange Doc\n+ OTP for auth
 Sender --> Receiver : Double Signed Exchange Doc
 
 @enduml
