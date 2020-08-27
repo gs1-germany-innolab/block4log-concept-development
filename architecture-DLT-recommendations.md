@@ -1,5 +1,6 @@
 Block4Log: Architecture / DLT
 ===================
+This is summary was written by Sebastian Schmittner <sebastian.schmittner@eecc.de>
 
 High Level Architecture
 ----------
