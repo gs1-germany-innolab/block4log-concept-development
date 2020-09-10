@@ -1,0 +1,1205 @@
+openapi: 3.0.1
+info:
+  title: B4L API
+  contact:
+    name: SAP ICN Plankton Team
+    url: http://www.sap.com/blockchain
+  version: 1.0.0
+servers:
+- url: https://b4l.com
+tags:
+- name: Manage Asset (Debt Voucher) Transactions in B4L Network
+  description: Asset Transaction Controller
+- name: Manage Debt Vouchers (Assets) in B4L Network
+  description: Asset Controller
+
+paths:
+  /assets/:
+    get:
+      tags:
+      - Manage Debt Vouchers (Assets) in B4L Network
+      summary: Return all your Assets (non paged)
+      description: List all the assets which are owned by you. This might take a while
+        depending to the number of assets.
+      operationId: getAllAssetsUsingGET
+      responses:
+        200:
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Asset'
+        401:
+          description: Not Authorized
+          content: {}
+        403:
+          description: Access Denied
+          content: {}
+        500:
+          description: Internal Server Error
+          content: {}
+      deprecated: false
+      security:
+      - b4l: []
+    post:
+      tags:
+      - Manage Debt Vouchers (Assets) in B4L Network
+      summary: Create Asset
+      description: Owner will be yourself if no owner is set.
+      operationId: createAssetUsingPOST
+      requestBody:
+        description: New asset information
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssetRequest'
+        required: true
+      responses:
+        200:
+          description: Successful increase of supply
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Asset'
+        201:
+          description: Successful creating of new asset
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Asset'
+        409:
+          description: Asset was created by somebody else
+          content: {}
+      deprecated: false
+      security:
+      - b4l: []
+      x-codegen-request-body-name: asset
+  /assets/consume:
+    post:
+      tags:
+      - Manage Debt Vouchers (Assets) in B4L Network
+      summary: Consume given amount of Asset and produce new given ones
+      description: Given amount of given asset will be sent to a non-retrieval address
+        and new assets will be created and owned by given partnerIdsonly successful
+        if enough amount available.
+      operationId: consumeUsingPOST
+      requestBody:
+        description: Consume request
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConsumeAssetRequest'
+        required: true
+      responses:
+        200:
+          description: Successful Operation
+          content: {}
+        400:
+          description: Input error
+          content: {}
+        403:
+          description: Forbidden
+          content: {}
+      deprecated: false
+      security:
+      - b4l: []
+      x-codegen-request-body-name: request
+  /assets/convert:
+    post:
+      tags:
+      - Manage Debt Vouchers (Assets) in B4L Network
+      summary: Consume given amount of Asset and produce new given ones
+      description: Given amount of given asset will be sent to a non-retrieval address
+        and new assets will be created and owned by given partnerIdsonly successful
+        if enough amount available.
+      operationId: convertUsingPOST
+      requestBody:
+        description: Convert Assets into each other
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConsumeAssetRequest'
+        required: true
+      responses:
+        200:
+          description: Successful Operation
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ResponseEntity'
+        400:
+          description: Input error
+          content: {}
+        403:
+          description: Forbidden
+          content: {}
+      deprecated: false
+      security:
+      - b4l: []
+      x-codegen-request-body-name: request
+  /assets/paged:
+    get:
+      tags:
+      - Manage Debt Vouchers (Assets) in B4L Network
+      summary: Return all your Assets (paged)
+      description: List all the assets which are owned by you. Please use the Paged
+        endpoint for retrieving huge amount of assets.
+      operationId: getAssetsUsingGET
+      parameters:
+      - name: name
+        in: query
+        description: Name of the asset
+        allowEmptyValue: false
+        schema:
+          type: string
+      - name: pageNumber
+        in: query
+        description: Min value is 0.
+        allowEmptyValue: false
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: pageSize
+        in: query
+        description: Max value is 100.
+        allowEmptyValue: false
+        schema:
+          type: integer
+          format: int32
+          default: 20
+      - name: sortDirection
+        in: query
+        description: sortDirection
+        allowEmptyValue: false
+        schema:
+          type: string
+          default: NONE
+          enum:
+          - NONE
+          - ASC
+          - DESC
+      - name: sortKey
+        in: query
+        description: sortKey
+        allowEmptyValue: false
+        schema:
+          type: string
+      - name: unit
+        in: query
+        description: Unit of measurement (ex. kg, lbs..)
+        allowEmptyValue: false
+        schema:
+          type: string
+      responses:
+        200:
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultPage'
+        401:
+          description: Not Authorized
+          content: {}
+        403:
+          description: Access Denied
+          content: {}
+        500:
+          description: Internal Server Error
+          content: {}
+      deprecated: false
+      security:
+      - b4l: []
+  /assets/partners/{partnerId}:
+    post:
+      tags:
+      - Manage Debt Vouchers (Assets) in B4L Network
+      summary: Create Assets for a business partner
+      description: Owner will be the given business partner
+      operationId: createAssetForPartnerUsingPOST
+      parameters:
+      - name: partnerId
+        in: path
+        description: partnerId
+        required: true
+        schema:
+          type: string
+          default: unilever
+      requestBody:
+        description: New asset information
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssetRequest'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Asset'
+        201:
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Asset'
+        409:
+          description: Asset was created by somebody else
+          content: {}
+      deprecated: false
+      security:
+      - b4l: []
+      x-codegen-request-body-name: asset
+  /assets/transactions:
+    get:
+      tags:
+      - Manage Asset (Debt Voucher) Transactions in B4L Network
+      summary: Return a list of transactions.
+      description: List all Asset (Debt Voucher) Transactions that are related to you.
+      operationId: getAssetTransactionsUsingGET
+      parameters:
+      - name: assetId
+        in: query
+        description: assetId
+        allowEmptyValue: false
+        schema:
+          type: string
+      - name: pageNumber
+        in: query
+        description: Min value is 0.
+        allowEmptyValue: false
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: pageSize
+        in: query
+        description: Max value is 100.
+        allowEmptyValue: false
+        schema:
+          type: integer
+          format: int32
+          default: 100
+      - name: partnerId
+        in: query
+        description: Only use this field used when filtering on transferred transactions
+          or when an asset was minted for a partner directly.
+        allowEmptyValue: false
+        schema:
+          type: string
+      - name: sortKey
+        in: query
+        description: sortKey
+        allowEmptyValue: false
+        schema:
+          type: string
+      - name: transactionCreator
+        in: query
+        description: The creator of the transaction.
+        allowEmptyValue: false
+        schema:
+          type: string
+          enum:
+          - ME
+          - PARTNERS
+      - name: transactionType
+        in: query
+        description: The type of transaction.
+        allowEmptyValue: false
+        schema:
+          type: string
+          enum:
+          - MINT
+          - TRANSFER
+          - CONSUME
+          - BURN
+          - MINT_FOR_PARTNER
+          - CONSUME_OUTPUT
+      responses:
+        200:
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ExchangeDocument'
+        401:
+          description: Not Authorized
+          content: {}
+        403:
+          description: Access Denied
+          content: {}
+        500:
+          description: Internal Server Error
+          content: {}
+      deprecated: false
+      security:
+      - b4l: []
+  /assets/transfer:
+    post:
+      tags:
+      - Manage Debt Vouchers (Assets) in B4L Network
+      summary: Transfer amount of Asset to a business partner
+      description: New Owner of transferred Asset amount will be the given business
+        partner
+      operationId: transferAssetUsingPOST
+      requestBody:
+        description: Transfer request
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransferRequest'
+        required: true
+      responses:
+        200:
+          description: Successful Operation
+          content: {}
+        404:
+          description: Not enough resources left
+          content: {}
+      deprecated: false
+      security:
+      - b4l: []
+      x-codegen-request-body-name: request
+  /assets/{assetId}:
+    get:
+      tags:
+      - Manage Debt Vouchers (Assets) in B4L Network
+      summary: Return your Asset of given Id
+      operationId: getAssetByIdUsingGET
+      parameters:
+      - name: assetId
+        in: path
+        description: assetId
+        required: true
+        schema:
+          type: string
+          default: SoyOil-MyCoop-2020
+      responses:
+        200:
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Asset'
+        401:
+          description: Not Authorized
+          content: {}
+        403:
+          description: Access Denied
+          content: {}
+        404:
+          description: Asset not found
+          content: {}
+        500:
+          description: Internal Server Error
+          content: {}
+      deprecated: false
+      security:
+      - b4l: []
+    post:
+      tags:
+      - Manage Debt Vouchers (Assets) in B4L Network
+      summary: Add given amount of existing asset
+      description: You have to be the owner of the asset
+      operationId: addToExistingAssetUsingPOST
+      parameters:
+      - name: amount
+        in: query
+        description: amount
+        required: true
+        allowEmptyValue: false
+        schema:
+          type: integer
+          default: 2000
+      - name: assetId
+        in: path
+        description: assetId
+        required: true
+        schema:
+          type: string
+          default: SoyOil-MyCoop-2020
+      responses:
+        200:
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Asset'
+        409:
+          description: Asset was created by somebody else
+          content: {}
+      deprecated: false
+      security:
+      - b4l: []
+    delete:
+      tags:
+      - Manage Debt Vouchers (Assets) in B4L Network
+      summary: Destroy given amount of Asset
+      description: Be careful, usually destroying asset (burning tokens) will be part
+        of a production (transformation) step or at end of lifeonly successful if
+        enough amount available.
+      operationId: destroyAmountOfAssetUsingDELETE
+      parameters:
+      - name: amount
+        in: query
+        description: amount
+        required: true
+        allowEmptyValue: false
+        schema:
+          type: integer
+          default: 2000
+      - name: assetId
+        in: path
+        description: assetId
+        required: true
+        schema:
+          type: string
+          default: SoyOil-MyCoop-2020
+      responses:
+        200:
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Asset'
+        404:
+          description: Insufficient Amount
+          content: {}
+      deprecated: false
+      security:
+      - b4l: []
+  /async/assets/:
+    get:
+      tags:
+      - Manage Debt Vouchers (Assets) in B4L Network
+      summary: Return all your Assets (non paged)
+      description: List all the assets which are owned by you. This might take a while
+        depending to the number of assets.
+      operationId: getAllAssetsUsingGET_1
+      responses:
+        200:
+          description: Successful Operation
+          content:
+            text/plain:
+              schema:
+                type: string
+        401:
+          description: Not Authorized
+          content: {}
+        403:
+          description: Access Denied
+          content: {}
+        500:
+          description: Internal Server Error
+          content: {}
+      deprecated: false
+      security:
+      - b4l: []
+    post:
+      tags:
+      - Manage Debt Vouchers (Assets) in B4L Network
+      summary: Create Asset
+      description: Owner will be yourself if no owner is set.
+      operationId: createAssetUsingPOST_1
+      requestBody:
+        description: New asset information
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssetRequest'
+        required: true
+      responses:
+        200:
+          description: Successful increase of supply
+          content:
+            text/plain:
+              schema:
+                type: string
+        201:
+          description: Successful creating of new asset
+          content:
+            text/plain:
+              schema:
+                type: string
+        409:
+          description: Asset already used by someone else
+          content: {}
+      deprecated: false
+      security:
+      - b4l: []
+      x-codegen-request-body-name: assetRequest
+  /async/assets/consume:
+    post:
+      tags:
+      - Manage Debt Vouchers (Assets) in B4L Network
+      summary: Consume given amount of Asset and produce new given ones
+      description: Given amount of given asset will be sent to a non-retrieval address
+        and new assets will be created and owned by given partnerIdsonly successful
+        if enough amount available.
+      operationId: consumeUsingPOST_1
+      requestBody:
+        description: Consume request
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConsumeAssetRequest'
+        required: true
+      responses:
+        200:
+          description: Successful Operation
+          content:
+            text/plain:
+              schema:
+                type: string
+        400:
+          description: Input error
+          content: {}
+        403:
+          description: Forbidden
+          content: {}
+      deprecated: false
+      security:
+      - b4l: []
+      x-codegen-request-body-name: request
+  /async/assets/jobid/{jobId}:
+    get:
+      tags:
+      - Manage Debt Vouchers (Assets) in B4L Network
+      summary: Return all your Assets (non paged)
+      description: List all the assets which are owned by you. This might take a while
+        depending to the number of assets.
+      operationId: getAllAssetsByJobIdUsingGET
+      parameters:
+      - name: jobId
+        in: path
+        description: jobId
+        required: true
+        schema:
+          type: string
+          default: e.g. fcf8bbcf-2882-40ea-ab5b-f8215c884980
+      responses:
+        200:
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Asset'
+        401:
+          description: Not Authorized
+          content: {}
+        403:
+          description: Access Denied
+          content: {}
+        500:
+          description: Internal Server Error
+          content: {}
+      deprecated: false
+      security:
+      - b4l: []
+  /async/assets/jobs/all:
+    get:
+      tags:
+      - Manage Debt Vouchers (Assets) in B4L Network
+      summary: Return all  Jobs (paged)
+      operationId: getAllJobsUsingGET
+      parameters:
+      - name: pageNumber
+        in: query
+        description: Min value is 0.
+        allowEmptyValue: false
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: pageSize
+        in: query
+        description: Max value is 100.
+        allowEmptyValue: false
+        schema:
+          type: integer
+          format: int32
+          default: 20
+      - name: sortDirection
+        in: query
+        description: sortDirection
+        allowEmptyValue: false
+        schema:
+          type: string
+          default: NONE
+          enum:
+          - NONE
+          - ASC
+          - DESC
+      - name: sortKey
+        in: query
+        description: sortKey
+        allowEmptyValue: false
+        schema:
+          type: string
+      responses:
+        200:
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                type: string
+        401:
+          description: Not Authorized
+          content: {}
+        403:
+          description: Access Denied
+          content: {}
+        404:
+          description: Asset not found
+          content: {}
+        500:
+          description: Internal Server Error
+          content: {}
+      deprecated: false
+      security:
+      - b4l: []
+  /async/assets/jobs/pending:
+    get:
+      tags:
+      - Manage Debt Vouchers (Assets) in B4L Network
+      summary: Return all pending Jobs
+      operationId: getAllPendingJobsUsingGET
+      responses:
+        200:
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                type: string
+        401:
+          description: Not Authorized
+          content: {}
+        403:
+          description: Access Denied
+          content: {}
+        404:
+          description: Asset not found
+          content: {}
+        500:
+          description: Internal Server Error
+          content: {}
+      deprecated: false
+      security:
+      - b4l: []
+  /async/assets/jobs/status/{jobId}:
+    get:
+      tags:
+      - Manage Debt Vouchers (Assets) in B4L Network
+      summary: Return job status of given Job-Id
+      operationId: getJobStatusUsingGET
+      parameters:
+      - name: jobId
+        in: path
+        description: jobId
+        required: true
+        schema:
+          type: string
+          default: e.g. fcf8bbcf-2882-40ea-ab5b-f8215c884980
+      responses:
+        200:
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleStatus'
+        401:
+          description: Not Authorized
+          content: {}
+        403:
+          description: Access Denied
+          content: {}
+        404:
+          description: Asset not found
+          content: {}
+        500:
+          description: Internal Server Error
+          content: {}
+      deprecated: false
+      security:
+      - b4l: []
+  /async/assets/paged:
+    get:
+      tags:
+      - Manage Debt Vouchers (Assets) in B4L Network
+      summary: Return all your Assets (paged)
+      description: List all the assets which are owned by you. Please use the Paged
+        endpoint for retrieving huge amount of assets.
+      operationId: getAssetsUsingGET_1
+      parameters:
+      - name: name
+        in: query
+        description: Name of the asset
+        allowEmptyValue: false
+        schema:
+          type: string
+      - name: pageNumber
+        in: query
+        description: Min value is 0.
+        allowEmptyValue: false
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: pageSize
+        in: query
+        description: Max value is 100.
+        allowEmptyValue: false
+        schema:
+          type: integer
+          format: int32
+          default: 20
+      - name: sortDirection
+        in: query
+        description: sortDirection
+        allowEmptyValue: false
+        schema:
+          type: string
+          default: NONE
+          enum:
+          - NONE
+          - ASC
+          - DESC
+      - name: sortKey
+        in: query
+        description: sortKey
+        allowEmptyValue: false
+        schema:
+          type: string
+      - name: unit
+        in: query
+        description: Unit of measurement (ex. kg, lbs..)
+        allowEmptyValue: false
+        schema:
+          type: string
+      responses:
+        200:
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultPage'
+        401:
+          description: Not Authorized
+          content: {}
+        403:
+          description: Access Denied
+          content: {}
+        500:
+          description: Internal Server Error
+          content: {}
+      deprecated: false
+      security:
+      - b4l: []
+  /async/assets/partners/{partnerId}:
+    post:
+      tags:
+      - Manage Debt Vouchers (Assets) in B4L Network
+      summary: Create Assets for a business partner
+      description: Owner will be the given business partner
+      operationId: createAssetForPartnerUsingPOST_1
+      parameters:
+      - name: partnerId
+        in: path
+        description: partnerId
+        required: true
+        schema:
+          type: string
+          default: unilever
+      requestBody:
+        description: New asset information
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssetRequest'
+        required: true
+      responses:
+        200:
+          description: Successful Operation
+          content:
+            text/plain:
+              schema:
+                type: string
+      deprecated: false
+      security:
+      - b4l: []
+      x-codegen-request-body-name: asset
+  /async/assets/transfer:
+    post:
+      tags:
+      - Manage Debt Vouchers (Assets) in B4L Network
+      summary: Transfer amount of Asset to a business partner
+      description: New Owner of transferred Asset amount will be the given business
+        partner
+      operationId: transferAssetUsingPOST_1
+      requestBody:
+        description: Transfer request
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransferRequest'
+        required: true
+      responses:
+        200:
+          description: Successful Operation
+          content:
+            text/plain:
+              schema:
+                type: string
+        403:
+          description: Not allowed to move asset, asset is owned by someone else
+          content: {}
+        404:
+          description: Not enough resources left
+          content: {}
+      deprecated: false
+      security:
+      - b4l: []
+      x-codegen-request-body-name: request
+  /async/assets/{assetId}:
+    get:
+      tags:
+      - Manage Debt Vouchers (Assets) in B4L Network
+      summary: Return your Asset of given Id
+      operationId: getAssetByIdUsingGET_1
+      parameters:
+      - name: assetId
+        in: path
+        description: assetId
+        required: true
+        schema:
+          type: string
+          default: SoyOil-MyCoop-2020
+      responses:
+        200:
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Asset'
+        401:
+          description: Not Authorized
+          content: {}
+        403:
+          description: Access Denied
+          content: {}
+        404:
+          description: Asset not found
+          content: {}
+        500:
+          description: Internal Server Error
+          content: {}
+      deprecated: false
+      security:
+      - b4l: []
+    post:
+      tags:
+      - Manage Debt Vouchers (Assets) in B4L Network
+      summary: Add given amount of existing asset
+      description: Owner will be the given business partner
+      operationId: addToExistingAssetUsingPOST_1
+      parameters:
+      - name: amount
+        in: query
+        description: amount
+        required: true
+        allowEmptyValue: false
+        schema:
+          type: integer
+          default: 2000
+      - name: assetId
+        in: path
+        description: assetId
+        required: true
+        schema:
+          type: string
+          default: SoyOil-MyCoop-2020
+      responses:
+        200:
+          description: Successful Operation
+          content:
+            text/plain:
+              schema:
+                type: string
+      deprecated: false
+      security:
+      - b4l: []
+    delete:
+      tags:
+      - Manage Debt Vouchers (Assets) in B4L Network
+      summary: Destroy given amount of Asset
+      description: Be careful, usually destroying asset (burning tokens) will be part
+        of a production (transformation) step or at end of lifeonly successful if
+        enough amount available.
+      operationId: destroyAmountOfAssetUsingDELETE_1
+      parameters:
+      - name: amount
+        in: query
+        description: amount
+        required: true
+        allowEmptyValue: false
+        schema:
+          type: integer
+          default: 2000
+      - name: assetId
+        in: path
+        description: assetId
+        required: true
+        schema:
+          type: string
+          default: SoyOil-MyCoop-2020
+      responses:
+        200:
+          description: Successful Operation
+          content:
+            text/plain:
+              schema:
+                type: string
+        404:
+          description: Insufficient Amount
+          content: {}
+      deprecated: false
+      security:
+      - b4l: []
+
+components:
+  schemas:
+    Asset:
+      title: Asset
+      type: object
+      properties:
+        assetId:
+          type: string
+          description: Asset Id
+          example: Voucher_EPAL_Quality_A
+        name:
+          type: string
+          description: Asset name
+          example: Debt of EPAL quality A
+        amount:
+          type: integer
+          description: Amount
+          example: 30
+        tokenIdentifier:
+          type: string
+          description: Unique identifier to detect the token type of this asset on
+            the blockchain
+          example: TOKEN:ETH:B4L:0x12345678:2
+    AssetRequest:
+      title: AssetRequest
+      type: object
+      properties:
+        assetId:
+          type: string
+          description: Asset Id
+          example: SoyBean_2020
+        name:
+          type: string
+          description: Asset name
+          example: SoyOil Sustainable Production
+        amount:
+          type: integer
+          description: Amount of Asset
+          example: 500
+        unit:
+          type: string
+          description: Unit
+          example: kg
+    ExchangeDocument:
+      title: ExchangeDocument
+      type: object
+      properties:
+        peerId:
+          type: string
+          description: The id of the peer who created this object
+          example: 24:07:B5:3F:19:1D:E0:59:4B:CC:1C:1D:C1:1A:1B:5F:99:64:40:B3
+        systemId:
+          type: string
+          description: The id of the source system which created this object
+          example: CC8
+        documentId:
+          type: string
+          description: The logical ID of the document
+          example: PO:10004:02
+        namespace:
+          type: string
+          description: The namespace of the object, may span multiple applications
+          example: MURI
+        type:
+          type: string
+          description: The logical type of the document
+          example: MaterialItem
+        details:
+          type: object
+          properties: {}
+          description: The details (i.e. additional properties) of the business object
+        references:
+          type: array
+          description: References to other business objects
+          items:
+            $ref: '#/components/schemas/ExchangeDocumentReference'
+        tags:
+          type: array
+          description: 'The tags which are assigned to this '
+          items:
+            $ref: '#/components/schemas/Tag'
+        notarizationMetaData:
+          $ref: '#/components/schemas/NotarizationMetaData'
+        createdAt:
+          type: integer
+          description: When this object was created locally (no global timestamp)
+          format: int64
+          example: 1547134083
+        merkleProof:
+          $ref: '#/components/schemas/MerkleProofPOJO'
+        attachment:
+          $ref: '#/components/schemas/Attachment'
+    ResponseEntity:
+      title: ResponseEntity
+      type: object
+      properties:
+        body:
+          type: object
+          properties: {}
+        statusCode:
+          type: string
+          enum:
+          - 100 CONTINUE
+          - 101 SWITCHING_PROTOCOLS
+          - 102 PROCESSING
+          - 103 CHECKPOINT
+          - 200 OK
+          - 201 CREATED
+          - 202 ACCEPTED
+          - 203 NON_AUTHORITATIVE_INFORMATION
+          - 204 NO_CONTENT
+          - 205 RESET_CONTENT
+          - 206 PARTIAL_CONTENT
+          - 207 MULTI_STATUS
+          - 208 ALREADY_REPORTED
+          - 226 IM_USED
+          - 300 MULTIPLE_CHOICES
+          - 301 MOVED_PERMANENTLY
+          - 302 FOUND
+          - 302 MOVED_TEMPORARILY
+          - 303 SEE_OTHER
+          - 304 NOT_MODIFIED
+          - 305 USE_PROXY
+          - 307 TEMPORARY_REDIRECT
+          - 308 PERMANENT_REDIRECT
+          - 400 BAD_REQUEST
+          - 401 UNAUTHORIZED
+          - 402 PAYMENT_REQUIRED
+          - 403 FORBIDDEN
+          - 404 NOT_FOUND
+          - 405 METHOD_NOT_ALLOWED
+          - 406 NOT_ACCEPTABLE
+          - 407 PROXY_AUTHENTICATION_REQUIRED
+          - 408 REQUEST_TIMEOUT
+          - 409 CONFLICT
+          - 410 GONE
+          - 411 LENGTH_REQUIRED
+          - 412 PRECONDITION_FAILED
+          - 413 PAYLOAD_TOO_LARGE
+          - 413 REQUEST_ENTITY_TOO_LARGE
+          - 414 URI_TOO_LONG
+          - 414 REQUEST_URI_TOO_LONG
+          - 415 UNSUPPORTED_MEDIA_TYPE
+          - 416 REQUESTED_RANGE_NOT_SATISFIABLE
+          - 417 EXPECTATION_FAILED
+          - 418 I_AM_A_TEAPOT
+          - 419 INSUFFICIENT_SPACE_ON_RESOURCE
+          - 420 METHOD_FAILURE
+          - 421 DESTINATION_LOCKED
+          - 422 UNPROCESSABLE_ENTITY
+          - 423 LOCKED
+          - 424 FAILED_DEPENDENCY
+          - 425 TOO_EARLY
+          - 426 UPGRADE_REQUIRED
+          - 428 PRECONDITION_REQUIRED
+          - 429 TOO_MANY_REQUESTS
+          - 431 REQUEST_HEADER_FIELDS_TOO_LARGE
+          - 451 UNAVAILABLE_FOR_LEGAL_REASONS
+          - 500 INTERNAL_SERVER_ERROR
+          - 501 NOT_IMPLEMENTED
+          - 502 BAD_GATEWAY
+          - 503 SERVICE_UNAVAILABLE
+          - 504 GATEWAY_TIMEOUT
+          - 505 HTTP_VERSION_NOT_SUPPORTED
+          - 506 VARIANT_ALSO_NEGOTIATES
+          - 507 INSUFFICIENT_STORAGE
+          - 508 LOOP_DETECTED
+          - 509 BANDWIDTH_LIMIT_EXCEEDED
+          - 510 NOT_EXTENDED
+          - 511 NETWORK_AUTHENTICATION_REQUIRED
+        statusCodeValue:
+          type: integer
+          format: int32
+    ResultPage:
+      title: ResultPage
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            type: object
+            properties: {}
+        pageNumber:
+          type: integer
+          format: int64
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int64
+    ResultPage«Asset»:
+      title: ResultPage«Asset»
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/Asset'
+        pageNumber:
+          type: integer
+          format: int64
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int64
+    ResultPage«ExchangeDocument»:
+      title: ResultPage«ExchangeDocument»
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExchangeDocument'
+        pageNumber:
+          type: integer
+          format: int64
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int64
+  securitySchemes:
+    b4l:
+      type: http
+      scheme: basic

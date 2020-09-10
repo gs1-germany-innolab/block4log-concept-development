@@ -1,0 +1,449 @@
+openapi: 3.0.1
+info:
+  title: Tokens API
+  description: The notary API of B4L.
+  version: 1.0.0
+servers:
+- url: https://tokens.com
+tags:
+- name: Manage Tokens
+  description: Token Controller
+
+paths:
+  /tokens/:
+    get:
+      tags:
+      - Manage Tokens
+      summary: Return all Tokens(paged), optionally filtered by pattern and owner
+      description: List all the Tokens which are owned by given owner. Can be filered to reduce amount of results.
+        Please be aware that this can be potentially be a costly action to retrieve a huge amount of tokens.
+      operationId: gettokensUsingGET
+      parameters:
+      - name: regex
+        in: query
+        description: Filter for Token Id
+        allowEmptyValue: false
+        schema:
+          type: string
+      - name: pageNumber
+        in: query
+        description: Min value is 0.
+        allowEmptyValue: false
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: pageSize
+        in: query
+        description: Max value is 100.
+        allowEmptyValue: false
+        schema:
+          type: integer
+          format: int32
+          default: 20
+      - name: sortDirection
+        in: query
+        description: sortDirection
+        allowEmptyValue: false
+        schema:
+          type: string
+          default: NONE
+          enum:
+          - NONE
+          - ASC
+          - DESC
+      - name: sortKey
+        in: query
+        description: sortKey
+        allowEmptyValue: false
+        schema:
+          type: string
+      - name: owner
+        in: query
+        description: current owner (address)
+        allowEmptyValue: false
+        schema:
+          type: string
+      responses:
+        200:
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultPage[Token]'
+        401:
+          description: Not Authorized
+          content: {}
+        403:
+          description: Access Denied
+          content: {}
+        500:
+          description: Internal Server Error
+          content: {}
+      deprecated: false
+      security:
+      - bbs: []
+    post:
+      tags:
+      - Manage Tokens
+      summary: Create Token
+      description: Owner will be yourself if no owner is set.
+      operationId: createTokenUsingPOST
+      parameters:
+      - name: Amount
+        in: query
+        description: Amount of the Token
+        allowEmptyValue: false
+        schema:
+          type: integer
+          format: uint32
+        required: true
+      responses:
+        200:
+          description: Successful increase of supply
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Token'
+        201:
+          description: Successful creating of new Token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Token'
+        409:
+          description: Token was created by somebody else
+          content: {}
+      deprecated: false
+      security:
+      - bbs: []
+      x-codegen-request-body-name: Token
+  /tokens/convert:
+    post:
+      tags:
+      - Manage Tokens
+      summary: Consume given input Tokens and produce tokens
+      description: Amounts of input Tokens will be burned (destroyed)
+        and new amounts of output Tokens will be created and optionally transferred to new owner(s).
+        Only successful if you have access to all input tokens.
+      operationId: convertUsingPOST
+      requestBody:
+        description: Convert Tokens into each other
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConvertTokenRequest'
+        required: true
+      responses:
+        200:
+          description: Successful Operation
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ResponseEntity'
+        400:
+          description: Input error
+          content: {}
+        403:
+          description: Forbidden
+          content: {}
+      deprecated: false
+      security:
+      - bbs: []
+      x-codegen-request-body-name: request
+  
+  /tokens/{tokenId}:
+    get:
+      tags:
+      - Manage Tokens
+      summary: Return your Token of given Id
+      operationId: getTokenByIdUsingGET
+      parameters:
+      - name: tokenId
+        in: path
+        description: tokenId
+        required: true
+        schema:
+          type: string
+          default: orijz85u45u60943u5843z87
+      responses:
+        200:
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Token'
+        401:
+          description: Not Authorized
+          content: {}
+        403:
+          description: Access Denied
+          content: {}
+        404:
+          description: Token not found
+          content: {}
+        500:
+          description: Internal Server Error
+          content: {}
+      deprecated: false
+      security:
+      - bbs: []
+    post:
+      tags:
+      - Manage Tokens
+      summary: Mint (add) given amount of existing Token, optionally transfer to new owner
+      description: You have to be the owner of the Token or permissioned to create
+      operationId: addToExistingTokenUsingPOST
+      parameters:
+      - name: amount
+        in: query
+        description: amount
+        required: true
+        allowEmptyValue: false
+        schema:
+          type: integer
+          default: 2000
+      - name: tokenId
+        in: path
+        description: tokenId
+        required: true
+        schema:
+          type: string
+          default: 847685605658709658098650
+      - name: transferTo
+        in: query
+        description: address of (new) owner to which amount gets transferred
+        required: false
+        schema:
+          type: string
+          default: 847609658098650
+      responses:
+        200:
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Token'
+        409:
+          description: Token was created by somebody else
+          content: {}
+      deprecated: false
+      security:
+      - bbs: []
+    delete:
+      tags:
+      - Manage Tokens
+      summary: Destroy given amount of Token
+      description: Be careful, usually destroying Token (burning tokens) will be part
+        of a production (transformation) step or at end of life
+        only successful if enough amount available.
+      operationId: destroyAmountOfTokenUsingDELETE
+      parameters:
+      - name: amount
+        in: query
+        description: amount
+        required: true
+        allowEmptyValue: false
+        schema:
+          type: integer
+          default: 2000
+      - name: tokenId
+        in: path
+        description: tokenId
+        required: true
+        schema:
+          type: string
+          default: 847689658098650
+      responses:
+        200:
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Token'
+        404:
+          description: Insufficient Amount
+          content: {}
+      deprecated: false
+      security:
+      - bbs: []
+  /tokens/{tokenId}/transfer:
+    post:
+      tags:
+      - Manage Tokens
+      summary: Transfer (without mint) amount of Token to a business partner
+      description: New Owner of transferred Token amount will be the given business
+        partner
+      operationId: transferTokenUsingPOST
+      parameters:
+      - name: amount
+        in: query
+        description: amount
+        required: true
+        allowEmptyValue: false
+        schema:
+          type: integer
+          default: 2000
+      - name: tokenId
+        in: path
+        description: tokenId
+        required: true
+        schema:
+          type: string
+          default: 847689658098650
+      - name: transferTo
+        in: query
+        description: address of (new) owner to which amount gets transferred
+        required: true
+        schema:
+          type: string
+          default: 847609658098650
+      responses:
+        200:
+          description: Successful Operation
+          content: {}
+        404:
+          description: Not enough resources left
+          content: {}
+      deprecated: false
+      security:
+      - bbs: []
+      x-codegen-request-body-name: request
+
+components:
+  schemas:
+    Token:
+      title: Token
+      type: object
+      properties:
+        owner:
+          type: string
+          description: Address of Owner
+          example: 9568j65jgofuv
+        amount:
+          type: integer
+          description: Amount
+          example: 30
+        id:
+          type: string
+          description: Unique identifier to detect the token type of this Token on
+            the blockchain
+          example: TOKEN:ETH:NETWORK:0x12345678:2
+        url:
+          type: string
+          description: Lookup of Metadata (like unit)
+          example: 30
+    ConvertTokenRequest:
+      title: ConvertTokenRequest
+      type: object
+      properties:
+        input:
+          type: array
+          items:
+            $ref: '#/components/schemas/Token'
+        output:
+          type: array
+          items:
+            $ref: '#/components/schemas/Token'
+    ResponseEntity:
+      title: ResponseEntity
+      type: object
+      properties:
+        body:
+          type: object
+          properties: {}
+        statusCode:
+          type: string
+          enum:
+          - 100 CONTINUE
+          - 101 SWITCHING_PROTOCOLS
+          - 102 PROCESSING
+          - 103 CHECKPOINT
+          - 200 OK
+          - 201 CREATED
+          - 202 ACCEPTED
+          - 203 NON_AUTHORITATIVE_INFORMATION
+          - 204 NO_CONTENT
+          - 205 RESET_CONTENT
+          - 206 PARTIAL_CONTENT
+          - 207 MULTI_STATUS
+          - 208 ALREADY_REPORTED
+          - 226 IM_USED
+          - 300 MULTIPLE_CHOICES
+          - 301 MOVED_PERMANENTLY
+          - 302 FOUND
+          - 302 MOVED_TEMPORARILY
+          - 303 SEE_OTHER
+          - 304 NOT_MODIFIED
+          - 305 USE_PROXY
+          - 307 TEMPORARY_REDIRECT
+          - 308 PERMANENT_REDIRECT
+          - 400 BAD_REQUEST
+          - 401 UNAUTHORIZED
+          - 402 PAYMENT_REQUIRED
+          - 403 FORBIDDEN
+          - 404 NOT_FOUND
+          - 405 METHOD_NOT_ALLOWED
+          - 406 NOT_ACCEPTABLE
+          - 407 PROXY_AUTHENTICATION_REQUIRED
+          - 408 REQUEST_TIMEOUT
+          - 409 CONFLICT
+          - 410 GONE
+          - 411 LENGTH_REQUIRED
+          - 412 PRECONDITION_FAILED
+          - 413 PAYLOAD_TOO_LARGE
+          - 413 REQUEST_ENTITY_TOO_LARGE
+          - 414 URI_TOO_LONG
+          - 414 REQUEST_URI_TOO_LONG
+          - 415 UNSUPPORTED_MEDIA_TYPE
+          - 416 REQUESTED_RANGE_NOT_SATISFIABLE
+          - 417 EXPECTATION_FAILED
+          - 418 I_AM_A_TEAPOT
+          - 419 INSUFFICIENT_SPACE_ON_RESOURCE
+          - 420 METHOD_FAILURE
+          - 421 DESTINATION_LOCKED
+          - 422 UNPROCESSABLE_ENTITY
+          - 423 LOCKED
+          - 424 FAILED_DEPENDENCY
+          - 425 TOO_EARLY
+          - 426 UPGRADE_REQUIRED
+          - 428 PRECONDITION_REQUIRED
+          - 429 TOO_MANY_REQUESTS
+          - 431 REQUEST_HEADER_FIELDS_TOO_LARGE
+          - 451 UNAVAILABLE_FOR_LEGAL_REASONS
+          - 500 INTERNAL_SERVER_ERROR
+          - 501 NOT_IMPLEMENTED
+          - 502 BAD_GATEWAY
+          - 503 SERVICE_UNAVAILABLE
+          - 504 GATEWAY_TIMEOUT
+          - 505 HTTP_VERSION_NOT_SUPPORTED
+          - 506 VARIANT_ALSO_NEGOTIATES
+          - 507 INSUFFICIENT_STORAGE
+          - 508 LOOP_DETECTED
+          - 509 BANDWIDTH_LIMIT_EXCEEDED
+          - 510 NOT_EXTENDED
+          - 511 NETWORK_AUTHENTICATION_REQUIRED
+        statusCodeValue:
+          type: integer
+          format: int32
+    ResultPage[Token]:
+      title: ResultPage[Token]
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/Token'
+        pageNumber:
+          type: integer
+          format: int64
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int64
+  securitySchemes:
+    bbs:
+      type: http
+      scheme: basic
