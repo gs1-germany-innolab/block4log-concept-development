@@ -1,0 +1,73 @@
+@startuml
+skinparam responseMessageBelowArrow true
+
+actor "Issuer" as Issuer
+actor Alice
+actor "Anonymous Holder H1" as H1
+actor Bob
+actor "Anonymous Holder H2" as H2
+actor Charly
+actor "Anonymous Holder H3" as H3
+
+entity "Token Smart Contract" as SC
+
+Alice <-> Issuer: Real token exchange\nleads to debt
+
+Issuer -> SC : Issue debt token (type, quality,...)
+SC -> SC: 
+note right of SC
+...
+uint256 id =getNextFreeId();
+
+palletCoins[id] = PalletCoin({
+            debtor: msg.sender,
+            owner: msg.sender,
+            type: type, quality: quality,...
+            }));
+
+accounts[msg.sender].push(id);
+
+return id;
+end note
+
+SC -> Issuer: Token Id
+
+Alice -> H1 **: Create annonymous\nBC Address
+
+Alice -> Issuer: Proof that Alice is H1\n**Confidentially**
+
+Issuer -> SC: Transfer token\ntransferFrom(Issuer,H1,TokenId)
+
+SC->SC: tokenID goes to H1
+note right of SC
+require(msg.sender == palletCoins[tokenId].owner 
+        || checkApproval(...));
+...
+palletCoins[tokenId].owner = H1 
+accounts[msg.sender].remove(tokenId);
+accounts[H1].push(tokenId);
+...
+end note
+
+Alice <-> Bob: Agree on token exchange
+
+Bob -> H2 **:Create annonymous\nBC Address
+Bob -> Alice: Proof that Bob is H2\n**Confidentially**
+
+
+Alice -> SC: Transfer token\ntransferFrom(H1,H2,TokenId)
+SC->SC: tokenID goes to H2
+
+Charly -> H3 **:Create annonymous\nBC Address
+Bob <-> Charly: negoatiate trade\nexchange anonymous adresses
+Alice -> SC: Transfer token\ntransferFrom(H2,H3,TokenId)
+SC->SC:tokenID goes to H3
+
+Charly -> Issuer:Redeem debt\nProof that Charly is H3
+Charly -> SC: Transfer token\ntransferFrom(H3,Issuer,TokenId) 
+SC->SC: tokenID goes to Issuer
+SC -> Issuer: event(got tokenId)
+
+Issuer -> Charly:Hand out LCs
+
+@enduml
