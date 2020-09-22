@@ -14,9 +14,13 @@ struct PalletCoin{
         ...
     }
 
+// tokenID -> token
 mapping(uint256 => PalletCoin) public palletCoins;
 
-mapping(address => StructuredLinkedList.List) public accounts; // inverse of  i -> palletCoins[i].owner
+// inverse of  i -> palletCoins[i].owner 
+// This is needed for ERC721's "balanceOf" but will not be useful for the scheme below, 
+// where most addresses hold at most 1 token.... -> TBD,
+mapping(address => StructuredLinkedList.List) public accounts; 
 ```
 Details (types, allowed values, etc.) are to be discussed, of course.
 
