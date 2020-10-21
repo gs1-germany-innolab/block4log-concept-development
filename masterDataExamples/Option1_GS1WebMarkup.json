@@ -191,30 +191,5 @@
         "@type": "tbd:E_1_PERFORMANCE_TRAY"
     },  
     "foaf:Document": "https://www.gs1-germany.de/gs1-standards/umsetzung/fachpublikationen/detailansicht/typbeschreibung-e1-e3-performance-behaelter-in-der-fleischbranche/artikelnummer/4000001022052/"
-},
-{
-    "@context": {
-        "dcterms": "http://purl.org/dc/terms/", 
-        "schema": "https://schema.org/"
-    },
-    "@type": "schema:DigitalDocument",
-    "@id": "https://id.gs1.org/253/4012345555554",
-    "schema:identifier": {
-        "@type": "schema:PropertyValue",
-        "schema:propertyID": "https://www.gs1.org/standards/id-keys/gdti",
-        "schema:value":  "4012345555554"
-    },
-    "dcterms:title": [
-        {
-            "@value": "Load carrier voucher",
-            "@language": "en"
-        },
-        {
-            "@value": "Ladungsträgerschein",
-            "@language": "de"
-        }
-        ],
-    "schema:temporalCoverage": "P1Y", 
-    "schema:creator": "https://id.gs1.org/417/4012345000009"    
 }
 ]
