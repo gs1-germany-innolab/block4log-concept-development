@@ -134,25 +134,6 @@ Note: At the least, address information MUST be provided in English. Providing l
 
 Note: At the least, title and description MUST be provided in English. Providing load carrier master data in further languages is possible though.
 
-## Voucher Document Master Data
-
-| Data Element | Description | Mandatory |
-| -- | -- | -- |
-| `context` | Dictionary | x |
-| __`dcterms` | "http://purl.org/dc/terms/" | x |
-| __`schema` | "http://schema.org/" | x |
-| `@type` | `DigitalDocument` | x |
-| `@id` | Canonical GS1 Digital Link URI `https://id.gs1.org/253/{GDTI (without serial number)}` | x |
-| `schema:identifier` | Dictionary | x |
-| __`@type` | `schema:PropertyValue` | x |
-| __`schema:propertyID` | `https://www.gs1.org/standards/id-keys/gdti` | x |
-| __`schema:value` | `GDTI` (^\d{13}$)  | x |
-| `dcterms:title` | List of 1...n dictionaries | x |
-|  __`value` | Document name (`String`)  | x |
-|  __`language` | ISO 639-1 alpha-2 language code (`CodeValue`) | x |
-| `schema:temporalCoverage` | Validity period (beginning with the date of creation of an instance), expressed as an ISO 8601 duration indicator with a year, month or day designator (`P[n]Y[n]M[n]D`) |  |
-| `schema:creator` | Canonical GS1 Digital Link URI `https://id.gs1.org/417/{Party GLN}` pointing to the owner of the GS1 Company Prefix with which GDTI is created |  |
-
 
 ## Open Questions
 * Do we need a version/last updated attribute for each of the above master data sets?
