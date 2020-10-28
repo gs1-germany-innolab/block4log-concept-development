@@ -19,7 +19,7 @@
           ],
           "action": "OBSERVE",
           "bizStep": "https://gs1.org/voc/BizStep-arriving",
-          "readPoint": "https://id.gs1.org/414/4012345000009",
+          "readPoint": {"id": "https://id.gs1.org/414/4012345000009"},
           "bizTransactionList": [
             {
               "type": "https://epcis.b4l.com/btt/voucher",
@@ -64,7 +64,7 @@
           ],
           "action": "OBSERVE",
           "bizStep": "https://gs1.org/voc/BizStep-arriving",
-          "readPoint": "https://id.gs1.org/414/4012345000009",
+          "readPoint": {"id": "https://id.gs1.org/414/4012345000009"},
           "bizTransactionList": [
             {
               "type": "https://epcis.b4l.com/btt/voucher",
@@ -116,7 +116,7 @@
           ],
           "action": "OBSERVE",
           "bizStep": "https://gs1.org/voc/BizStep-arriving",
-          "readPoint": "https://id.gs1.org/414/4012345000009",
+          "readPoint": {"id": "https://id.gs1.org/414/4012345000009"},
           "bizTransactionList": [
             {
               "type": "https://epcis.b4l.com/btt/voucher",
@@ -161,7 +161,7 @@
           ],
           "action": "OBSERVE",
           "bizStep": "https://gs1.org/voc/BizStep-departing",
-          "readPoint": "https://id.gs1.org/414/4012345000009",
+          "readPoint": {"id": "https://id.gs1.org/414/4012345000009"},
           "bizTransactionList": [
             {
               "type": "https://epcis.b4l.com/btt/voucher",
