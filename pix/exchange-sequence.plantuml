@@ -1,0 +1,46 @@
+@startuml
+scale 3
+
+database "Adress Book" as Reg
+
+database "Alice's CSP" as CspA
+actor "Pallet Handler Alice" as A
+actor "Pallet Handler Bob" as B
+database "Bob's CSP" as CspB
+
+database "World State" as BC
+
+A -> A: Create single signed\nLC Exchange\n+ Token Offer\n(SLCE)
+
+A -> CspA: SLCE 
+
+CspA -> BC: SC: Trade tokens if partner signs and LCE gets notarized
+
+CspA <-> Reg: Look up\nB -> CspB
+
+CspA -> CspB: SLCE
+
+CspB -> B: SLCE
+
+
+B -> B: Sign SLCE\n+ Create pseudonymous on-chain ID\nto receive tokens
+
+B -> CspB: Double Signed\nLC Exchange\n(LCE)\n+Accept Token Trade
+
+CspB -> BC: Notarization\nStore Hash(LCE)
+
+CspB -> BC: Sign off token trade
+
+BC -> BC: All conditions fullfilled\nTokens are transfered
+
+CspB -> CspA: LCE
+
+CspA <-> BC: Check Hash(LCE) + Token transfer
+
+CspA -> A: Confirmation
+
+
+
+
+
+@enduml
