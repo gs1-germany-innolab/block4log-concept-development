@@ -68,10 +68,6 @@ For all of the following message specifications, the folder [EPCIS message examp
 #### EPCIS Event Hash ID
 * For populating the correctiveEventID/eventID field, we apply the EPCIS Event Hash ID as introduced in CBV 2.0
 * Amongst others, the advantage for B4L consists that the latter can (in conjunction with DiGSig) also be used for notarisation for EPCIS events.
-* Taking the example of the message example as part of this repository, the canonical 'pre-hash-string' looks as follows (both for the json as well as xml variant):
-`eventType=ObjectEventeventTime=2020-07-07T14:15:00.000+02:00eventTimeZoneOffset=+02:00quantityListquantityElementepcClass=urn:epc:idpat:grai:4000001.11111.*quantity=60action=OBSERVEbizStep=urn:epcglobal:cbv:bizstep:arrivingreadPointid=urn:epc:id:sgln:4012345.00000.0bizTransactionListbizTransaction=urn:epc:id:gdti:4012345.00011.987sourceListsource=urn:epc:id:pgln:0614141.00000source=urn:epc:id:pgln:4023333.00000destinationListdestination=urn:epc:id:pgln:4012345.00000{https://epcis.b4l.com}qualityLevel=B{https://epcis.b4l.com}tradability=true`
-!!NOTE: Algorithm needs to be adjusted: pre-hash string must include bizTransactionType, source/destinationType!!
-* Passing it to hash function sha-256, this results in the following hash value: `ni:///sha-256;138efc44606cc875eab2c10ecafe3555c8a61bdcb9bad983f594841fa116387b`
 * For more information and a reference implementation (WIP!), see https://github.com/RalphTro/epcis-event-hash-generator
 
 | Dim | Data Element | V4 | V5 |
