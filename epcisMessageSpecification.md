@@ -74,7 +74,7 @@ For all of the following message specifications, the folder [EPCIS message examp
 | --- | ------------ | -- | -- |
 |  | Description | Error Declaration Event | Corrective Event |
 |  | Event Type | See original event | See original event |
-|  | `eventID` | `EPCIS Event Hash ID` | `EPCIS Event Hash ID` |
+|  | `eventID` | `EPCIS Event Hash ID` (identical to erroneous event) | `EPCIS Event Hash ID` (of the corrective event) |
 |  | `errorDeclaration` |
 |  | _`declarationTime` | `Timestamp` of error declaration |  |
 |  | _`reason` | `Incorrect data (CBV)` |  |
